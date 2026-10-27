@@ -49,6 +49,12 @@ if (!fs.existsSync(containerDir) || !fs.statSync(containerDir).isDirectory()) {
   fail(`Container not found: ${containerDir}`);
 }
 
+const containerKey = containerDir.toLowerCase();
+const distKey = distRoot.toLowerCase();
+if (containerKey === distKey || containerKey.startsWith(`${distKey}${path.sep}`)) {
+  fail('This container is inside dist/, which npm run build empties. Move it outside dist/ (for example to containers/) and try again.');
+}
+
 if (!fs.existsSync(distViewer) || !fs.existsSync(distAssets)) {
   fail('The viewer bundle is missing. Run "npm run build" first.');
 }

@@ -4,13 +4,13 @@ pushd "%~dp0"
 
 rem One entry point for gallery containers.
 rem   Drop a container folder  -> update its viewer in place, then reindex.
-rem   Drop an image folder      -> build a new container under dist\containers.
+rem   Drop an image folder      -> build a new container under containers\.
 rem Both keep the image files and any custom titles.
 rem
-rem   container.bat "D:\downloads\people"
-rem   container.bat "D:\galleries\people"
-rem   container.bat people                  (dist\containers\people)
-rem   container.bat "D:\galleries\people" myname
+rem   Light-table.bat "D:\downloads\people"
+rem   Light-table.bat "D:\galleries\people"
+rem   Light-table.bat people                  (containers\people)
+rem   Light-table.bat "D:\galleries\people" myname
 
 set "INPUT=%~1"
 set "NAME=%~2"
@@ -25,27 +25,41 @@ if "%INPUT%"=="" goto :end
 set "INPUT=%INPUT:"=%"
 if not "%NAME%"=="" set "NAME=%NAME:"=%"
 
+rem Resolve to an absolute path so the dist check below is reliable.
 if exist "%INPUT%\" (
-  set "TARGET=%INPUT%"
-) else if exist "dist\containers\%INPUT%\" (
-  set "TARGET=dist\containers\%INPUT%"
+  for %%I in ("%INPUT%") do set "TARGET=%%~fI"
+) else if exist "containers\%INPUT%\" (
+  for %%I in ("containers\%INPUT%") do set "TARGET=%%~fI"
 ) else (
   echo.
   echo Folder not found: %INPUT%
-  echo Use a full path, or a container name under dist\containers.
+  echo Use a full path, or a container name under containers.
   goto :end
 )
 
-rem A container has viewer/viewer.html (or the older viewer.html at its root).
-if exist "%TARGET%\viewer\viewer.html" goto :refresh
-if exist "%TARGET%\viewer.html" goto :refresh
+set "ACTION=build"
+if exist "%TARGET%\viewer\viewer.html" set "ACTION=refresh"
+if exist "%TARGET%\viewer.html" set "ACTION=refresh"
+if /I "%ACTION%"=="refresh" goto :guard
 
 rem Dropping the image subfolder of a container updates that container.
 for %%I in ("%TARGET%\..") do set "PARENT=%%~fI"
-if exist "%PARENT%\viewer\viewer.html" (
-  set "TARGET=%PARENT%"
-  goto :refresh
+if exist "%PARENT%\viewer\viewer.html" set "TARGET=%PARENT%"
+if exist "%TARGET%\viewer\viewer.html" set "ACTION=refresh"
+if exist "%TARGET%\viewer.html" set "ACTION=refresh"
+
+:guard
+rem npm run build empties dist\; never run on anything inside it.
+set "DISTROOT=%CD%\dist"
+echo "%TARGET%" | findstr /I /L /C:"%DISTROOT%" >nul
+if not errorlevel 1 (
+  echo.
+  echo This folder is inside dist\, which npm run build empties.
+  echo Move it to containers\, or anywhere outside dist\, and run again.
+  goto :end
 )
+
+if /I "%ACTION%"=="refresh" goto :refresh
 
 :build
 echo.

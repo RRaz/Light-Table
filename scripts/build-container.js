@@ -77,7 +77,7 @@ if (!fs.existsSync(viewerSource) || !fs.existsSync(assetsSource)) {
   fail('The viewer bundle is missing. Run "npm run build" first.');
 }
 
-const outRoot = path.resolve(args.out || path.join(distRoot, 'containers'));
+const outRoot = path.resolve(args.out || path.join(projectRoot, 'containers'));
 const containerDir = path.join(outRoot, name);
 const galleryDir = path.join(containerDir, name);
 const viewerDir = path.join(containerDir, 'viewer');
