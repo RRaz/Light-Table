@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lumina Light Table</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&family=Noto+Sans:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    screens: {
+                        "xs": "375px",
+                    },
+                    colors: {
+                        "primary": "#1313ec",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101022",
+                        "nav-dark": "#1c1c27",
+                        "border-dark": "#282839",
+                        "text-muted": "#9d9db9"
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "Noto Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1rem",
+                        "full": "9999px"
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        body {
+            min-height: 100dvh;
+            margin: 0;
+            background: #07070d;
+        }
+        .pb-safe {
+            padding-bottom: env(safe-area-inset-bottom, 16px);
+        }
+        .pt-safe {
+            padding-top: env(safe-area-inset-top, 16px);
+        }
+    </style>
+    <link rel="stylesheet" href="/index.css">
+</head>
+<body class="bg-background-dark font-display text-white antialiased selection:bg-primary/30">
+    <main class="min-h-screen mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:px-8">
+        <div class="text-center pb-10">
+            <p class="text-sm uppercase tracking-[0.35em] text-primary/70">Lumina Light Table</p>
+            <h1 class="mt-4 text-4xl sm:text-5xl font-black tracking-tight">Gallery selection</h1>
+            <p class="mt-4 max-w-2xl mx-auto text-base text-white/70">Pick a gallery below and open the viewer in a separate page.</p>
+        </div>
+
+        <div id="gallery-list" class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3"></div>
+        <div id="gallery-error" class="hidden mt-8 rounded-3xl border border-white/10 bg-white/5 p-6 text-center text-sm text-red-300"></div>
+    </main>
+
+    <script>
+        const galleryList = document.getElementById('gallery-list');
+        const errorBox = document.getElementById('gallery-error');
+
+        async function loadGalleries() {
+            try {
+                const response = await fetch('/api-galleries.json');
+                if (!response.ok) throw new Error('Failed to load galleries');
+                const galleries = await response.json();
+                if (!Array.isArray(galleries) || galleries.length === 0) {
+                    galleryList.innerHTML = '<div class="col-span-full rounded-3xl border border-white/10 bg-white/5 p-8 text-center text-white/60">No galleries found.</div>';
+                    return;
+                }
+
+                galleryList.innerHTML = galleries.map(gallery => {
+                    const encoded = encodeURIComponent(gallery.path);
+                    return `
+                        <a href="/${gallery.path}/viewer.html?gallery=${encoded}" class="group rounded-[1.75rem] border border-white/10 bg-white/5 p-6 transition hover:-translate-y-1 hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary/50">
+                            <div class="flex items-center justify-between gap-4">
+                                <div>
+                                    <p class="text-xs uppercase tracking-[0.3em] text-primary/70">Gallery</p>
+                                    <h2 class="mt-3 text-xl font-semibold text-white">${gallery.name}</h2>
+                                    <p class="mt-2 text-sm text-white/60">Path: <span class="text-white/80">${gallery.path}</span></p>
+                                </div>
+                                <span class="inline-flex h-11 w-11 items-center justify-center rounded-full bg-primary/10 text-primary transition group-hover:bg-primary/20">
+                                    <span class="material-symbols-outlined">open_in_new</span>
+                                </span>
+                            </div>
+                        </a>`;
+                }).join('');
+            } catch (error) {
+                console.error(error);
+                errorBox.textContent = 'Unable to load galleries. Please check your API files or the site deployment.';
+                errorBox.classList.remove('hidden');
+            }
+        }
+
+        loadGalleries();
+    </script>
+</body>
+</html>

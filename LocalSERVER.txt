@@ -1,0 +1,16 @@
+1) in shell Go to directory 
+cd "C:\Users\photo\projects\lighttest"
+
+Start a python server
+python -m http.server 8000
+
+Ctrl C should stop server
+
+
+2) In browser 
+http://localhost:8000/
+
+http://localhost:8000/viewer3/viewer.html?gallery=newgallery
+
+http://localhost:8000/viewer1/viewer.html?gallery=galleries/wedding
+http://localhost:8000/viewer2/viewer.html?gallery=galleries/portrait
