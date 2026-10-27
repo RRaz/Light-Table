@@ -19,6 +19,8 @@ import {
   copyDirectory,
   listImages,
   normalizeName,
+  orderImages,
+  readManifestEntries,
   readTitles,
   writeManifest,
 } from './manifest-utils.js';
@@ -73,6 +75,9 @@ if (images.length === 0) {
   fail(`No images found in ${sourceDir}`);
 }
 
+const sourceManifest = path.join(sourceDir, 'gallery.json');
+const orderedImages = orderImages(images, readManifestEntries(sourceManifest));
+
 if (!fs.existsSync(viewerSource) || !fs.existsSync(assetsSource)) {
   fail('The viewer bundle is missing. Run "npm run build" first.');
 }
@@ -93,12 +98,12 @@ const viewerHtml = fs.readFileSync(viewerSource, 'utf8')
 fs.writeFileSync(path.join(viewerDir, 'viewer.html'), viewerHtml, 'utf8');
 copyDirectory(assetsSource, path.join(viewerDir, 'assets'));
 
-for (const file of images) {
+for (const file of orderedImages) {
   fs.copyFileSync(path.join(sourceDir, file), path.join(galleryDir, file));
 }
 
-const titles = readTitles(path.join(sourceDir, 'gallery.json'));
-const { entries } = writeManifest(galleryDir, images, titles);
+const titles = readTitles(sourceManifest);
+const { entries } = writeManifest(galleryDir, orderedImages, titles);
 
 const bytes = fs.readdirSync(galleryDir, { withFileTypes: true })
   .filter((entry) => entry.isFile())

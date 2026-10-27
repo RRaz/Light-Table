@@ -47,17 +47,40 @@ export function readTitles(manifestPath) {
   return titles;
 }
 
-export function writeManifest(dirPath, images, titles = new Map()) {
-  const entries = images.map((name) => {
+// Keep the order that is already in the manifest; new files go at the end in
+// their natural name order.
+export function orderImages(images, entries) {
+  const available = new Map(images.map((name) => [name.toLowerCase(), name]));
+  const ordered = [];
+
+  for (const entry of entries) {
+    const key = manifestKey(entry);
+    if (!key) continue;
+    const name = available.get(key);
+    if (name) {
+      ordered.push(name);
+      available.delete(key);
+    }
+  }
+
+  ordered.push(...available.values());
+  return ordered;
+}
+
+export function writeManifest(dirPath, images, titles = null) {
+  const manifestPath = path.join(dirPath, 'gallery.json');
+  const ordered = orderImages(images, readManifestEntries(manifestPath));
+  const resolvedTitles = titles || readTitles(manifestPath);
+
+  const entries = ordered.map((name) => {
     const key = name.toLowerCase();
     return {
       id: path.basename(name, path.extname(name)),
       url: `./${name}`,
-      title: titles.get(key) || path.basename(name, path.extname(name)),
+      title: resolvedTitles.get(key) || path.basename(name, path.extname(name)),
     };
   });
 
-  const manifestPath = path.join(dirPath, 'gallery.json');
   fs.writeFileSync(manifestPath, `${JSON.stringify(entries, null, 2)}\n`, 'utf8');
   return { manifestPath, entries };
 }
