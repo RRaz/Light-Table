@@ -1,0 +1,10 @@
+[
+  { "id": "red", "url": "./01-red.png", "title": "Red" },
+  { "id": "orange", "url": "./02-orange.png", "title": "Orange" },
+  { "id": "yellow", "url": "./03-yellow.png", "title": "Yellow" },
+  { "id": "green", "url": "./04-green.png", "title": "Green" },
+  { "id": "teal", "url": "./05-teal.png", "title": "Teal" },
+  { "id": "blue", "url": "./06-blue.png", "title": "Blue" },
+  { "id": "indigo", "url": "./07-indigo.png", "title": "Indigo" },
+  { "id": "violet", "url": "./08-violet.png", "title": "Violet" }
+]
