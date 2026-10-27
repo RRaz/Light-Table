@@ -110,4 +110,4 @@ console.log(`  viewer/viewer.html`);
 console.log(`  ${name}/gallery.json`);
 console.log('');
 console.log(`Upload the "${name}" folder as /${name}/ and open:`);
-console.log(`  /${name}/viewer/viewer.html?gallery=/${name}`);
+console.log(`  /${name}/viewer/viewer.html`);

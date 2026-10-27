@@ -5,6 +5,23 @@ import { PhotoViewer } from './components/PhotoViewer';
 import { ThumbnailStrip } from './components/ThumbnailStrip';
 import { HelpMenu } from './components/HelpMenu';
 
+// In the container layout the viewer lives at <container>/viewer/viewer.html,
+// so the gallery name is the folder above the viewer folder.
+const galleryFromLocation = (): string => {
+  const parts = window.location.pathname.split('/').filter(Boolean);
+  if (parts.length < 3) return '';
+
+  const viewerFolder = parts[parts.length - 2];
+  const container = parts[parts.length - 3];
+  if (viewerFolder.toLowerCase() !== 'viewer' || !container) return '';
+
+  try {
+    return decodeURIComponent(container);
+  } catch {
+    return container;
+  }
+};
+
 const App: React.FC = () => {
   const [photos, setPhotos] = useState<Photo[]>([]);
   const [galleryPath, setGalleryPath] = useState<string>('');
@@ -30,10 +47,12 @@ const App: React.FC = () => {
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const rawGallery = urlParams.get('gallery')?.trim() ?? '';
-    const normalizedGallery = rawGallery.replace(/\/+/g, '/').replace(/^\/|\/$/g, '');
+    const normalizedGallery = rawGallery
+      ? rawGallery.replace(/\/+/g, '/').replace(/^\/|\/$/g, '')
+      : galleryFromLocation();
 
     if (!normalizedGallery) {
-      setErrorMessage('Missing required gallery parameter. Use ?gallery=path/to/gallery');
+      setErrorMessage('No gallery found. Use the container layout <name>/viewer/viewer.html or add ?gallery=<name>.');
       setLoading(false);
       return;
     }

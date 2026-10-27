@@ -89,7 +89,6 @@ const removed = [...previousKeys].filter((key) => !nextKeys.has(key));
 const kept = [...nextKeys].filter((key) => previousKeys.has(key)).length;
 
 const containerName = path.basename(containerDir);
-const imagesName = path.basename(imagesDir);
 const viewerPath = path.join(containerDir, 'viewer', 'viewer.html');
 
 console.log(`Reindexed ${entries.length} images in ${path.relative(process.cwd(), imagesDir)}`);
@@ -102,5 +101,5 @@ if (!fs.existsSync(viewerPath)) {
   console.warn(`Warning: ${path.relative(process.cwd(), viewerPath)} is missing.`);
 } else {
   console.log(`Open from the deployed container:`);
-  console.log(`  /${containerName}/viewer/viewer.html?gallery=/${imagesName}`);
+  console.log(`  /${containerName}/viewer/viewer.html`);
 }
