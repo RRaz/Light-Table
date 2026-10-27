@@ -262,16 +262,25 @@ const App: React.FC = () => {
 
         { !loading && !errorMessage && photos.length > 0 && (
           <>
-            <ThumbnailStrip 
-              photos={photos}
-              selectedIds={selectedIds}
-              activeIndex={activeIndex}
-              onSelectPhoto={(idx) => {
-                setActiveIndex(idx);
-                setIsSlideshowActive(false);
-              }}
-              onToggleSelection={handleToggleSelection}
-            />
+            <div
+              id="thumbnail-strip"
+              aria-hidden={isSlideshowActive}
+              inert={isSlideshowActive}
+              className={`flex-none overflow-hidden transition-all duration-300 ${
+                isSlideshowActive ? 'max-h-0 opacity-0 pointer-events-none' : 'max-h-48 opacity-100'
+              }`}
+            >
+              <ThumbnailStrip 
+                photos={photos}
+                selectedIds={selectedIds}
+                activeIndex={activeIndex}
+                onSelectPhoto={(idx) => {
+                  setActiveIndex(idx);
+                  setIsSlideshowActive(false);
+                }}
+                onToggleSelection={handleToggleSelection}
+              />
+            </div>
 
             {/* Master Control Bar */}
             <div className="flex-none w-full px-2 sm:px-4 pb-safe pt-0 mb-2 sm:mb-4">
