@@ -10,6 +10,7 @@
     "build:gallery": "node scripts/build-gallery-package.js",
     "container": "node scripts/build-container.js",
     "reindex": "node scripts/reindex-container.js",
+    "refresh": "node scripts/refresh-container.js",
     "start": "node dist/server.js",
     "preview": "vite preview"
   },
