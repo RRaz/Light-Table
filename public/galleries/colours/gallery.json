@@ -1,10 +1,42 @@
 [
-  { "id": "red", "url": "./01-red.png", "title": "Red" },
-  { "id": "orange", "url": "./02-orange.png", "title": "Orange" },
-  { "id": "yellow", "url": "./03-yellow.png", "title": "Yellow" },
-  { "id": "green", "url": "./04-green.png", "title": "Green" },
-  { "id": "teal", "url": "./05-teal.png", "title": "Teal" },
-  { "id": "blue", "url": "./06-blue.png", "title": "Blue" },
-  { "id": "indigo", "url": "./07-indigo.png", "title": "Indigo" },
-  { "id": "violet", "url": "./08-violet.png", "title": "Violet" }
+  {
+    "id": "01-red",
+    "url": "./01-red.png",
+    "title": "Red"
+  },
+  {
+    "id": "02-orange",
+    "url": "./02-orange.png",
+    "title": "Orange"
+  },
+  {
+    "id": "03-yellow",
+    "url": "./03-yellow.png",
+    "title": "Yellow"
+  },
+  {
+    "id": "04-green",
+    "url": "./04-green.png",
+    "title": "Green"
+  },
+  {
+    "id": "05-teal",
+    "url": "./05-teal.png",
+    "title": "Teal"
+  },
+  {
+    "id": "06-blue",
+    "url": "./06-blue.png",
+    "title": "Blue"
+  },
+  {
+    "id": "07-indigo",
+    "url": "./07-indigo.png",
+    "title": "Indigo"
+  },
+  {
+    "id": "08-violet",
+    "url": "./08-violet.png",
+    "title": "Violet"
+  }
 ]
