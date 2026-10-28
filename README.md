@@ -1,5 +1,7 @@
 # Lumina Light Table
 
+by Ryan Raz
+
 High Resolution image light table and slide show.
 
 **[Read the user guide](docs/USER-GUIDE.md)** — installing a gallery on your site,
