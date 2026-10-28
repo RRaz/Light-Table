@@ -19,7 +19,12 @@ That is the standard layout: one folder called `kodachrome`, the viewer inside i
 and fifteen photographs listed in its `gallery.json`. The heading above the photos
 comes from the folder name.
 
-[[ SCREEN CAPTURE — image or short recording, captioned "My 1970s in Kodachrome" ]]
+![My 1970s in Kodachrome, shown with the magnifier open at 2x](images/kodachrome-magnifier.png)
+
+The magnifier is open at 2× in this capture: the lens follows the pointer across
+the photograph, and the buttons beside it switch to 4× and 8×.
+
+*My 1970s in Kodachrome*
 
 ## 4. What you receive
 
