@@ -1,5 +1,7 @@
 # Light Table — user guide
 
+High Resolution image light table and slide show.
+
 > **Draft.** The introduction and the feature list are marked below and still to
 > be supplied.
 
