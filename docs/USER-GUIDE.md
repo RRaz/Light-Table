@@ -191,11 +191,14 @@ light-table-catalog-v2026-10-28.zip
 | An old photo, or an old title | Browser cache — hard-refresh, or rename the file |
 | Works on your computer, not online | Paths are relative; check that the inner folder was uploaded too |
 
-## 11. Still to decide
+## 11. Notes for maintaining gallery
 
-- **How does the recipient update their site?** FTP, control panel, or a builder
-  that cannot host files at all. The answer changes section 5.
-- **Who rebuilds after new photos**: the recipient, or you on their behalf. If it
-  is you, sections 7.2 to 7.4 can shrink to "send the folder back".
-- **One zip per gallery, or one app plus their images.** Per gallery is simpler
-  for the recipient; one app means a bug fix is uploaded many times.
+- **Check how the site is updated before promising anything.** FTP, a control
+  panel, or a page builder that cannot host files at all — section 5 covers what
+  to look for.
+- **Decide who rebuilds after new photos.** If the person who built the gallery
+  does it, sections 7.2 to 7.4 shrink to "send the folder back", and the
+  recipient never edits `gallery.json`.
+- **Prefer one folder per gallery.** It is simpler for the recipient and lets one
+  gallery be replaced without touching the others; the cost is that a viewer fix
+  is uploaded once per gallery.
