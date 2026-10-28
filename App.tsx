@@ -47,47 +47,68 @@ const App: React.FC = () => {
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const rawGallery = urlParams.get('gallery')?.trim() ?? '';
-    const normalizedGallery = rawGallery
-      ? rawGallery.replace(/\/+/g, '/').replace(/^\/|\/$/g, '')
-      : galleryFromLocation();
+    const explicitGallery = rawGallery.replace(/\/+/g, '/').replace(/^\/|\/$/g, '');
+    const inferredGallery = galleryFromLocation();
 
-    if (!normalizedGallery) {
+    const candidates = [];
+    if (explicitGallery) candidates.push(explicitGallery);
+    if (inferredGallery && inferredGallery !== explicitGallery) candidates.push(inferredGallery);
+
+    if (candidates.length === 0) {
       setErrorMessage('No gallery found. Use the container layout <name>/viewer/viewer.html or add ?gallery=<name>.');
       setLoading(false);
       return;
     }
 
-    setGalleryPath(normalizedGallery);
-    const galleryMetaPath = new URL(`../${normalizedGallery}/gallery.json`, window.location.href);
+    const load = async () => {
+      let lastError = '';
 
-    fetch(galleryMetaPath.toString())
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error(`Gallery metadata not found at ${galleryMetaPath.toString()}`);
+      for (const gallery of candidates) {
+        let metaUrl: URL;
+        try {
+          metaUrl = new URL(`../${gallery}/gallery.json`, window.location.href);
+        } catch (error) {
+          lastError = error instanceof Error ? error.message : String(error);
+          continue;
         }
-        return res.json();
-      })
-      .then((data) => {
-        if (!Array.isArray(data) || data.length === 0) {
-          setErrorMessage(`No photos were found in gallery: ${normalizedGallery}`);
+
+        try {
+          const response = await fetch(metaUrl.toString());
+          if (!response.ok) {
+            throw new Error(`Gallery metadata not found at ${metaUrl.toString()}`);
+          }
+
+          const data = await response.json();
+          if (!Array.isArray(data) || data.length === 0) {
+            throw new Error(`No photos were found in gallery: ${gallery}`);
+          }
+
+          if (explicitGallery && gallery !== explicitGallery) {
+            console.warn(`Gallery "${explicitGallery}" could not be loaded; using "${gallery}" instead.`);
+          }
+
+          const resolvedPhotos = (data as Photo[]).map((photo) => ({
+            ...photo,
+            url: new URL(photo.url || '', metaUrl.toString()).toString(),
+          }));
+
+          setGalleryPath(gallery);
+          setPhotos(resolvedPhotos);
+          setActiveIndex(0);
+          setSelectedIds(new Set(resolvedPhotos.slice(0, 5).map((p: Photo) => p.id)));
+          setLoading(false);
           return;
+        } catch (error) {
+          lastError = error instanceof Error ? error.message : String(error);
         }
+      }
 
-        const galleryBaseUrl = new URL(`../${normalizedGallery}/gallery.json`, window.location.href);
-        const resolvedPhotos = (data as Photo[]).map((photo) => ({
-          ...photo,
-          url: new URL(photo.url || '', galleryBaseUrl.toString()).toString(),
-        }));
+      console.error('Failed to load gallery', lastError);
+      setErrorMessage(`Unable to load gallery: ${candidates.join(' or ')}`);
+      setLoading(false);
+    };
 
-        setPhotos(resolvedPhotos);
-        setActiveIndex(0);
-        setSelectedIds(new Set(resolvedPhotos.slice(0, 5).map((p: Photo) => p.id)));
-      })
-      .catch((err) => {
-        console.error('Failed to load gallery', err);
-        setErrorMessage(`Unable to load gallery: ${normalizedGallery}`);
-      })
-      .finally(() => setLoading(false));
+    load();
   }, []);
 
   const activePhoto = photos[activeIndex] || photos[0];

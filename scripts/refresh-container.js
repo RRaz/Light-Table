@@ -128,6 +128,7 @@ const imagesName = path.basename(imagesDir);
 console.log(`Container: ${path.relative(projectRoot, containerDir) || '.'}`);
 console.log(`  viewer:  ${path.relative(containerDir, viewerTarget)} (updated)`);
 console.log(`  images:  ${path.relative(containerDir, imagesDir)} (${entries.length})`);
+console.log(`  manifest: ${manifestPath}`);
 console.log(`  kept:    ${kept}`);
 console.log(`  added:   ${added.length}${added.length ? ` (${added.slice(0, 6).join(', ')}${added.length > 6 ? ', …' : ''})` : ''}`);
 console.log(`  removed: ${removed.length}${removed.length ? ` (${removed.slice(0, 6).join(', ')}${removed.length > 6 ? ', …' : ''})` : ''}`);
