@@ -13,7 +13,11 @@
 
 ## 3. See it running
 
-[[ EXAMPLE LINK — address of the live example on rraz.ca ]]
+Live example: **<https://rraz.ca/kodachrome/viewer/viewer.html>**
+
+It is the standard layout — one folder called `kodachrome`, the viewer inside it,
+and fifteen photographs listed in its `gallery.json`. The heading above the photos
+comes from the folder name.
 
 [[ SCREEN CAPTURE — image or short recording ]]
 
@@ -81,7 +85,7 @@ https://yoursite.com/catalog/viewer/viewer.html?gallery=/catalog
 Both open the same gallery. The `?gallery=` form is the explicit one and is the
 safer choice when the viewer is embedded in another page or loaded from a
 different folder; without it the viewer works out the gallery from its own
-address.
+address. The live example in section 3 uses the short form.
 
 ## 8. Changing the gallery
 
