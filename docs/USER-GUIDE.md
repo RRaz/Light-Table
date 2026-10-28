@@ -2,8 +2,7 @@
 
 High Resolution image light table and slide show.
 
-> **Draft.** The introduction and the feature list are marked below and still to
-> be supplied.
+> **Draft.** The introduction is still to be written.
 
 ## 1. What Light Table is
 
@@ -11,7 +10,10 @@ High Resolution image light table and slide show.
 
 ## 2. What it does
 
-[[ FEATURES — to be written ]]
+Fully featured, including a magnifying loupe.
+
+In slide show mode the image expands to take up the whole screen, apart from the
+controls.
 
 ## 3. See it running
 
