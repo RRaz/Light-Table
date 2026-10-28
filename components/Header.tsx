@@ -18,7 +18,7 @@ export const Header: React.FC<HeaderProps> = ({ viewerTitle }) => {
           <span className="text-[10px] font-black uppercase tracking-[0.4em] opacity-30 mt-0.5">Lumina Light Table</span>
         </div>
         {viewerTitle ? (
-          <span className="text-[10px] font-semibold uppercase tracking-[0.3em] opacity-50">{viewerTitle}</span>
+          <span className="text-[10px] font-semibold tracking-[0.3em] opacity-50">{viewerTitle}</span>
         ) : null}
       </div>
     </header>

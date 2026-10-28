@@ -374,7 +374,7 @@ const App: React.FC = () => {
               {/* Title Column */}
               <div className="flex-1 flex flex-col justify-center min-w-0 px-1 sm:px-2">
                 <div className="flex items-center gap-2">
-                  <h1 className="text-[11px] sm:text-[14px] font-black tracking-tight text-white uppercase truncate leading-none">
+                  <h1 className="text-[11px] sm:text-[14px] font-black tracking-tight text-white truncate leading-none">
                     {activePhoto?.title}
                   </h1>
                 </div>
