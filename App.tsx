@@ -335,9 +335,6 @@ const App: React.FC = () => {
                 <span className="material-symbols-outlined text-[20px] sm:text-[22px] text-white">
                   {isSlideshowActive ? 'stop' : 'play_arrow'}
                 </span>
-                {isSlideshowActive && (
-                  <span className="absolute inset-0 rounded-full bg-red-500 animate-ping opacity-25" />
-                )}
               </button>
 
               {/* Magnifier Integrated Toggle */}
