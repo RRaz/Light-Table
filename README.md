@@ -2,7 +2,8 @@
 
 High Resolution image light table and slide show.
 
-User guide for people receiving a gallery: [docs/USER-GUIDE.md](docs/USER-GUIDE.md).
+**[Read the user guide](docs/USER-GUIDE.md)** — installing a gallery on your site,
+changing photos and titles, updating a live gallery.
 
 A static photo viewer app with independent viewer installations. Each viewer directory contains a complete light-table app instance, and the displayed gallery is loaded from the required `?gallery=` URL parameter.
 
