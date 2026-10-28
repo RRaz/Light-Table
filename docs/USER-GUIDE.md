@@ -13,13 +13,13 @@
 
 ## 3. See it running
 
-Live example: **<https://rraz.ca/kodachrome/viewer/viewer.html>**
+**My 1970s in Kodachrome** — <https://rraz.ca/kodachrome/viewer/viewer.html>
 
-It is the standard layout — one folder called `kodachrome`, the viewer inside it,
+That is the standard layout: one folder called `kodachrome`, the viewer inside it,
 and fifteen photographs listed in its `gallery.json`. The heading above the photos
 comes from the folder name.
 
-[[ SCREEN CAPTURE — image or short recording ]]
+[[ SCREEN CAPTURE — image or short recording, captioned "My 1970s in Kodachrome" ]]
 
 ## 4. What you receive
 
