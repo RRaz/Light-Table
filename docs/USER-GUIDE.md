@@ -10,7 +10,7 @@ High Resolution image light table and slide show.
 
 ## 2. What it does
 
-Fully featured, including a magnifying loupe.
+Fully featured, including a magnifying loupe and the thumbnail strip.
 
 In slide show mode the image expands to take up the whole screen, apart from the
 controls.
@@ -26,7 +26,8 @@ comes from the folder name.
 ![My 1970s in Kodachrome, shown with the magnifier open at 2x](images/kodachrome-magnifier.png)
 
 The magnifier is open at 2× in this capture: the lens follows the pointer across
-the photograph, and the buttons beside it switch to 4× and 8×.
+the photograph, and the buttons beside it switch to 4× and 8×. The thumbnail
+strip along the bottom is where photographs are chosen for the slide show.
 
 *My 1970s in Kodachrome*
 
