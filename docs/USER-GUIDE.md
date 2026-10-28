@@ -1,12 +1,8 @@
 # Light Table — user guide
 
-High Resolution image light table and slide show.
-
-> **Draft.** The introduction is still to be written.
-
 ## 1. What Light Table is
 
-[[ INTRODUCTION — to be written ]]
+High Resolution image light table and slide show.
 
 ## 2. What it does
 
