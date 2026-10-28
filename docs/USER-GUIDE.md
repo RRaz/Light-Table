@@ -25,6 +25,8 @@ The magnifier is open at 2× in this capture: the lens follows the pointer acros
 the photograph, and the buttons beside it switch to 4× and 8×. The thumbnail
 strip along the bottom is where photographs are chosen for the slide show.
 
+This gallery is shown for illustration only. It is not included in the package.
+
 *My 1970s in Kodachrome*
 
 ## 4. What you receive
