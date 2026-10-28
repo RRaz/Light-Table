@@ -75,8 +75,8 @@ is. If it only accepts images and text (a page builder such as Squarespace or
 Wix), it cannot host the viewer, because there is nowhere to put `viewer.html`
 and `assets/`.
 
-Keep each build as a dated zip (section 9), so the gallery can be replaced or
-rolled back without rebuilding it.
+You may want to keep each build as a dated zip (section 9), so the gallery can be
+replaced or rolled back without rebuilding it.
 
 **Check it:** open the address above. If the photos appear, it is installed.
 
