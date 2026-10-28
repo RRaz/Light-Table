@@ -78,8 +78,14 @@ const App: React.FC = () => {
             throw new Error(`Gallery metadata not found at ${metaUrl.toString()}`);
           }
 
-          const data = await response.json();
-          if (!Array.isArray(data) || data.length === 0) {
+          const payload = await response.json();
+          const photos = Array.isArray(payload)
+            ? payload
+            : payload && Array.isArray(payload.photos)
+              ? payload.photos
+              : null;
+
+          if (!photos || photos.length === 0) {
             throw new Error(`No photos were found in gallery: ${gallery}`);
           }
 
@@ -87,7 +93,7 @@ const App: React.FC = () => {
             console.warn(`Gallery "${explicitGallery}" could not be loaded; using "${gallery}" instead.`);
           }
 
-          const resolvedPhotos = (data as Photo[]).map((photo) => ({
+          const resolvedPhotos = (photos as Photo[]).map((photo) => ({
             ...photo,
             url: new URL(photo.url || '', metaUrl.toString()).toString(),
           }));

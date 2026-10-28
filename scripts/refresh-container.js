@@ -116,7 +116,7 @@ if (images.length === 0) {
   fail(`No images found in ${imagesDir}.`);
 }
 
-const { entries } = writeManifest(imagesDir, images, titles);
+const { entries } = writeManifest(imagesDir, images, titles, { stamp: true });
 const nextKeys = new Set(entries.map((entry) => path.basename(entry.url).toLowerCase()));
 const added = [...nextKeys].filter((key) => !previousKeys.has(key));
 const removed = [...previousKeys].filter((key) => !nextKeys.has(key));

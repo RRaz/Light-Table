@@ -18,17 +18,27 @@ export function listImages(dirPath) {
     .sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' }));
 }
 
-export function readManifestEntries(manifestPath) {
-  if (!fs.existsSync(manifestPath)) return [];
+export function readManifestData(manifestPath) {
+  if (!fs.existsSync(manifestPath)) return { photos: [], updated: '' };
 
   const raw = fs.readFileSync(manifestPath, 'utf8').trim();
-  if (!raw) return [];
+  if (!raw) return { photos: [], updated: '' };
 
   const data = JSON.parse(raw);
-  if (!Array.isArray(data)) {
-    throw new Error(`Gallery manifest at ${manifestPath} must be an array.`);
+  if (Array.isArray(data)) {
+    return { photos: data, updated: '' };
   }
-  return data;
+  if (data && typeof data === 'object' && Array.isArray(data.photos)) {
+    return {
+      photos: data.photos,
+      updated: typeof data.updated === 'string' ? data.updated : '',
+    };
+  }
+  throw new Error(`Gallery manifest at ${manifestPath} must be an array or an object with a photos array.`);
+}
+
+export function readManifestEntries(manifestPath) {
+  return readManifestData(manifestPath).photos;
 }
 
 export function manifestKey(entry) {
@@ -67,9 +77,10 @@ export function orderImages(images, entries) {
   return ordered;
 }
 
-export function writeManifest(dirPath, images, titles = null) {
+export function writeManifest(dirPath, images, titles = null, options = {}) {
   const manifestPath = path.join(dirPath, 'gallery.json');
-  const ordered = orderImages(images, readManifestEntries(manifestPath));
+  const existing = readManifestData(manifestPath);
+  const ordered = orderImages(images, existing.photos);
   const resolvedTitles = titles || readTitles(manifestPath);
 
   const entries = ordered.map((name) => {
@@ -81,8 +92,13 @@ export function writeManifest(dirPath, images, titles = null) {
     };
   });
 
-  fs.writeFileSync(manifestPath, `${JSON.stringify(entries, null, 2)}\n`, 'utf8');
-  return { manifestPath, entries };
+  const unchanged = JSON.stringify(existing.photos) === JSON.stringify(entries);
+  const updated = options.stamp
+    ? new Date().toISOString()
+    : (unchanged && existing.updated ? existing.updated : new Date().toISOString());
+
+  fs.writeFileSync(manifestPath, `${JSON.stringify({ updated, photos: entries }, null, 2)}\n`, 'utf8');
+  return { manifestPath, entries, updated };
 }
 
 export function copyDirectory(sourceDir, targetDir) {

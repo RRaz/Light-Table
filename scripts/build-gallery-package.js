@@ -92,11 +92,16 @@ function readManifestFile(manifestPath) {
   }
 
   const manifest = JSON.parse(rawManifest);
-  if (!Array.isArray(manifest)) {
-    throw new Error(`Gallery manifest at ${manifestPath} must be an array.`);
+  const photos = Array.isArray(manifest)
+    ? manifest
+    : manifest && Array.isArray(manifest.photos)
+      ? manifest.photos
+      : null;
+  if (!photos) {
+    throw new Error(`Gallery manifest at ${manifestPath} must be an array or an object with a photos array.`);
   }
 
-  return manifest;
+  return photos;
 }
 
 function getManifestEntriesFromFiles(sourceGalleryDir) {
@@ -166,11 +171,16 @@ async function fetchManifest(manifestUrl) {
   }
 
   const manifest = JSON.parse(rawManifest);
-  if (!Array.isArray(manifest)) {
-    throw new Error(`Gallery manifest from ${manifestUrl} must be an array.`);
+  const photos = Array.isArray(manifest)
+    ? manifest
+    : manifest && Array.isArray(manifest.photos)
+      ? manifest.photos
+      : null;
+  if (!photos) {
+    throw new Error(`Gallery manifest from ${manifestUrl} must be an array or an object with a photos array.`);
   }
 
-  return manifest;
+  return photos;
 }
 
 async function packageGallery(galleryPath, baseUrl = '', manifestUrl = '', fresh = false) {
@@ -233,7 +243,11 @@ async function packageGallery(galleryPath, baseUrl = '', manifestUrl = '', fresh
 
   const updatedManifest = resolveManifestEntries(manifest, baseUrl);
 
-  fs.writeFileSync(path.join(packageDir, 'gallery.json'), JSON.stringify(updatedManifest, null, 2) + '\n', 'utf8');
+  fs.writeFileSync(
+    path.join(packageDir, 'gallery.json'),
+    `${JSON.stringify({ updated: new Date().toISOString(), photos: updatedManifest }, null, 2)}\n`,
+    'utf8'
+  );
 
   if (shouldCopyLocalImages && hasLocalGalleryDir) {
     for (const entry of fs.readdirSync(sourceGalleryDir, { withFileTypes: true })) {
