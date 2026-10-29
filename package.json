@@ -10,6 +10,7 @@
     "build:static": "node scripts/generate-gallery-manifests.js && vite build && node scripts/fix-relative-assets.js",
     "build:gallery": "node scripts/build-gallery-package.js",
     "container": "node scripts/build-container.js",
+    "forward": "node scripts/add-legacy-forward.js",
     "reindex": "node scripts/reindex-container.js",
     "refresh": "node scripts/refresh-container.js",
     "start": "node dist/server.js",

@@ -43,6 +43,7 @@ Full instructions, including what the batch does in each situation, are in
 | `npm run build` | rebuild the light table into `dist\` |
 | `npm run container -- --images "<folder>" [--name <name>]` | package a folder of images as a new container |
 | `npm run refresh -- --container "<folder>"` | update a container in place, keeping order and titles |
+| `npm run forward -- --container "<folder>"` | add the old-address forwarding page after a rebuild |
 | `npm run dev` | development server on `server.ts` |
 
 `Light-table.bat` runs the right one for you.

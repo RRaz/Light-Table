@@ -84,6 +84,41 @@ Titles come from file names, so renaming a file renames the caption. Titles that
 were set by hand in `gallery.json` are kept only while the file name stays the
 same.
 
+## Converting a gallery downloaded from the server
+
+A gallery taken off the server is usually a flat folder: the images and
+`gallery.json`, with no `light-table/`. Three steps turn it into the current
+structure.
+
+1. Drag the folder onto `Light-table.bat`, or run it with the path:
+
+   ```bat
+   Light-table.bat "D:\from-server\kodachrome"
+   ```
+
+   The result is `containers\<name>\` containing `light-table\`, `<name>\` with the
+   images and `gallery.json`, and nothing loose at the top.
+
+2. If this gallery was ever published at `/<name>/viewer/viewer.html`, add the
+   forwarding page so old links keep working:
+
+   ```bat
+   npm run forward -- --container "containers\kodachrome"
+   ```
+
+3. Done. The container is the folder to keep and upload.
+
+Titles and order survive the conversion: the flat folder's `gallery.json` is read
+for both before the new one is written.
+
+Two things to know:
+
+- The container is named after the folder you drag in. A flat folder called
+  `kodachrome` therefore replaces `containers\kodachrome` — which is what you want
+  when converting that gallery, but check the name before dropping it on the batch.
+- Only image files are copied. Any stray `viewer\` or `light-table\` folder inside
+  the flat download is ignored, not carried over.
+
 ## Old links keep working
 
 Galleries published before the rename are addressed as
