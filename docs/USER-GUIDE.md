@@ -15,8 +15,10 @@ example of the viewer; it is not part of the package.
 - Fully featured, including a magnifying loupe and the thumbnail strip.
 - In slide show mode the image expands to take up the whole screen, apart from the
   controls.
-- Self-contained: no database, no server code and nothing else to install. The
-  folder you upload is the whole application.
+- Self-contained, so installation is not restricted by the host. There is no
+  database, no PHP, Node or Python on the server, no setup program and no build
+  step: any web server that can serve files will run it, and the folder you upload
+  is the whole application. It runs in any current browser.
 
 ## 3. The viewer in use
 
