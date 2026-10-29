@@ -1,4 +1,4 @@
-# Lumina Light Table
+# Image Light Table
 
 by Ryan Raz
 
@@ -9,7 +9,7 @@ changing photos and titles, updating a live gallery.
 
 ## What it is
 
-A static photo viewer with no server side: HTML, CSS and JavaScript, plus a
+A static photo light table with no server side: HTML, CSS and JavaScript, plus a
 `gallery.json` listing the photographs. Each gallery is a self-contained folder,
 so one gallery can be replaced without touching another.
 
@@ -23,7 +23,7 @@ so one gallery can be replaced without touching another.
     01-first-photo.jpg
 ```
 
-The viewer sits in `viewer/` and loads the gallery beside it. Open
+The light table sits in `viewer/` and loads the gallery beside it. Open
 `/<name>/viewer/viewer.html`.
 
 ## Day to day
@@ -40,7 +40,7 @@ Full instructions, including what the batch does in each situation, are in
 | Command | Purpose |
 |---|---|
 | `npm install` | once, to get the build tools |
-| `npm run build` | rebuild the viewer into `dist\` |
+| `npm run build` | rebuild the light table into `dist\` |
 | `npm run container -- --images "<folder>" [--name <name>]` | package a folder of images as a new container |
 | `npm run refresh -- --container "<folder>"` | update a container in place, keeping order and titles |
 | `npm run dev` | development server on `server.ts` |
@@ -60,4 +60,4 @@ MIT — see [LICENSE](LICENSE). Use it, change it, ship it, sell it; keep the
 copyright notice with the source.
 
 The photographs and galleries you add remain yours. The sample colour slides in
-`public/galleries/colours` are included only so the viewer can be tested.
+`public/galleries/colours` are included only so the light table can be tested.

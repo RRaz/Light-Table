@@ -15,7 +15,7 @@ export const Header: React.FC<HeaderProps> = ({ viewerTitle }) => {
       <div className="absolute left-1/2 -translate-x-1/2 flex flex-col items-center gap-1">
         <div className="flex items-center gap-2">
           <div className="w-2 h-2 rounded-full bg-primary" />
-          <span className="text-[10px] font-black uppercase tracking-[0.4em] opacity-30 mt-0.5">Lumina Light Table</span>
+          <span className="text-[10px] font-black uppercase tracking-[0.4em] opacity-30 mt-0.5">Image Light Table</span>
         </div>
         {viewerTitle ? (
           <span className="text-[10px] font-semibold tracking-[0.3em] opacity-50">{viewerTitle}</span>

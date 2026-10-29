@@ -27,7 +27,7 @@ looking at — there is no second copy to go and find.
    Light-table.bat "containers\lake-simcoe"
    ```
 
-4. The batch builds the viewer, copies `viewer.html` and `assets\` into
+4. The batch builds the light table, copies `viewer.html` and `assets\` into
    `containers\<name>\viewer\`, and writes `gallery.json` beside the images.
 
 5. Upload the outer folder as `/<name>/` and open `/<name>/viewer/viewer.html`.
@@ -40,8 +40,8 @@ the folder to upload.
 | You give it | What happens |
 |---|---|
 | A folder with images at the top level | Builds a **new** container at `containers\<name>`, copying the images. The original folder is not changed. |
-| A container-shaped folder with no `viewer\` | Adds the viewer and `gallery.json` in place, in the folder you gave it |
-| An existing container, with `viewer\viewer.html` | Updates the viewer and reindexes `gallery.json`; image order and existing titles are kept |
+| A container-shaped folder with no `viewer\` | Adds the light table and `gallery.json` in place, in the folder you gave it |
+| An existing container, with `viewer\viewer.html` | Updates the light table and reindexes `gallery.json`; image order and existing titles are kept |
 | The image subfolder of a container | The parent container is updated instead |
 | Anything inside `dist\` | Refused — `npm run build` empties `dist\` |
 
@@ -65,7 +65,7 @@ Two things to know when doing this:
 - **Names must differ.** The container is named after the folder, so two folders
   both called `selects` would collide — the second replaces the first in
   `containers\`. Rename one, or pass a name to the container command directly.
-- **The viewer is rebuilt for every folder.** That is a few seconds each; it does
+- **The light table is rebuilt for every folder.** That is a few seconds each; it does
   no harm, it is just repeated work.
 
 Preview them all at once with the local server in
@@ -157,5 +157,5 @@ Then open `http://localhost:8000/<name>/viewer/viewer.html`. See
 
 - `npm run build` empties `dist\`, so never keep working galleries there.
 - `containers\` is git-ignored: the images are yours and stay off the repository.
-- The sample gallery in `public\galleries\colours` exists to test the viewer. It is
+- The sample gallery in `public\galleries\colours` exists to test the light table. It is
   not one of your galleries.

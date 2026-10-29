@@ -84,7 +84,7 @@ export const HelpMenu: React.FC<HelpMenuProps> = ({ isOpen, onClose }) => {
         </div>
 
         <div className="mt-8 pt-6 border-t border-white/5 flex justify-center">
-          <p className="text-[9px] font-bold text-white/20 uppercase tracking-[0.3em]">Lumina Professional v2.5</p>
+          <p className="text-[9px] font-bold text-white/20 uppercase tracking-[0.3em]">Image Light Table</p>
         </div>
       </div>
     </div>

@@ -1,4 +1,4 @@
-# Light Table — user guide
+# Image Light Table — user guide
 
 by Ryan Raz
 
@@ -8,7 +8,7 @@ High Resolution image light table and slide show.
 
 See it running: **My 1970s in Kodachrome** —
 <https://rraz.ca/kodachrome/viewer/viewer.html>. That gallery is shown as a live
-example of the viewer; it is not part of the package.
+example of the light table; it is not part of the package.
 
 ## 2. What it does
 
@@ -20,7 +20,7 @@ example of the viewer; it is not part of the package.
   step: any web server that can serve files will run it, and the folder you upload
   is the whole application. It runs in any current browser.
 
-## 3. The viewer in use
+## 3. The light table in use
 
 ![My 1970s in Kodachrome, shown with the magnifier open at 2x](images/kodachrome-magnifier.png)
 
@@ -33,7 +33,7 @@ strip along the bottom is where photographs are chosen for the slide show.
 ## 4. What you receive
 
 One zip containing a single folder, named after the gallery. It includes a sample
-gallery of eight colour slides, so the viewer can be checked before your own
+gallery of eight colour slides, so the light table can be checked before your own
 photographs are added:
 
 ```
@@ -60,7 +60,7 @@ the gallery beside it.
 ## 5. Installing
 
 Put the whole container folder on your website, unchanged. That is the whole
-install: the folder is the viewer.
+install: the folder is the light table.
 
 The address is:
 
@@ -90,10 +90,10 @@ the folder cannot live there. The gallery still works, in two steps:
 1. Put the folder somewhere that serves files. A spare folder on your hosting, a
    subdomain, or any static hosting will do. It does not need a database, PHP,
    Node or a build step, and it does not need developer tools or accounts.
-2. On the page, add the viewer address with the builder's **Embed** or **HTML**
-   block. The viewer then opens inside your page.
+2. On the page, add the light table address with the builder's **Embed** or **HTML**
+   block. The light table then opens inside your page.
 
-For that second step use the explicit form of the address, so the viewer knows
+For that second step use the explicit form of the address, so the light table knows
 which gallery to load:
 
 ```
@@ -114,8 +114,8 @@ https://yoursite.com/colours/viewer/viewer.html?gallery=/colours
 ```
 
 Both open the same gallery. The `?gallery=` form is the explicit one and is the
-safer choice when the viewer is embedded in another page or loaded from a
-different folder; without it the viewer works out the gallery from its own
+safer choice when the light table is embedded in another page or loaded from a
+different folder; without it the light table works out the gallery from its own
 address. The live example in section 1 uses the short form.
 
 ## 7. Changing the gallery
@@ -210,7 +210,7 @@ light-table-colours-v2026-10-28.zip
 
 | What you see | What it usually means |
 |---|---|
-| "Unable to load gallery" | `gallery.json` is not where the viewer expects it; check the two folder names |
+| "Unable to load gallery" | `gallery.json` is not where the light table expects it; check the two folder names |
 | A blank frame | `assets/` was not uploaded beside `viewer.html` |
 | Some photos missing | They are not listed in `gallery.json`, or the file name case differs from the entry |
 | An old photo, or an old title | Browser cache — hard-refresh, or rename the file |
@@ -225,5 +225,5 @@ light-table-colours-v2026-10-28.zip
   does it, sections 7.2 to 7.4 shrink to "send the folder back", and the
   recipient never edits `gallery.json`.
 - **Prefer one folder per gallery.** It is simpler for the recipient and lets one
-  gallery be replaced without touching the others; the cost is that a viewer fix
+  gallery be replaced without touching the others; the cost is that a light table fix
   is uploaded once per gallery.
