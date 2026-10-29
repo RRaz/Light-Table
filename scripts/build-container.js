@@ -109,6 +109,20 @@ for (const file of orderedImages) {
 const titles = readTitles(sourceManifest);
 const { entries } = writeManifest(galleryDir, orderedImages, titles);
 
+// If the folder you built from carries a viewer/ folder — the forward that keeps
+// the old /viewer/viewer.html address alive — bring it along, so it does not have
+// to be added afterwards.
+const carriedViewer = path.join(sourceDir, 'viewer');
+const carriedRootViewer = path.join(sourceDir, 'viewer.html');
+let carried = '';
+if (fs.existsSync(carriedViewer) && fs.statSync(carriedViewer).isDirectory()) {
+  copyDirectory(carriedViewer, path.join(containerDir, 'viewer'));
+  carried = 'viewer/';
+} else if (fs.existsSync(carriedRootViewer)) {
+  fs.copyFileSync(carriedRootViewer, path.join(containerDir, 'viewer.html'));
+  carried = 'viewer.html';
+}
+
 const bytes = fs.readdirSync(galleryDir, { withFileTypes: true })
   .filter((entry) => entry.isFile())
   .reduce((total, entry) => total + fs.statSync(path.join(galleryDir, entry.name)).size, 0);
@@ -118,6 +132,7 @@ console.log(`  images taken from: ${sourceDir}`);
 console.log(`  ${entries.length} images, ${(bytes / 1024 / 1024).toFixed(1)} MB`);
 console.log(`  light-table/index.html`);
 console.log(`  ${name}/gallery.json`);
+if (carried) console.log(`  ${carried} (old address kept)`);
 console.log('');
 console.log(`Upload that folder as /${name}/ and open:`);
 console.log(`  /${name}/light-table/`);

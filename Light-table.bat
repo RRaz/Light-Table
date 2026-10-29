@@ -39,8 +39,6 @@ if exist "%INPUT%\" (
 
 set "ACTION=build"
 if exist "%TARGET%\light-table\index.html" set "ACTION=refresh"
-if exist "%TARGET%\viewer\viewer.html" set "ACTION=refresh"
-if exist "%TARGET%\viewer.html" set "ACTION=refresh"
 if /I "%ACTION%"=="refresh" goto :guard
 
 rem Dropping the image subfolder of a container updates that container.
@@ -48,15 +46,25 @@ for %%I in ("%TARGET%\..") do set "PARENT=%%~fI"
 if exist "%PARENT%\light-table\index.html" set "TARGET=%PARENT%"
 if exist "%PARENT%\viewer\viewer.html" set "TARGET=%PARENT%"
 if exist "%TARGET%\light-table\index.html" set "ACTION=refresh"
-if exist "%TARGET%\viewer\viewer.html" set "ACTION=refresh"
-if exist "%TARGET%\viewer.html" set "ACTION=refresh"
+if /I "%ACTION%"=="refresh" goto :guard
+
+rem Does the folder hold images at its top level? If so it is a plain image
+rem folder, even when a viewer\ folder was dropped in beside them: that viewer is
+rem carried into the container that gets built.
+set "HASIMAGES="
+for %%E in (jpg jpeg png gif webp avif bmp svg) do if exist "%TARGET%\*.%%E" set "HASIMAGES=1"
+
+rem A legacy container keeps its images in a subfolder, so the marker only counts
+rem when there is nothing loose at the top level.
+if not defined HASIMAGES (
+  if exist "%TARGET%\viewer\viewer.html" set "ACTION=refresh"
+  if exist "%TARGET%\viewer.html" set "ACTION=refresh"
+)
+if /I "%ACTION%"=="refresh" goto :guard
 
 rem A folder that already has the container shape - one subfolder holding the
 rem images - but no page yet, is completed in place. Without this it is treated
 rem as a plain image folder, finds nothing at the top level, and fails.
-if /I "%ACTION%"=="refresh" goto :guard
-set "HASIMAGES="
-for %%E in (jpg jpeg png gif webp avif bmp svg) do if exist "%TARGET%\*.%%E" set "HASIMAGES=1"
 set "SUBCOUNT=0"
 for /d %%D in ("%TARGET%\*") do set /a SUBCOUNT+=1
 if not defined HASIMAGES if "%SUBCOUNT%"=="1" set "ACTION=refresh"

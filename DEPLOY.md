@@ -99,8 +99,12 @@ structure.
    The result is `containers\<name>\` containing `light-table\`, `<name>\` with the
    images and `gallery.json`, and nothing loose at the top.
 
-2. If this gallery was ever published at `/<name>/viewer/viewer.html`, add the
-   forwarding page so old links keep working:
+2. If this gallery was ever published at `/<name>/viewer/viewer.html`, drop a
+   `viewer\` folder (with the forwarding `viewer.html`) in beside the images before
+   running the batch. It is copied into the container, and the output says
+   `viewer/ (old address kept)`. Without it the gallery simply has no old address.
+
+   If you forget, add it afterwards with:
 
    ```bat
    npm run forward -- --container "containers\kodachrome"
@@ -116,8 +120,8 @@ Two things to know:
 - The container is named after the folder you drag in. A flat folder called
   `kodachrome` therefore replaces `containers\kodachrome` — which is what you want
   when converting that gallery, but check the name before dropping it on the batch.
-- Only image files are copied. Any stray `viewer\` or `light-table\` folder inside
-  the flat download is ignored, not carried over.
+- Only image files, `gallery.json` and a `viewer\` folder are taken from the
+  source. A stray `light-table\` folder in the download is ignored and rebuilt.
 
 ## Old links keep working
 
