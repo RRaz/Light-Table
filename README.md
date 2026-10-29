@@ -94,3 +94,11 @@ npm run dev
 ```
 
 This starts the local development server using `tsx server.ts`.
+
+## Licence
+
+MIT — see [LICENSE](LICENSE). Use it, change it, ship it, sell it; keep the
+copyright notice with the source.
+
+The photographs and galleries you add remain yours. The sample colour slides in
+`public/galleries/colours` are included only so the viewer can be tested.
