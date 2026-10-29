@@ -48,6 +48,30 @@ the folder to upload.
 A folder with several subfolders is not treated as a container: the batch cannot
 tell which one holds the gallery, and says so rather than guessing.
 
+## Building several galleries at once
+
+The plain-image-folder route is the one to use when you have several shoots to
+prepare. Each folder becomes its own container under `containers\`, the originals
+are left untouched, and you upload them one at a time when you are ready.
+
+```bat
+for /d %D in ("D:\shoots\*") do Light-table.bat "%D"
+```
+
+(The same line in a `.bat` file needs `%%D` instead of `%D`.)
+
+Two things to know when doing this:
+
+- **Names must differ.** The container is named after the folder, so two folders
+  both called `selects` would collide — the second replaces the first in
+  `containers\`. Rename one, or pass a name to the container command directly.
+- **The viewer is rebuilt for every folder.** That is a few seconds each; it does
+  no harm, it is just repeated work.
+
+Preview them all at once with the local server in
+[LocalSERVER.txt](LocalSERVER.txt): open `http://localhost:8000/<name>/viewer/viewer.html`
+for each one.
+
 ## Updating a gallery that is already live
 
 1. Work on the copy in `containers\<name>\`, not on the live site.
