@@ -15,7 +15,7 @@ looking at — there is no second copy to go and find.
      <name>\          <- the images go in here
    ```
 
-   The inner folder has the same name as the outer one. `viewer\` is not needed
+   The inner folder has the same name as the outer one. `light-table\` is not needed
    yet; the batch creates it.
 
 2. Copy or move the new photographs into `containers\<name>\<name>\`.
@@ -27,10 +27,10 @@ looking at — there is no second copy to go and find.
    Light-table.bat "containers\lake-simcoe"
    ```
 
-4. The batch builds the light table, copies `viewer.html` and `assets\` into
-   `containers\<name>\viewer\`, and writes `gallery.json` beside the images.
+4. The batch builds the light table, copies `index.html` and `assets\` into
+   `containers\<name>\light-table\`, and writes `gallery.json` beside the images.
 
-5. Upload the outer folder as `/<name>/` and open `/<name>/viewer/viewer.html`.
+5. Upload the outer folder as `/<name>/` and open `/<name>/light-table/`.
 
 Nothing is moved to another location, and the printed `Container folder:` line is
 the folder to upload.
@@ -40,8 +40,8 @@ the folder to upload.
 | You give it | What happens |
 |---|---|
 | A folder with images at the top level | Builds a **new** container at `containers\<name>`, copying the images. The original folder is not changed. |
-| A container-shaped folder with no `viewer\` | Adds the light table and `gallery.json` in place, in the folder you gave it |
-| An existing container, with `viewer\viewer.html` | Updates the light table and reindexes `gallery.json`; image order and existing titles are kept |
+| A container-shaped folder with no `light-table\` | Adds the light table and `gallery.json` in place, in the folder you gave it |
+| An existing container, with `light-table\index.html` | Updates the light table and reindexes `gallery.json`; image order and existing titles are kept |
 | The image subfolder of a container | The parent container is updated instead |
 | Anything inside `dist\` | Refused — `npm run build` empties `dist\` |
 
@@ -69,7 +69,7 @@ Two things to know when doing this:
   no harm, it is just repeated work.
 
 Preview them all at once with the local server in
-[LocalSERVER.txt](LocalSERVER.txt): open `http://localhost:8000/<name>/viewer/viewer.html`
+[LocalSERVER.txt](LocalSERVER.txt): open `http://localhost:8000/<name>/light-table/`
 for each one.
 
 ## Updating a gallery that is already live
@@ -98,8 +98,8 @@ The container folder is the whole site content for that gallery:
 
 ```
 containers\<name>\
-  viewer\viewer.html
-  viewer\assets\
+  light-table\index.html
+  light-table\assets\
   <name>\gallery.json
   <name>\images...
 ```
@@ -110,7 +110,7 @@ files.
 
 ## Space: the container is a working copy
 
-`containers\<name>\` always holds the result of the most recent run — viewer,
+`containers\<name>\` always holds the result of the most recent run — the page,
 images and `gallery.json` together. Running the batch again replaces or refreshes
 that folder, so it does not accumulate old builds.
 
@@ -150,7 +150,7 @@ cd containers
 python -m http.server 8000
 ```
 
-Then open `http://localhost:8000/<name>/viewer/viewer.html`. See
+Then open `http://localhost:8000/<name>/light-table/`. See
 [LocalSERVER.txt](LocalSERVER.txt) for the same instructions in short form.
 
 ## Notes

@@ -6,12 +6,12 @@
 // Layout, matching the live site:
 //
 //   <name>/
-//     viewer/viewer.html
-//     viewer/assets/...
+//     light-table/index.html
+//     light-table/assets/...
 //     <name>/<images>
 //     <name>/gallery.json
 //
-// Upload <name>/ as /name/ and open /name/viewer/viewer.html?gallery=/name.
+// Upload <name>/ as /name/ and open /name/light-table/?gallery=/name.
 
 import fs from 'node:fs';
 import path from 'node:path';
@@ -27,7 +27,7 @@ import {
 
 const projectRoot = process.cwd();
 const distRoot = path.join(projectRoot, 'dist');
-const viewerSource = path.join(distRoot, 'viewer.html');
+const viewerSource = path.join(distRoot, 'light-table.html');
 const assetsSource = path.join(distRoot, 'assets');
 
 function fail(message) {
@@ -83,23 +83,23 @@ const sourceManifest = path.join(sourceDir, 'gallery.json');
 const orderedImages = orderImages(images, readManifestEntries(sourceManifest));
 
 if (!fs.existsSync(viewerSource) || !fs.existsSync(assetsSource)) {
-  fail('The viewer bundle is missing. Run "npm run build" first.');
+  fail('The light table bundle is missing. Run "npm run build" first.');
 }
 
 const outRoot = path.resolve(args.out || path.join(projectRoot, 'containers'));
 const containerDir = path.join(outRoot, name);
 const galleryDir = path.join(containerDir, name);
-const viewerDir = path.join(containerDir, 'viewer');
+const viewerDir = path.join(containerDir, 'light-table');
 
 fs.rmSync(containerDir, { recursive: true, force: true });
 fs.mkdirSync(viewerDir, { recursive: true });
 fs.mkdirSync(galleryDir, { recursive: true });
 
-// The built viewer asks for ./assets/..., so it must sit beside an assets folder.
+// The built page asks for ./assets/..., so it must sit beside an assets folder.
 const viewerHtml = fs.readFileSync(viewerSource, 'utf8')
   .replaceAll('src="/assets/', 'src="./assets/')
   .replaceAll('href="/assets/', 'href="./assets/');
-fs.writeFileSync(path.join(viewerDir, 'viewer.html'), viewerHtml, 'utf8');
+fs.writeFileSync(path.join(viewerDir, 'index.html'), viewerHtml, 'utf8');
 copyDirectory(assetsSource, path.join(viewerDir, 'assets'));
 
 for (const file of orderedImages) {
@@ -116,8 +116,8 @@ const bytes = fs.readdirSync(galleryDir, { withFileTypes: true })
 console.log(`Container folder: ${containerDir}`);
 console.log(`  images taken from: ${sourceDir}`);
 console.log(`  ${entries.length} images, ${(bytes / 1024 / 1024).toFixed(1)} MB`);
-console.log(`  viewer/viewer.html`);
+console.log(`  light-table/index.html`);
 console.log(`  ${name}/gallery.json`);
 console.log('');
 console.log(`Upload that folder as /${name}/ and open:`);
-console.log(`  /${name}/viewer/viewer.html`);
+console.log(`  /${name}/light-table/`);

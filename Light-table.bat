@@ -38,18 +38,21 @@ if exist "%INPUT%\" (
 )
 
 set "ACTION=build"
+if exist "%TARGET%\light-table\index.html" set "ACTION=refresh"
 if exist "%TARGET%\viewer\viewer.html" set "ACTION=refresh"
 if exist "%TARGET%\viewer.html" set "ACTION=refresh"
 if /I "%ACTION%"=="refresh" goto :guard
 
 rem Dropping the image subfolder of a container updates that container.
 for %%I in ("%TARGET%\..") do set "PARENT=%%~fI"
+if exist "%PARENT%\light-table\index.html" set "TARGET=%PARENT%"
 if exist "%PARENT%\viewer\viewer.html" set "TARGET=%PARENT%"
+if exist "%TARGET%\light-table\index.html" set "ACTION=refresh"
 if exist "%TARGET%\viewer\viewer.html" set "ACTION=refresh"
 if exist "%TARGET%\viewer.html" set "ACTION=refresh"
 
 rem A folder that already has the container shape - one subfolder holding the
-rem images - but no viewer yet, is completed in place. Without this it is treated
+rem images - but no page yet, is completed in place. Without this it is treated
 rem as a plain image folder, finds nothing at the top level, and fails.
 if /I "%ACTION%"=="refresh" goto :guard
 set "HASIMAGES="

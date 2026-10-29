@@ -21,7 +21,7 @@ function main() {
     throw new Error(`Missing dist folder at ${distRoot}`);
   }
 
-  for (const fileName of ['viewer.html', 'index.html']) {
+  for (const fileName of ['light-table.html', 'index.html']) {
     const filePath = path.join(distRoot, fileName);
     if (fs.existsSync(filePath)) {
       rewriteHtml(filePath);

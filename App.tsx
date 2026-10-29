@@ -5,15 +5,21 @@ import { PhotoViewer } from './components/PhotoViewer';
 import { ThumbnailStrip } from './components/ThumbnailStrip';
 import { HelpMenu } from './components/HelpMenu';
 
-// In the container layout the viewer lives at <container>/viewer/viewer.html,
-// so the gallery name is the folder above the viewer folder.
+// In the container layout the page lives at <container>/light-table/index.html,
+// so the gallery name is the folder above it. The older viewer/ layout is still
+// accepted so galleries deployed before the rename keep working.
 const galleryFromLocation = (): string => {
   const parts = window.location.pathname.split('/').filter(Boolean);
-  if (parts.length < 3) return '';
 
-  const viewerFolder = parts[parts.length - 2];
-  const container = parts[parts.length - 3];
-  if (viewerFolder.toLowerCase() !== 'viewer' || !container) return '';
+  // Both /<name>/light-table/ and /<name>/light-table/index.html are valid.
+  if (parts.length > 0 && /\.html?$/i.test(parts[parts.length - 1])) {
+    parts.pop();
+  }
+  if (parts.length < 2) return '';
+
+  const pageFolder = parts[parts.length - 1].toLowerCase();
+  const container = parts[parts.length - 2];
+  if (pageFolder !== 'light-table' && pageFolder !== 'viewer') return '';
 
   try {
     return decodeURIComponent(container);
@@ -55,7 +61,7 @@ const App: React.FC = () => {
     if (inferredGallery && inferredGallery !== explicitGallery) candidates.push(inferredGallery);
 
     if (candidates.length === 0) {
-      setErrorMessage('No gallery found. Use the container layout <name>/viewer/viewer.html or add ?gallery=<name>.');
+      setErrorMessage('No gallery found. Use the container layout <name>/light-table/ or add ?gallery=<name>.');
       setLoading(false);
       return;
     }
@@ -265,7 +271,7 @@ const App: React.FC = () => {
             <span className="material-symbols-outlined text-8xl">error</span>
             <p className="text-xl">Unable to load gallery</p>
             <p className="max-w-xl text-sm opacity-70">{errorMessage}</p>
-            <p className="text-sm opacity-50">Use a valid URL like <code className="bg-white/10 rounded px-1 py-0.5">?gallery=galleries/wedding</code></p>
+            <p className="text-sm opacity-50">Use a valid URL like <code className="bg-white/10 rounded px-1 py-0.5">?gallery=&lt;name&gt;</code></p>
           </div>
         ) : photos.length > 0 ? (
           <PhotoViewer 

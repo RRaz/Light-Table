@@ -1,9 +1,9 @@
-// Refresh a downloaded container in place: new viewer code, then reindex.
+// Refresh a container in place: new light table page, then reindex.
 //
 //   npm run refresh -- --container "D:\downloads\people"
 //
 // The images, their order and the existing titles are left alone. Only
-// viewer/viewer.html, viewer/assets and the image folder's gallery.json change.
+// light-table/index.html, light-table/assets and the image folder's gallery.json change.
 // Run npm run build first (the batch file does that for you).
 
 import fs from 'node:fs';
@@ -19,7 +19,7 @@ import {
 
 const projectRoot = process.cwd();
 const distRoot = path.join(projectRoot, 'dist');
-const distViewer = path.join(distRoot, 'viewer.html');
+const distViewerCheck = path.join(distRoot, 'light-table.html');
 const distAssets = path.join(distRoot, 'assets');
 
 function fail(message) {
@@ -55,8 +55,8 @@ if (containerKey === distKey || containerKey.startsWith(`${distKey}${path.sep}`)
   fail('This container is inside dist/, which npm run build empties. Move it outside dist/ (for example to containers/) and try again.');
 }
 
-if (!fs.existsSync(distViewer) || !fs.existsSync(distAssets)) {
-  fail('The viewer bundle is missing. Run "npm run build" first.');
+if (!fs.existsSync(distViewerCheck) || !fs.existsSync(distAssets)) {
+  fail('The light table bundle is missing. Run "npm run build" first.');
 }
 
 function findImagesDir() {
@@ -68,7 +68,7 @@ function findImagesDir() {
   if (listImages(containerDir).length > 0) return containerDir;
 
   const candidates = fs.readdirSync(containerDir, { withFileTypes: true })
-    .filter((entry) => entry.isDirectory() && entry.name !== 'viewer')
+    .filter((entry) => entry.isDirectory() && entry.name !== 'viewer' && entry.name !== 'light-table')
     .map((entry) => path.join(containerDir, entry.name))
     .filter((dir) => listImages(dir).length > 0);
 
@@ -88,27 +88,40 @@ if (!imagesDir || !fs.existsSync(imagesDir)) {
   fail(`No image folder found inside ${containerDir}. Put the images in it, or in one subfolder, and run again.`);
 }
 
-// Live layout is <container>/viewer/viewer.html. Support the older root layout
-// as well, but leave the live one in charge if both exist. A folder that already
-// looks like a container but has no viewer gets one created here, so a gallery
-// built by hand does not have to be thrown away.
-const viewerDir = path.join(containerDir, 'viewer');
-const hasViewerDir = fs.existsSync(path.join(viewerDir, 'viewer.html'));
-const hasRootViewer = fs.existsSync(path.join(containerDir, 'viewer.html'));
-const createViewer = !hasViewerDir && !hasRootViewer;
+// Live layout is <container>/light-table/index.html. The older layout kept the
+// page at <container>/viewer/viewer.html; it is migrated rather than refused, so
+// an existing gallery can be brought up to date in place.
+const distViewerFile = path.join(distRoot, 'light-table.html');
+const lightTableDir = path.join(containerDir, 'light-table');
+const legacyViewerDir = path.join(containerDir, 'viewer');
+const legacyRootViewer = path.join(containerDir, 'viewer.html');
 
-const targetViewerDir = hasRootViewer && !hasViewerDir ? containerDir : viewerDir;
-const viewerTarget = path.join(targetViewerDir, 'viewer.html');
+const hadNew = fs.existsSync(path.join(lightTableDir, 'index.html'));
+const hadLegacyDir = fs.existsSync(path.join(legacyViewerDir, 'viewer.html'));
+const hadLegacyRoot = fs.existsSync(legacyRootViewer);
+const created = !hadNew && !hadLegacyDir && !hadLegacyRoot;
+const migrated = !hadNew && (hadLegacyDir || hadLegacyRoot);
+
+const targetViewerDir = lightTableDir;
+const viewerTarget = path.join(targetViewerDir, 'index.html');
 const assetsTarget = path.join(targetViewerDir, 'assets');
 
 fs.mkdirSync(targetViewerDir, { recursive: true });
 fs.rmSync(assetsTarget, { recursive: true, force: true });
 copyDirectory(distAssets, assetsTarget);
 
-const viewerHtml = fs.readFileSync(distViewer, 'utf8')
+const viewerHtml = fs.readFileSync(distViewerFile, 'utf8')
   .replaceAll('src="/assets/', 'src="./assets/')
   .replaceAll('href="/assets/', 'href="./assets/');
 fs.writeFileSync(viewerTarget, viewerHtml, 'utf8');
+
+if (migrated) {
+  if (hadLegacyDir) fs.rmSync(legacyViewerDir, { recursive: true, force: true });
+  if (hadLegacyRoot) {
+    fs.rmSync(legacyRootViewer, { force: true });
+    fs.rmSync(path.join(containerDir, 'assets'), { recursive: true, force: true });
+  }
+}
 
 const manifestPath = path.join(imagesDir, 'gallery.json');
 const previous = readManifestEntries(manifestPath);
@@ -130,7 +143,7 @@ const containerName = path.basename(containerDir);
 const imagesName = path.basename(imagesDir);
 
 console.log(`Container: ${containerDir}`);
-console.log(`  viewer:  ${path.relative(containerDir, viewerTarget)} ${createViewer ? '(created)' : '(updated)'}`);
+console.log(`  page:    ${path.relative(containerDir, viewerTarget)} ${created ? '(created)' : migrated ? '(migrated)' : '(updated)'}`);
 console.log(`  images:  ${path.relative(containerDir, imagesDir) || '.'} (${entries.length})`);
 console.log(`  manifest: ${manifestPath}`);
 console.log(`  kept:    ${kept}`);
@@ -145,4 +158,4 @@ if (imagesName.toLowerCase() !== containerName.toLowerCase()) {
 }
 
 console.log(`Upload the "${containerName}" folder and open:`);
-console.log(`  /${containerName}/viewer/viewer.html`);
+console.log(`  /${containerName}/light-table/`);

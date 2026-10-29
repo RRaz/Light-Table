@@ -15,16 +15,16 @@ so one gallery can be replaced without touching another.
 
 ```
 <name>/
-  viewer/
-    viewer.html
+  light-table/
+    index.html
     assets/
   <name>/
     gallery.json
     01-first-photo.jpg
 ```
 
-The light table sits in `viewer/` and loads the gallery beside it. Open
-`/<name>/viewer/viewer.html`.
+The light table sits in `light-table/` and loads the gallery beside it. Open
+`/<name>/light-table/`.
 
 ## Day to day
 

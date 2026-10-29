@@ -12,10 +12,10 @@ Serve a container locally to check it before uploading.
 
 3) In a browser, open the gallery you want:
 
-    http://localhost:8000/<name>/viewer/viewer.html
+    http://localhost:8000/<name>/light-table/
 
     For example, the colour sample:
-    http://localhost:8000/colours/viewer/viewer.html
+    http://localhost:8000/colours/light-table/
 
-The address is always <container>/viewer/viewer.html, the same shape as on the
+The address is always <container>/light-table/index.html, the same shape as on the
 live site, so a page that works here works when uploaded.

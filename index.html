@@ -66,7 +66,7 @@
         <div class="text-center pb-10">
             <p class="text-sm uppercase tracking-[0.35em] text-primary/70">Image Light Table</p>
             <h1 class="mt-4 text-4xl sm:text-5xl font-black tracking-tight">Gallery selection</h1>
-            <p class="mt-4 max-w-2xl mx-auto text-base text-white/70">Pick a gallery below and open the viewer in a separate page.</p>
+            <p class="mt-4 max-w-2xl mx-auto text-base text-white/70">Pick a gallery below and open it in a separate page.</p>
         </div>
 
         <div id="gallery-list" class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3"></div>
@@ -90,7 +90,7 @@
                 galleryList.innerHTML = galleries.map(gallery => {
                     const encoded = encodeURIComponent(gallery.path);
                     return `
-                        <a href="/${gallery.path}/viewer.html?gallery=${encoded}" class="group rounded-[1.75rem] border border-white/10 bg-white/5 p-6 transition hover:-translate-y-1 hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary/50">
+                        <a href="/${gallery.path}/light-table/?gallery=${encoded}" class="group rounded-[1.75rem] border border-white/10 bg-white/5 p-6 transition hover:-translate-y-1 hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary/50">
                             <div class="flex items-center justify-between gap-4">
                                 <div>
                                     <p class="text-xs uppercase tracking-[0.3em] text-primary/70">Gallery</p>

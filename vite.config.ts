@@ -24,7 +24,7 @@ export default defineConfig(({ mode }) => {
         rollupOptions: {
           input: {
             main: path.resolve(__dirname, 'index.html'),
-            viewer: path.resolve(__dirname, 'viewer.html')
+            lightTable: path.resolve(__dirname, 'light-table.html')
           }
         }
       }

@@ -7,7 +7,7 @@ by Ryan Raz
 High Resolution image light table and slide show.
 
 See it running: **My 1970s in Kodachrome** —
-<https://rraz.ca/kodachrome/viewer/viewer.html>. That gallery is shown as a live
+<https://rraz.ca/kodachrome/light-table/>. That gallery is shown as a live
 example of the light table; it is not part of the package.
 
 ## 2. What it does
@@ -38,8 +38,8 @@ photographs are added:
 
 ```
 colours/
-  viewer/
-    viewer.html
+  light-table/
+    index.html
     assets/
   colours/
     gallery.json
@@ -49,12 +49,12 @@ colours/
     08-violet.png
 ```
 
-- `viewer/` is the app. It is the same in every gallery and is not edited.
+- `light-table/` is the app. It is the same in every gallery and is not edited.
 - the inner folder, with the same name, holds the images and `gallery.json`.
   The sample colour slides are replaced by your photographs.
 - nothing else is required: no database, no server code, no installer.
 
-The two folders must keep those names and that relationship. `viewer/` looks for
+The two folders must keep those names and that relationship. `light-table/` looks for
 the gallery beside it.
 
 ## 5. Installing
@@ -65,14 +65,14 @@ install: the folder is the light table.
 The address is:
 
 ```
-https://yoursite.com/<container>/viewer/viewer.html
+https://yoursite.com/<container>/light-table/
 ```
 
 with `<container>` replaced by the folder name. The sample folder is `colours`, so
 its address is:
 
 ```
-https://yoursite.com/colours/viewer/viewer.html
+https://yoursite.com/colours/light-table/
 ```
 
 The folder name is also the heading above the photos; hyphens become spaces, so
@@ -84,7 +84,7 @@ upload in your host's dashboard — use the structure above exactly as it is.
 
 ### If your site is built with a page builder
 
-A page builder usually will not let you upload `viewer.html` and `assets/`, so
+A page builder usually will not let you upload `index.html` and `assets/`, so
 the folder cannot live there. The gallery still works, in two steps:
 
 1. Put the folder somewhere that serves files. A spare folder on your hosting, a
@@ -97,7 +97,7 @@ For that second step use the explicit form of the address, so the light table kn
 which gallery to load:
 
 ```
-https://your-static-host.example/colours/viewer/viewer.html?gallery=/colours
+https://your-static-host.example/colours/light-table/?gallery=/colours
 ```
 
 You may want to keep each build as a dated zip (section 9), so the gallery can be
@@ -109,8 +109,8 @@ installed.
 ## 6. Opening it
 
 ```
-https://yoursite.com/colours/viewer/viewer.html
-https://yoursite.com/colours/viewer/viewer.html?gallery=/colours
+https://yoursite.com/colours/light-table/
+https://yoursite.com/colours/light-table/?gallery=/colours
 ```
 
 Both open the same gallery. The `?gallery=` form is the explicit one and is the
@@ -179,7 +179,7 @@ appears.
 
 ### 7.5 More than one gallery
 
-Each gallery is a self-contained folder with its own `viewer/`. They are updated
+Each gallery is a self-contained folder with its own `light-table/`. They are updated
 independently, and one gallery can be replaced without touching another.
 
 ## 8. Updating a live gallery
@@ -211,7 +211,7 @@ light-table-colours-v2026-10-28.zip
 | What you see | What it usually means |
 |---|---|
 | "Unable to load gallery" | `gallery.json` is not where the light table expects it; check the two folder names |
-| A blank frame | `assets/` was not uploaded beside `viewer.html` |
+| A blank frame | `assets/` was not uploaded beside `index.html` |
 | Some photos missing | They are not listed in `gallery.json`, or the file name case differs from the entry |
 | An old photo, or an old title | Browser cache — hard-refresh, or rename the file |
 | Works on your computer, not online | Paths are relative; check that the inner folder was uploaded too |
