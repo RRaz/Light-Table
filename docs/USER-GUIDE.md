@@ -84,13 +84,12 @@ upload in your host's dashboard — use the structure above exactly as it is.
 
 ### If your site is built with a page builder
 
-A page builder such as Squarespace or Wix usually will not let you upload
-`viewer.html` and `assets/`, so the folder cannot live there. The gallery still
-works, in two steps:
+A page builder usually will not let you upload `viewer.html` and `assets/`, so
+the folder cannot live there. The gallery still works, in two steps:
 
 1. Put the folder somewhere that serves files. A spare folder on your hosting, a
    subdomain, or any static hosting will do. It does not need a database, PHP,
-   Node or a build step, and it does not need GitHub.
+   Node or a build step, and it does not need developer tools or accounts.
 2. On the page, add the viewer address with the builder's **Embed** or **HTML**
    block. The viewer then opens inside your page.
 
