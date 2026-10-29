@@ -72,7 +72,11 @@ if (!name) {
 
 const images = listImages(sourceDir);
 if (images.length === 0) {
-  fail(`No images found in ${sourceDir}`);
+  fail(
+    `No images found in ${sourceDir}.\n` +
+      'Supported types: jpg, jpeg, png, gif, webp, avif, bmp, svg.\n' +
+      'Put the image files in that folder, or point at the folder that contains them.'
+  );
 }
 
 const sourceManifest = path.join(sourceDir, 'gallery.json');
@@ -109,10 +113,11 @@ const bytes = fs.readdirSync(galleryDir, { withFileTypes: true })
   .filter((entry) => entry.isFile())
   .reduce((total, entry) => total + fs.statSync(path.join(galleryDir, entry.name)).size, 0);
 
-console.log(`Container: ${path.relative(projectRoot, containerDir)}`);
+console.log(`Container folder: ${containerDir}`);
+console.log(`  images taken from: ${sourceDir}`);
 console.log(`  ${entries.length} images, ${(bytes / 1024 / 1024).toFixed(1)} MB`);
 console.log(`  viewer/viewer.html`);
 console.log(`  ${name}/gallery.json`);
 console.log('');
-console.log(`Upload the "${name}" folder as /${name}/ and open:`);
+console.log(`Upload that folder as /${name}/ and open:`);
 console.log(`  /${name}/viewer/viewer.html`);

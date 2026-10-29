@@ -64,6 +64,9 @@ function findImagesDir() {
     return path.resolve(containerDir, args.images);
   }
 
+  // Images can sit directly in the container root, or in one subfolder.
+  if (listImages(containerDir).length > 0) return containerDir;
+
   const candidates = fs.readdirSync(containerDir, { withFileTypes: true })
     .filter((entry) => entry.isDirectory() && entry.name !== 'viewer')
     .map((entry) => path.join(containerDir, entry.name))
@@ -82,22 +85,23 @@ function findImagesDir() {
 
 const imagesDir = findImagesDir();
 if (!imagesDir || !fs.existsSync(imagesDir)) {
-  fail(`Could not find the image folder inside ${containerDir}. Pass --images <subfolder>.`);
+  fail(`No image folder found inside ${containerDir}. Put the images in it, or in one subfolder, and run again.`);
 }
 
 // Live layout is <container>/viewer/viewer.html. Support the older root layout
-// as well, but leave the live one in charge if both exist.
+// as well, but leave the live one in charge if both exist. A folder that already
+// looks like a container but has no viewer gets one created here, so a gallery
+// built by hand does not have to be thrown away.
 const viewerDir = path.join(containerDir, 'viewer');
 const hasViewerDir = fs.existsSync(path.join(viewerDir, 'viewer.html'));
 const hasRootViewer = fs.existsSync(path.join(containerDir, 'viewer.html'));
-if (!hasViewerDir && !hasRootViewer) {
-  fail(`Could not find viewer.html in ${containerDir} (looked in viewer/ and the root).`);
-}
+const createViewer = !hasViewerDir && !hasRootViewer;
 
-const targetViewerDir = hasViewerDir ? viewerDir : containerDir;
+const targetViewerDir = hasRootViewer && !hasViewerDir ? containerDir : viewerDir;
 const viewerTarget = path.join(targetViewerDir, 'viewer.html');
 const assetsTarget = path.join(targetViewerDir, 'assets');
 
+fs.mkdirSync(targetViewerDir, { recursive: true });
 fs.rmSync(assetsTarget, { recursive: true, force: true });
 copyDirectory(distAssets, assetsTarget);
 
@@ -125,9 +129,9 @@ const kept = [...nextKeys].filter((key) => previousKeys.has(key)).length;
 const containerName = path.basename(containerDir);
 const imagesName = path.basename(imagesDir);
 
-console.log(`Container: ${path.relative(projectRoot, containerDir) || '.'}`);
-console.log(`  viewer:  ${path.relative(containerDir, viewerTarget)} (updated)`);
-console.log(`  images:  ${path.relative(containerDir, imagesDir)} (${entries.length})`);
+console.log(`Container: ${containerDir}`);
+console.log(`  viewer:  ${path.relative(containerDir, viewerTarget)} ${createViewer ? '(created)' : '(updated)'}`);
+console.log(`  images:  ${path.relative(containerDir, imagesDir) || '.'} (${entries.length})`);
 console.log(`  manifest: ${manifestPath}`);
 console.log(`  kept:    ${kept}`);
 console.log(`  added:   ${added.length}${added.length ? ` (${added.slice(0, 6).join(', ')}${added.length > 6 ? ', …' : ''})` : ''}`);

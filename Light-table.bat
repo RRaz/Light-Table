@@ -48,6 +48,16 @@ if exist "%PARENT%\viewer\viewer.html" set "TARGET=%PARENT%"
 if exist "%TARGET%\viewer\viewer.html" set "ACTION=refresh"
 if exist "%TARGET%\viewer.html" set "ACTION=refresh"
 
+rem A folder that already has the container shape - one subfolder holding the
+rem images - but no viewer yet, is completed in place. Without this it is treated
+rem as a plain image folder, finds nothing at the top level, and fails.
+if /I "%ACTION%"=="refresh" goto :guard
+set "HASIMAGES="
+for %%E in (jpg jpeg png gif webp avif bmp svg) do if exist "%TARGET%\*.%%E" set "HASIMAGES=1"
+set "SUBCOUNT=0"
+for /d %%D in ("%TARGET%\*") do set /a SUBCOUNT+=1
+if not defined HASIMAGES if "%SUBCOUNT%"=="1" set "ACTION=refresh"
+
 :guard
 rem npm run build empties dist\; never run on anything inside it.
 set "DISTROOT=%CD%\dist"
