@@ -108,6 +108,25 @@ Upload `containers\<name>` so that it lands as `/<name>/` on the server. Zipping
 it first and extracting on the host is usually quicker than copying hundreds of
 files.
 
+## Space: the container is a working copy
+
+`containers\<name>\` always holds the result of the most recent run — viewer,
+images and `gallery.json` together. Running the batch again replaces or refreshes
+that folder, so it does not accumulate old builds.
+
+Once a gallery is uploaded and working, you can delete the container folder to
+reclaim the space. The live site keeps its own copy.
+
+Two things to keep in mind before deleting:
+
+- If you placed the images **directly** into `containers\<name>\<name>\` and they
+  exist nowhere else, that folder is your only local copy besides the server.
+  Keep the shoot in your photo library.
+- If the container was built from a plain image folder, the originals were only
+  copied, so deleting the container loses nothing.
+
+Containers are not pruned automatically: each one stays until you remove it.
+
 ## Versions
 
 Keep dated zips of what was uploaded:
