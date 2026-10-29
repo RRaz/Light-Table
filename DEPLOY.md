@@ -114,6 +114,10 @@ files.
 images and `gallery.json` together. Running the batch again replaces or refreshes
 that folder, so it does not accumulate old builds.
 
+The image files themselves are never altered: they are copied byte for byte, and
+the only file written beside them is `gallery.json`. A source folder outside the
+project is not touched at all.
+
 Once a gallery is uploaded and working, you can delete the container folder to
 reclaim the space. The live site keeps its own copy.
 
