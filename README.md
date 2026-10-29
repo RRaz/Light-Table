@@ -7,93 +7,52 @@ High Resolution image light table and slide show.
 **[Read the user guide](docs/USER-GUIDE.md)** — installing a gallery on your site,
 changing photos and titles, updating a live gallery.
 
-A static photo viewer app with independent viewer installations. Each viewer directory contains a complete light-table app instance, and the displayed gallery is loaded from the required `?gallery=` URL parameter.
+## What it is
 
-## Features
+A static photo viewer with no server side: HTML, CSS and JavaScript, plus a
+`gallery.json` listing the photographs. Each gallery is a self-contained folder,
+so one gallery can be replaced without touching another.
 
-- Four independent viewer installs: `viewer1`, `viewer2`, `viewer3`, `viewer4`
-- Each viewer loads a gallery from any public directory via `?gallery=path/to/gallery`
-- Required gallery parameter: no default gallery is loaded
-- Error display if the gallery parameter is missing or invalid
-- Includes sample galleries:
-  - `galleries/wedding`
-  - `galleries/portrait`
-
-## Usage
-
-### Local build
-
-1. Install dependencies:
-   ```bash
-   npm install
-   ```
-
-2. Build the project:
-   ```bash
-   npm run build
-   ```
-
-   This generates the static output in `dist/` and copies `viewer.html` into:
-   - `dist/viewer1/viewer.html`
-   - `dist/viewer2/viewer.html`
-   - `dist/viewer3/viewer.html`
-   - `dist/viewer4/viewer.html`
-
-### Test URLs
-
-Open one of the viewer pages with a gallery parameter:
-
-- `viewer1/viewer.html?gallery=galleries/wedding`
-- `viewer1/viewer.html?gallery=galleries/portrait`
-- `viewer2/viewer.html?gallery=galleries/elgin`
-- `viewer3/viewer.html?gallery=galleries/portrait`
-
-### Add a new gallery
-
-1. Create a new folder under `public/`, for example `public/galleries/newgallery/`
-2. Add image files to that folder
-3. If `gallery.json` does not exist, the build will auto-generate it from the image file names
-4. Use the gallery URL like:
-   `viewer1/viewer.html?gallery=galleries/newgallery`
-
-`gallery.json` should be an array of photo objects with these fields:
-
-```json
-[
-  {
-    "id": "photo-1",
-    "url": "/galleries/newgallery/image1.jpg",
-    "title": "Example Photo"
-  }
-]
+```
+<name>/
+  viewer/
+    viewer.html
+    assets/
+  <name>/
+    gallery.json
+    01-first-photo.jpg
 ```
 
-## Deployment
+The viewer sits in `viewer/` and loads the gallery beside it. Open
+`/<name>/viewer/viewer.html`.
 
-Upload the contents of `dist/` to your static webserver. The viewer apps do not require a backend server for gallery loading.
+## Day to day
 
-### Build 1: viewer shell
+1. Put the photographs in `containers\<name>\<name>\`.
+2. Run `Light-table.bat` on `containers\<name>`, or drag the folder onto it.
+3. Upload `containers\<name>` to the site as `/<name>/`.
 
-Use `npm run build` to regenerate the standard viewer shell and the four viewer copies in `dist/`.
+Full instructions, including what the batch does in each situation, are in
+[DEPLOY.md](DEPLOY.md).
 
-### Build 2: one gallery package
+## Commands
 
-Use `npm run build:gallery -- --gallery galleries/wedding --action update --fresh` to create or refresh one packaged gallery in `dist/packages/`.
+| Command | Purpose |
+|---|---|
+| `npm install` | once, to get the build tools |
+| `npm run build` | rebuild the viewer into `dist\` |
+| `npm run container -- --images "<folder>" [--name <name>]` | package a folder of images as a new container |
+| `npm run refresh -- --container "<folder>"` | update a container in place, keeping order and titles |
+| `npm run dev` | development server on `server.ts` |
 
-Use `--base-url https://your-site.example/files` when the deployed gallery images are hosted remotely.
-Use `--manifest-url https://your-site.example/galleries/wedding/gallery.json` when you want Build 2 to download `gallery.json` from the server instead of reading from local `public/`.
+`Light-table.bat` runs the right one for you.
 
-Build 2 preserves existing manifest titles and only refreshes the packaged output for that one gallery.
+## Documentation
 
-## Development
-
-Run the dev server with:
-
-```bash
-npm run dev
-```
-
-This starts the local development server using `tsx server.ts`.
+- [docs/USER-GUIDE.md](docs/USER-GUIDE.md) — for the person receiving a gallery
+- [DEPLOY.md](DEPLOY.md) — for whoever builds and uploads
+- [LocalSERVER.txt](LocalSERVER.txt) — previewing a container locally
+- [releases](https://github.com/RRaz/Light-Table/releases) — the packaged sample
 
 ## Licence
 

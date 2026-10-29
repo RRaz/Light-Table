@@ -1,16 +1,21 @@
-1) in shell Go to directory 
-cd "C:\Users\photo\projects\lighttest"
+Serve a container locally to check it before uploading.
 
-Start a python server
-python -m http.server 8000
+1) In a shell, go to the containers folder of the project:
 
-Ctrl C should stop server
+    cd "C:\Users\photo\projects\light-table\containers"
 
+2) Start a simple static server:
 
-2) In browser 
-http://localhost:8000/
+    python -m http.server 8000
 
-http://localhost:8000/viewer3/viewer.html?gallery=newgallery
+    Ctrl+C stops it.
 
-http://localhost:8000/viewer1/viewer.html?gallery=galleries/wedding
-http://localhost:8000/viewer2/viewer.html?gallery=galleries/portrait
+3) In a browser, open the gallery you want:
+
+    http://localhost:8000/<name>/viewer/viewer.html
+
+    For example, the colour sample:
+    http://localhost:8000/colours/viewer/viewer.html
+
+The address is always <container>/viewer/viewer.html, the same shape as on the
+live site, so a page that works here works when uploaded.
