@@ -110,6 +110,10 @@ create `viewer/viewer.html` by hand with this content:
 </html>
 ```
 
+This compatibility exists only for the galleries published before the rename, which are
+all Ryan's own; no other user has the old layout. See
+[docs/LEGACY-LAYOUT.md](docs/LEGACY-LAYOUT.md) for when and how to remove it.
+
 The forward is relative, so it works in a subfolder or at the top level. Keep it
 for as long as published links point at the old address; delete it when they no
 longer do.

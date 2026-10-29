@@ -52,6 +52,7 @@ Full instructions, including what the batch does in each situation, are in
 - [docs/USER-GUIDE.md](docs/USER-GUIDE.md) — for the person receiving a gallery
 - [DEPLOY.md](DEPLOY.md) — for whoever builds and uploads
 - [LocalSERVER.txt](LocalSERVER.txt) — previewing a container locally
+- [docs/LEGACY-LAYOUT.md](docs/LEGACY-LAYOUT.md) — the old `viewer/` address, why it still works, when to remove it
 - [releases](https://github.com/RRaz/Light-Table/releases) — the packaged sample
 
 ## Licence
