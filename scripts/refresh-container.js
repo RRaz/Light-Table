@@ -116,10 +116,29 @@ const viewerHtml = fs.readFileSync(distViewerFile, 'utf8')
 fs.writeFileSync(viewerTarget, viewerHtml, 'utf8');
 
 if (migrated) {
-  if (hadLegacyDir) fs.rmSync(legacyViewerDir, { recursive: true, force: true });
+  // Leave a forwarding page at the old address instead of deleting it, so links
+  // that already point at .../viewer/viewer.html keep working.
+  const stub = `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Image Light Table</title>
+<link rel="canonical" href="../light-table/">
+<meta http-equiv="refresh" content="0; url=../light-table/">
+<script>location.replace('../light-table/' + location.search + location.hash);</script>
+</head>
+<body>
+<p><a href="../light-table/">Open the gallery</a></p>
+</body>
+</html>
+`;
+  if (hadLegacyDir) {
+    fs.rmSync(path.join(legacyViewerDir, 'assets'), { recursive: true, force: true });
+    fs.writeFileSync(path.join(legacyViewerDir, 'viewer.html'), stub, 'utf8');
+  }
   if (hadLegacyRoot) {
-    fs.rmSync(legacyRootViewer, { force: true });
     fs.rmSync(path.join(containerDir, 'assets'), { recursive: true, force: true });
+    fs.writeFileSync(legacyRootViewer, stub.replaceAll('../light-table/', 'light-table/'), 'utf8');
   }
 }
 
@@ -144,6 +163,7 @@ const imagesName = path.basename(imagesDir);
 
 console.log(`Container: ${containerDir}`);
 console.log(`  page:    ${path.relative(containerDir, viewerTarget)} ${created ? '(created)' : migrated ? '(migrated)' : '(updated)'}`);
+if (migrated) console.log('  old link: viewer/viewer.html now forwards to light-table/');
 console.log(`  images:  ${path.relative(containerDir, imagesDir) || '.'} (${entries.length})`);
 console.log(`  manifest: ${manifestPath}`);
 console.log(`  kept:    ${kept}`);

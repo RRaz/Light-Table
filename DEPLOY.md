@@ -84,6 +84,36 @@ Titles come from file names, so renaming a file renames the caption. Titles that
 were set by hand in `gallery.json` are kept only while the file name stays the
 same.
 
+## Old links keep working
+
+Galleries published before the rename are addressed as
+`/<name>/viewer/viewer.html`. When such a container is refreshed, a small
+forwarding page is left at that address, so the old link lands on
+`/<name>/light-table/` with its `?gallery=` parameter intact. Nothing else is
+needed.
+
+If the gallery is already on the site and you have no local copy to refresh,
+create `viewer/viewer.html` by hand with this content:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Image Light Table</title>
+<meta http-equiv="refresh" content="0; url=../light-table/">
+<script>location.replace('../light-table/' + location.search + location.hash);</script>
+</head>
+<body>
+<p><a href="../light-table/">Open the gallery</a></p>
+</body>
+</html>
+```
+
+The forward is relative, so it works in a subfolder or at the top level. Keep it
+for as long as published links point at the old address; delete it when they no
+longer do.
+
 ## Order of the photographs
 
 - The order of blocks in `gallery.json` is the order on screen.

@@ -188,8 +188,12 @@ independently, and one gallery can be replaced without touching another.
 2. Replace the images and `gallery.json` (or replace the whole folder).
 3. Open the page and hard-refresh (**Ctrl+F5**). Browsers cache `gallery.json`,
    so an old list can survive a normal reload.
-4. If an image still shows the old version, its file name is the cache key —
+4. If an image still shows the old version, its file name is the cache key -
    renaming the file forces the new one to load.
+
+Galleries published before the folder was renamed keep their old address: a small
+forwarding page is left behind, so links already in the wild still arrive at the
+gallery.
 
 ## 9. Versions and rollback
 
