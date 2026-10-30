@@ -15,7 +15,7 @@ Inside a container:
 
 ```
 <name>\
-  light-table\        the page: index.html and assets\
+  light-table\        the light table itself: index.html and assets\
   <name>\             the photographs and gallery.json
   viewer\             optional: forward for the old /viewer/ address
 ```
@@ -41,9 +41,9 @@ Drop the image folder of the copy you keep elsewhere, for example
 `D:\repository\kodachrome\kodachrome`.
 
 - The slideshow is built in `containers\kodachrome\`.
-- The outside container is updated too: its `light-table\` page and its `viewer\`
+- The outside container is updated too: its `light-table\` and its `viewer\`
   forward are replaced, and `gallery.json` is written into the image folder you
-  dropped. Page and gallery must match, or the copy outside does not run.
+  dropped. The light table and the gallery must match, or the copy outside does not run.
 - Its other folders and files are left alone, so extras you keep there survive.
 
 A container itself is **not** an input. Drop one and the batch stops and names the
@@ -75,8 +75,8 @@ does not write back out, so keep curating in the copy beside your images.
 1. **First build.** Start with an image folder, anywhere. Drop it on
    `Light-table.bat`. The result is `containers\<name>\`, and that first build is
    the one to keep. If there is no container outside yet, the build says so and
-   names the folder to copy: it writes only `gallery.json` out there, never a
-   page. If the gallery was published at the old `/viewer/` address, add the
+   names the folder to copy: it writes only `gallery.json` out there, never the
+   light table itself. If the gallery was published at the old `/viewer/` address, add the
    forward once with `npm run forward -- --container "<outside container>"`.
 2. **Copy it to your repository.** Move or copy `containers\<name>` to wherever you
    keep the master copy — your repository. That copy can hold extras such as the
@@ -87,13 +87,13 @@ does not write back out, so keep curating in the copy beside your images.
    or drop the repository's image folder on the batch: it rebuilds
    `containers\<name>`, and its `gallery.json` is copied back to the folder you
    dropped. Upload the rebuilt container, then copy it back to the repository if
-   you want the master to carry the new page.
+   you want the master to carry the new light table.
 
 ## What a rebuild does to what is already there
 
 A build recreates the container folder. Only these are written:
 
-- `light-table\` — the page
+- `light-table\` — the light table itself
 - `<name>\` — the images and `gallery.json`
 
 **Anything else in `containers\<name>` is deleted.** That is deliberate: the build
@@ -102,7 +102,7 @@ anything else in your repository copy, not in the build.
 
 ## Editing the manifest by hand
 
-A rebuild is not the only way. The page reads `gallery.json`, so adding or removing
+A rebuild is not the only way. The light table reads `gallery.json`, so adding or removing
 an entry is enough:
 
 - **Add:** copy the last block, change `id`, `url` and `title` to the new file, and
@@ -126,15 +126,15 @@ images does not need sending again.
 | Title, order, or an entry removed | `gallery.json` |
 | One photograph added | that image, and `gallery.json` |
 | One photograph replaced | that image only |
-| Change to the page itself — layout, styles, labels, help text, branding | `light-table\`, in every container |
+| Change to how the light table looks or what it says — colours, layout, labels, help text, the name at the top | `light-table\`, in every container |
 
 The last row is the odd one: it changes the light table itself, not a gallery.
-`light-table\` holds the page — its markup, styles and script, and every word shown
-inside it, from the help panel to the header. Each container carries its own copy,
-so a page change is applied by rebuilding each gallery and uploading its
+`light-table\` holds the light table itself: how it looks, and every word it shows
+from the help panel to the header. Each container carries its own copy,
+so this kind of change is applied by rebuilding each gallery and uploading its
 `light-table\`.
 
-Then hard-refresh the page. Editing the live `gallery.json` alone is the one route
+Then hard-refresh the gallery. Editing the live `gallery.json` alone is the one route
 to avoid: the server then holds a list that neither `containers\` nor your
 repository knows about, and the next rebuild silently restores the older one.
 
@@ -175,14 +175,14 @@ Once a gallery is deployed, the same method carries on: curate outside, rebuild 
 |---|---|
 | Titles or order | `gallery.json` only |
 | A photograph added or removed | `gallery.json`, plus that file in the image folder; the other images are untouched |
-| A photograph replaced, same file name | that image file only; `gallery.json` and the page stay as they are |
-| Page or wording change | `light-table\` — the same folder in every container |
+| A photograph replaced, same file name | that image file only; the list stays as it is |
+| Look or wording change | `light-table\` — the same folder in every container |
 
 A replaced photograph needs no rebuild at all: upload the new file over the old one.
 The browser may keep showing the previous version because the address has not
 changed — a hard refresh usually settles it, and renaming the file settles it for
 good at the cost of a new `gallery.json` entry.
-The page fetches `gallery.json` each time it loads, but it does not look at the
+The light table fetches `gallery.json` each time it loads, but it does not look at the
 folder: an image file with no entry never appears. Adding a photograph therefore
 means rebuilding, or adding its entry to `gallery.json`. A cached manifest can
 also hide a change, which is why a hard refresh is part of checking an update.
@@ -229,7 +229,7 @@ The batch covers the normal path. These do one job each when needed:
 | Command | Purpose |
 |---|---|
 | `npm run refresh -- --container "<folder>"` | rewrite `light-table\` and reindex `gallery.json` in an existing container, leaving everything else alone |
-| `npm run forward -- --container "<folder>"` | write the old-address forwarding page into a container |
+| `npm run forward -- --container "<folder>"` | write the old-address forwarding file into a container |
 
 ## Notes
 
