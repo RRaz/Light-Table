@@ -14,6 +14,7 @@
 // Upload <name>/ as /name/ and open /name/light-table/?gallery=/name.
 
 import fs from 'node:fs';
+import os from 'node:os';
 import path from 'node:path';
 import {
   copyDirectory,
@@ -36,7 +37,7 @@ function fail(message) {
 }
 
 function parseArgs(argv) {
-  const args = { images: '', gallery: '', name: '', out: '', carry: '', refreshSource: '' };
+  const args = { images: '', gallery: '', name: '', out: '', carry: '', copyManifest: '' };
   for (let i = 0; i < argv.length; i += 1) {
     const arg = argv[i];
     if (arg === '--images') args.images = argv[++i] || '';
@@ -48,7 +49,7 @@ function parseArgs(argv) {
     else if (arg === '--out') args.out = argv[++i] || '';
     else if (arg.startsWith('--out=')) args.out = arg.slice('--out='.length);
     else if (arg === '--carry-viewer') args.carry = argv[++i] || '';
-    else if (arg === '--refresh-source') args.refreshSource = argv[++i] || '';
+    else if (arg === '--copy-manifest') args.copyManifest = argv[++i] || '';
     else if (arg.startsWith('--carry-viewer=')) args.carry = arg.slice('--carry-viewer='.length);
   }
   return args;
@@ -60,7 +61,7 @@ if (!args.images && !args.gallery) {
   fail('Usage: npm run container -- --gallery galleries/people\n       npm run container -- --images "D:\\galleries\\people" [--name people]');
 }
 
-const sourceDir = args.images
+let sourceDir = args.images
   ? path.resolve(args.images)
   : path.resolve(projectRoot, 'public', args.gallery.replace(/^[/\\]+/, ''));
 
@@ -71,6 +72,39 @@ if (!fs.existsSync(sourceDir) || !fs.statSync(sourceDir).isDirectory()) {
 const name = normalizeName(args.name || path.basename(sourceDir));
 if (!name) {
   fail('Could not derive a container name. Pass --name.');
+}
+
+const outRoot = path.resolve(args.out || path.join(projectRoot, 'containers'));
+const containerDir = path.join(outRoot, name);
+const galleryDir = path.join(containerDir, name);
+const viewerDir = path.join(containerDir, 'light-table');
+
+// Building replaces the container folder. The source images may sit inside it -
+// that is the normal case for an image folder in containers\\<name>. If the source
+// is the container itself there is nothing to copy from, so refuse; otherwise
+// stage the images in a temporary folder before the container is cleared.
+let stagedDir = '';
+const relativeToContainer = path.relative(containerDir, path.resolve(sourceDir));
+const sourceInsideContainer =
+  relativeToContainer === '' ||
+  (!relativeToContainer.startsWith('..') && !path.isAbsolute(relativeToContainer));
+
+if (sourceInsideContainer) {
+  if (path.resolve(sourceDir) === path.resolve(containerDir)) {
+    fail(
+      `The images are in the container folder itself:\n  ${containerDir}\n\n` +
+        'Building would delete them before copying. Put the images in ' +
+        `${galleryDir} and run the batch on that folder.`
+    );
+  }
+
+  stagedDir = fs.mkdtempSync(path.join(os.tmpdir(), 'light-table-'));
+  for (const entry of fs.readdirSync(sourceDir, { withFileTypes: true })) {
+    if (entry.isFile()) {
+      fs.copyFileSync(path.join(sourceDir, entry.name), path.join(stagedDir, entry.name));
+    }
+  }
+  sourceDir = stagedDir;
 }
 
 const images = listImages(sourceDir);
@@ -87,25 +121,6 @@ const orderedImages = orderImages(images, readManifestEntries(sourceManifest));
 
 if (!fs.existsSync(viewerSource) || !fs.existsSync(assetsSource)) {
   fail('The light table bundle is missing. Run "npm run build" first.');
-}
-
-const outRoot = path.resolve(args.out || path.join(projectRoot, 'containers'));
-const containerDir = path.join(outRoot, name);
-const galleryDir = path.join(containerDir, name);
-const viewerDir = path.join(containerDir, 'light-table');
-
-// Building replaces the container folder. If the folder we were given is that
-// container, or lives inside it, the images would be deleted before they are
-// copied. Refuse rather than destroy them.
-const relative = path.relative(containerDir, path.resolve(sourceDir));
-const sourceInsideContainer = relative === '' || (!relative.startsWith('..') && !path.isAbsolute(relative));
-if (sourceInsideContainer) {
-  fail(
-    `The images are inside the folder that would be rebuilt:\n  ${containerDir}\n\n` +
-      'Building would delete them before copying. Either:\n' +
-      `  - put the images in ${path.join(containerDir, name)} and run the batch on ${containerDir}, or\n` +
-      '  - build from a copy outside containers\\.'
-  );
 }
 
 fs.rmSync(containerDir, { recursive: true, force: true });
@@ -145,12 +160,15 @@ const bytes = fs.readdirSync(galleryDir, { withFileTypes: true })
   .filter((entry) => entry.isFile())
   .reduce((total, entry) => total + fs.statSync(path.join(galleryDir, entry.name)).size, 0);
 
-if (args.refreshSource) {
-  const sourceGallery = path.resolve(args.refreshSource);
-  if (sourceGallery !== galleryDir) {
-    fs.rmSync(sourceGallery, { recursive: true, force: true });
-    copyDirectory(galleryDir, sourceGallery);
-    console.log(`  source image folder updated: ${sourceGallery}`);
+// The container's gallery.json carries the titles and order. Put a copy beside
+// the source images when they live elsewhere, so the folder kept outside
+// containers stays in step.
+if (args.copyManifest) {
+  const manifestSource = path.join(galleryDir, 'gallery.json');
+  const manifestTarget = path.join(path.resolve(args.copyManifest), 'gallery.json');
+  if (path.resolve(manifestTarget) !== path.resolve(manifestSource)) {
+    fs.copyFileSync(manifestSource, manifestTarget);
+    console.log(`  gallery.json copied to source: ${manifestTarget}`);
   }
 }
 
@@ -163,3 +181,7 @@ if (carried) console.log(`  ${carried} (old address kept)`);
 console.log('');
 console.log(`Upload that folder as /${name}/ and open:`);
 console.log(`  /${name}/light-table/`);
+
+if (stagedDir) {
+  fs.rmSync(stagedDir, { recursive: true, force: true });
+}

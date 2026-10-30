@@ -1,85 +1,42 @@
 # Batch input and output
 
-What `Light-table.bat` does with each shape of folder.
+One rule: **drop an image folder, it is built into `containers\<name>`.**
 
-Terms: **a container** is one gallery folder — the thing you upload; **`containers\`**
-is the project folder that holds all of them. See [DEPLOY.md](../DEPLOY.md#the-words-used-here). "Origin" is what you give
-it; "Destination" is where the result appears.
+| Input | What the batch does | Destination |
+|---|---|---|
+| An image folder, anywhere outside `containers\` | builds a container, then copies the new `gallery.json` back into the folder you dropped | `containers\<name>\` |
+| An image folder inside `containers\` — e.g. `containers\<name>\<name>\` | rebuilds that container | the same `containers\<name>\` |
+| A folder with no images at the top level | stops and explains what is missing | nothing is written |
+| A container (`light-table\`, `viewer\` or `<name>\`) | stops and names the image folder to drop instead | nothing is written |
+| Anything inside `dist\` | refuses, because `npm run build` empties it | nothing is written |
 
-| # | Input (origin) | Contains | What the batch decides | Destination | What you end up with |
-|---|---|---|---|---|---|
-| 1 | any folder, `…\<name>\` | images only | build | **new** `containers\<name>\` | `<name>\` with the images plus a generated `gallery.json` (titles from file names), and `light-table\` |
-| 2 | any folder, `…\<name>\` | images + `gallery.json` | build | **new** `containers\<name>\` | as above, but titles and order come from your `gallery.json` |
-| 3 | any folder, `…\<name>\` | images + `gallery.json` + `viewer\` | build | **new** `containers\<name>\` | as above, with `viewer\` copied in ("old address kept") |
-| 4 | a container, `…\<name>\` | `<name>\` images + `viewer\viewer.html` | refresh, migrate | **the same folder** | `light-table\` added, `viewer\viewer.html` replaced by the forward, images and titles kept |
-| 5 | a container, `…\<name>\` | `<name>\` images + `light-table\` | refresh | **the same folder** | page and assets refreshed, `gallery.json` reindexed, no `viewer\` added |
-| 6 | a container, `…\<name>\` | as 5, plus a `viewer\` forward | refresh | **the same folder** | as 5, `viewer\` left exactly as it was |
-| 7 | `…\<name>\` with one image subfolder, no page | `<name>\` images only | refresh, create page | **the same folder** | `light-table\` created beside the images; nothing moved |
-| 8 | the image subfolder of a container, `…\<name>\<name>\` | images | refresh (parent) | **`…\<name>\`**, the parent | the container is updated as in 5 or 6 |
-| 9 | a working folder, `…\workspace\` | one image subfolder under a different name, plus `light-table\` and/or `viewer\` | build under the gallery's own name | **new** `containers\<image folder name>\` | a proper container (as 3), built from that subfolder |
+**Names.** The container takes its name from the image folder. A folder called
+`colours` produces `containers\colours`, replacing any container of that name.
 
-A folder like case 9 is not a container, because a container's image folder carries
-the container's name. The batch therefore builds the gallery under the name of its
-image folder — `slide shows\kodachrome\` produces `containers\kodachrome\`, not
-`containers\slide shows\` — and copies any `viewer\` forward from the working folder.
+**What is written.** Inside the container: `light-table\` and `<name>\` with the
+images and a fresh `gallery.json`. Outside it: only `gallery.json`, and only in the
+image folder you dropped. Images are copied byte for byte and never altered.
 
-## Containers, wherever they are
-
-Cases 4–6 are containers. What happens to one depends on where it sits:
-
-- **Inside `containers\`** — refreshed in place.
-- **Outside `containers\`** — rebuilt as `containers\<name>\`, and then its image
-  folder is copied back over the source, so the copy you pointed at has the new
-  images and `gallery.json`. Its other folders, such as `viewer\`, are left alone.
-
-A rebuild recreates the container folder: only the images, `gallery.json` and the
-carried `viewer\` survive. A refresh in place rewrites `light-table\` and
-`gallery.json` and leaves other folders untouched.
-
-## Reading the table
-
-- **Cases 1–3 copy.** The folder you point at is only read; the container is built
-  under `containers\`. Your originals stay where they are.
-- **Cases 4–8 update in place.** The folder you point at *is* the destination.
-- **An image folder always builds to `containers\<name>`**, wherever it sits — including
-  when it sits inside `containers\`. The one exception is a folder that *is*
-  `containers\<name>`: it is completed in place, because building would delete it
-  first. Building directly into the folder you gave is refused with that message.
-- **Cases 1–3 replace an existing container.** Building into `containers\<name>` clears
-  that folder first, so anything not in the source is lost.
-- **A copy outside `containers\` is a separate gallery.** Refreshing it updates only that
-  copy; nothing appears in `containers\`, and nothing is kept in step automatically.
-- **The container is named after the input folder.** A folder called `colours`
-  produces `containers\colours`, replacing any container already there.
-- **Images are never altered.** They are copied byte for byte; the only file
-  written beside them is `gallery.json`.
-- **`dist\` is refused.** `npm run build` empties it, so the batch stops if the
-  folder is inside it.
-- **Several subfolders and no loose images** is not treated as a container: the
-  batch cannot tell which subfolder holds the gallery, so it builds instead and
-  finds no images, and says so.
+**What is lost.** A rebuild recreates the container folder, so anything else in
+`containers\<name>` — a `viewer\` forward, a notes file — is deleted. Keep those in
+the copy you archive as your repository, not in the build.
 
 ## Output you can check
 
-Build (cases 1–3):
-
 ```
-Container folder: C:\…\containers\<name>
-  images taken from: C:\…\<your folder>
-  N images, X MB
+Building the light table...
+Building a container from "D:\photos\colours"...
+
+  gallery.json copied to source: D:\photos\colours\gallery.json
+Container folder: C:\…\containers\colours
+  images taken from: D:\photos\colours
+  8 images, 0.1 MB
   light-table/index.html
-  <name>/gallery.json
-  viewer/ (old address kept)      <- only when case 3
+  colours/gallery.json
+
+Upload that folder as /colours/ and open:
+  /colours/light-table/
 ```
 
-Refresh (cases 4–8):
-
-```
-Container: C:\…\<name>
-  page:    light-table\index.html (created | updated | migrated)
-  old link: viewer/viewer.html now forwards to light-table/   <- migration only
-  images:  <name> (N)
-  kept:    N
-  added:   N
-  removed: N
-```
+The `gallery.json copied to source` line appears only when the image folder is
+outside `containers\`.
