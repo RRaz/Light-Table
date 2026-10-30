@@ -45,6 +45,9 @@ the folder to upload.
 | The image subfolder of a container | The parent container is updated instead |
 | Anything inside `dist\` | Refused — `npm run build` empties `dist\` |
 
+Every shape of folder, with its destination, is listed in
+[docs/BATCH-INPUT-OUTPUT.md](docs/BATCH-INPUT-OUTPUT.md).
+
 A folder with several subfolders is not treated as a container: the batch cannot
 tell which one holds the gallery, and says so rather than guessing.
 
