@@ -4,7 +4,7 @@ One rule: **drop an image folder, it is built into `containers\<name>`.**
 
 | Input | What the batch does | Destination |
 |---|---|---|
-| An image folder, anywhere outside `containers\` | builds a container, then copies the new `gallery.json` back into the folder you dropped | `containers\<name>\` |
+| An image folder, anywhere outside `containers\` | builds a container, copies the new `gallery.json` back into the folder you dropped, and refreshes the outside container's page and forward if there is one around it | `containers\<name>\` |
 | An image folder inside `containers\` — e.g. `containers\<name>\<name>\` | rebuilds that container | the same `containers\<name>\` |
 | A folder with no images at the top level | stops and explains what is missing | nothing is written |
 | A container (`light-table\`, `viewer\` or `<name>\`) | stops and names the image folder to drop instead | nothing is written |

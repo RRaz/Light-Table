@@ -66,6 +66,7 @@ if /I not "%CHECK%"=="%TARGET%" (
   goto :end
 )
 
+for %%I in ("%TARGET%\..") do set "PARENTOF=%%~fI"
 rem --- build -----------------------------------------------------------------------
 echo.
 echo Building the light table...
@@ -75,9 +76,9 @@ if errorlevel 1 goto :end
 echo.
 echo Building a container from "%TARGET%"...
 if "%NAME%"=="" (
-  call npm run container -- --images "%TARGET%" --copy-manifest "%TARGET%"
+  call npm run container -- --images "%TARGET%" --copy-manifest "%TARGET%" --update-container "%PARENTOF%"
 ) else (
-  call npm run container -- --images "%TARGET%" --name "%NAME%" --copy-manifest "%TARGET%"
+  call npm run container -- --images "%TARGET%" --name "%NAME%" --copy-manifest "%TARGET%" --update-container "%PARENTOF%"
 )
 if errorlevel 1 goto :end
 

@@ -16,6 +16,7 @@
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
+import { writeLegacyForward } from './legacy-forward.js';
 import {
   copyDirectory,
   listImages,
@@ -37,7 +38,7 @@ function fail(message) {
 }
 
 function parseArgs(argv) {
-  const args = { images: '', gallery: '', name: '', out: '', carry: '', copyManifest: '' };
+  const args = { images: '', gallery: '', name: '', out: '', carry: '', copyManifest: '', updateContainer: '' };
   for (let i = 0; i < argv.length; i += 1) {
     const arg = argv[i];
     if (arg === '--images') args.images = argv[++i] || '';
@@ -50,6 +51,7 @@ function parseArgs(argv) {
     else if (arg.startsWith('--out=')) args.out = arg.slice('--out='.length);
     else if (arg === '--carry-viewer') args.carry = argv[++i] || '';
     else if (arg === '--copy-manifest') args.copyManifest = argv[++i] || '';
+    else if (arg === '--update-container') args.updateContainer = argv[++i] || '';
     else if (arg.startsWith('--carry-viewer=')) args.carry = arg.slice('--carry-viewer='.length);
   }
   return args;
@@ -169,6 +171,23 @@ if (args.copyManifest) {
   if (path.resolve(manifestTarget) !== path.resolve(manifestSource)) {
     fs.copyFileSync(manifestSource, manifestTarget);
     console.log(`  gallery.json copied to source: ${manifestTarget}`);
+  }
+}
+
+// A container kept outside containers\ needs the page as well as the gallery, or
+// the copy there cannot run. Refresh its light-table\ and, when it has one, its
+// viewer\ forward.
+if (args.updateContainer) {
+  const outside = path.resolve(args.updateContainer);
+  if (outside !== path.resolve(containerDir)) {
+    const hasPage = fs.existsSync(path.join(outside, 'light-table', 'index.html'));
+    const hasForward = fs.existsSync(path.join(outside, 'viewer', 'viewer.html'));
+    if (hasPage || hasForward) {
+      fs.rmSync(path.join(outside, 'light-table'), { recursive: true, force: true });
+      copyDirectory(viewerDir, path.join(outside, 'light-table'));
+      if (hasForward) writeLegacyForward(outside);
+      console.log(`  outside container updated: ${outside}`);
+    }
   }
 }
 

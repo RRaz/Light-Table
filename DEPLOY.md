@@ -41,19 +41,15 @@ Drop the image folder of the copy you keep elsewhere, for example
 `D:\repository\kodachrome\kodachrome`.
 
 - The slideshow is built in `containers\kodachrome\`.
-- The outside copy stays yours to modify: its `viewer\`, its other folders, and
-  its gallery remain as they are. The only file written back is `gallery.json`, in
-  the image folder you dropped.
-- So the outside container can carry your viewer and any extras, while the new
-  slideshow exists only in `containers\`.
+- The outside container is updated too: its `light-table\` page and its `viewer\`
+  forward are replaced, and `gallery.json` is written into the image folder you
+  dropped. Page and gallery must match, or the copy outside does not run.
+- Its other folders and files are left alone, so extras you keep there survive.
 
 A container itself is **not** an input. Drop one and the batch stops and names the
 image folder to use instead.
 
-When the image folder is **outside** `containers\`, the new `gallery.json` is
-copied back into it. That is the only thing outside `containers\` that changes:
-titles and order stay with your source images. Nothing else is written there — no
-page, no viewer.
+
 
 ## A workflow that uses both places
 
