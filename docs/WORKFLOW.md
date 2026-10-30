@@ -1,8 +1,7 @@
 # Workflow
 
-**Status: working draft.** This is being written; it is not linked from the README
-yet. Steps marked **[[ to write ]]** are still to be filled in, and the list at the
-end collects everything still missing.
+**Status: working draft.** Steps marked **[[ to write ]]** are still to be filled in;
+the list at the end collects what is missing.
 
 The idea behind it: one image folder goes in, one container comes out, and the
 repository copy becomes the version you keep working from.
@@ -31,25 +30,84 @@ repository copy becomes the version you keep working from.
 9. **Zip the container and rename the zip with a version number.**
 10. **Upload it to your website.**
 11. **Unzipping on the server creates the web page.**
-12. **See the section on adding images.** **[[ to write ]]**
+12. **Adding and removing photographs** — see below.
 13. **Any change uses the active repository version of the image folder** — never
     the original download, never the copy in `containers\`.
 
+## Adding a photograph
+
+Two ways, and both are legitimate.
+
+**By rebuilding.** Put the file in the repository image folder, drop that folder on
+the batch, then upload:
+
+- the new photograph
+- `gallery.json`
+- `light-table\` if the light table itself changed
+
+The new photograph is added at the end of the order; edit `gallery.json` to move it.
+
+**By hand, without a rebuild.** Copy the last block in `gallery.json`, change
+`id`, `url` and `title` to match the new file, and save. Upload the photograph and
+`gallery.json`. Nothing else changes.
+
+Rebuilding is the safer choice when you are adding several at once, or when the
+file names changed as well.
+
+## Removing a photograph
+
+Delete its block from `gallery.json` and upload the list. The image file can stay
+on the server — nothing points at it — or be deleted for tidiness.
+
+If you remove the file but leave its block, the gallery shows a broken picture:
+the block names a file that is not there.
+
+## Updating only the gallery list
+
+Renaming, reordering or retitling is a list change: edit `gallery.json`, upload
+that one file, and hard-refresh the page. The photographs and the light table are
+untouched.
+
+This is the only upload needed for:
+
+- a title change
+- a different order
+- an entry removed
+
+## Updating an active gallery
+
+The routine for a gallery that is already live:
+
+1. Work on the **repository** copy, in its image folder.
+2. Add, remove or rename photographs, and edit `gallery.json`.
+3. Drop that image folder on the batch. It rebuilds `containers\<name>` and copies
+   the list back to the folder you dropped. The repository copy also gets its light
+   table and `viewer\` forward refreshed, so it still runs.
+4. Check it locally if you want — see the preview step in `DEPLOY.md`.
+5. Upload what changed, not necessarily the whole container:
+
+   | Changed | Upload |
+   |---|---|
+   | captions, order, entry removed | `gallery.json` |
+   | one photograph added | that photograph, and `gallery.json` |
+   | one photograph replaced, same name | that photograph only |
+   | several files added or renamed | the whole container |
+   | the light table itself | `light-table\`, in every gallery |
+
+6. Hard-refresh the live page (**Ctrl+F5**). A cached list or picture is the usual
+   reason a change "did not appear".
+
+Never edit the copy that is on the site as the only change: your repository and
+`containers\` would then disagree with it, and the next rebuild would restore the
+older list.
+
 ## Hooks still to write
 
-These are the places where the workflow needs detail before it is published:
-
-- **Updating an active gallery** — the full procedure: which files are replaced,
-  when the page needs refreshing, how to check it before uploading. **[[ to write ]]**
-- **Adding photographs** (step 12): upload the file with its entry, or rebuild.
-- **Removing photographs**: the entry goes, the file can stay.
-- **Changing titles or order** without a rebuild, and when a rebuild is better.
 - **Versions and rollback**: which zip to keep, how far back, how to restore.
 - **The old address** (`/viewer/`): which galleries need the forward and when it
   can be dropped.
 - **What to check before uploading**: the local preview, and the two addresses.
-- **What goes wrong**, in one table: no images, wrong name, cached picture, broken
-  entry.
+- **What goes wrong**, in one table.
 
 ## Notes to self
 
