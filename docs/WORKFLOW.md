@@ -44,17 +44,24 @@ anything extra** you have added to the repository copy.
 |---|---|---|
 | Photographs and list | yes, current | yes, current |
 | The light table | yes | yes |
-| Extras (the `viewer\` forward, notes, anything else) | no — removed on every rebuild | yes, kept |
-| Role | the copy you upload | the copy you work from |
+| Extras (the `viewer\` forward, notes, anything else) | no - removed on every rebuild | yes, kept |
+| Role | the clean gallery | the copy you work from, and upload when extras must go live |
 
 So the extras live in one place only: the repository. If you add a redirect folder
 or a notes file, add it there, and upload the repository copy when you need it live.
 
 Extras are not limited to the redirect. A helper page is a good example: an HTML
-file that opens in the browser and edits the gallery list for you — adding an entry,
-changing a title — could sit in the repository container beside the gallery and be
+file that opens in the browser and edits the gallery list for you - adding an entry,
+changing a title - could sit in the repository container beside the gallery and be
 opened by its own link. It never travels into `containers\<name>`, so a rebuild
 cannot break it, and the gallery you upload stays clean.
+
+The simplest extra is a **story page**: a small `index.html` in the repository
+container that describes the photographs and links to the gallery at
+`/<name>/light-table/`. Visitors arriving at `/<name>/` read the story first, then
+step into the light table. It costs nothing, it is the same folder you already keep,
+and it survives every rebuild because it lives in the repository rather than in
+`containers\<name>`.
 
 ## Adding a photograph
 
