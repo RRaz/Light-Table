@@ -115,6 +115,21 @@ it derives the entries from what is on disk. Hand-editing is quicker for one or 
 changes, with two traps: `url` must match the file name exactly, including case on
 Linux hosts, and `id` must be unique. A wrong `url` shows a broken image rather than
 an error.
+## A quick change straight on the server
+
+For one photograph or one title, nothing needs rebuilding: edit the deployed
+`gallery.json`, upload the affected image, and hard-refresh the page. No container,
+no zip, no full upload.
+
+Two cautions:
+
+- **Keep the copies in step.** A server-only edit is invisible to `containers\` and
+  to your repository. The next rebuild from an older manifest will overwrite it.
+  Either make the same edit in the copy you keep, or accept that the next rebuild
+  restores the older list.
+- **The file must stay valid JSON.** A stray or missing comma breaks the whole
+  gallery, and the page shows an error rather than a partial list. Reload the page
+  after saving; if it errors, the manifest is malformed.
 ## Building several galleries
 
 Drop each image folder in turn. Each becomes `containers\<name>`; names must
