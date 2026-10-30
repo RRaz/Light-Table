@@ -3,6 +3,8 @@
 Notes for whoever maintains them. Nothing here needs programming: it is about
 folders, and about which ones to copy where.
 
+For the whole routine start to finish, including the steps that come after a gallery is live, see [docs/WORKFLOW.md](docs/WORKFLOW.md) (working draft).
+
 ## The pieces
 
 | Piece | Where | What it is |
