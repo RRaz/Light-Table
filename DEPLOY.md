@@ -35,17 +35,28 @@ looking at — there is no second copy to go and find.
 Nothing is moved to another location, and the printed `Container folder:` line is
 the folder to upload.
 
-## Where to work
+## Important considerations
 
-Work in `containers\<name>\`. Two behaviours make that the safe habit:
+These hold over the life of a gallery, whatever procedure you follow for a
+particular site:
 
-- **Building from a plain image folder replaces `containers\<name>` entirely.** Whatever
-  was in the container before — page, images, extra files — is gone once it is rebuilt.
-- **Refreshing a copy somewhere else updates only that copy.** `containers\<name>` is not
-  touched, and no container is created to match it.
-
-So a folder outside `containers\` and the container of the same name are two separate
-galleries. Editing one does not change the other.
+- **The container is the working copy.** `containers\<name>\` holds the result of
+  the most recent run — page, images and `gallery.json` together. Each run replaces
+  it; builds do not accumulate.
+- **Building from a plain image folder replaces `containers\<name>` entirely.**
+  Anything in the container that is not in the folder you build from is gone
+  afterwards.
+- **A copy outside `containers\` is a separate gallery.** Refreshing it updates only
+  that copy; `containers\<name>` is not touched, and nothing keeps the two in step.
+- **Editing means rebuilding and re-uploading.** Adding, deleting or renaming
+  photographs reaches the live site only after the batch runs again and the folder
+  is uploaded; the page reads `gallery.json`, not the folder.
+- **Image files are never altered.** They are copied byte for byte; the only file
+  written beside them is `gallery.json`.
+- **Captions follow file names.** A renamed file counts as a new photograph, and a
+  title set by hand survives only while its file name does.
+- **Nothing is pruned automatically.** Containers and zips stay until you delete
+  them.
 
 ## What the batch decides, by what you give it
 
