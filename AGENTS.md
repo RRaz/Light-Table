@@ -29,6 +29,7 @@ README-level documents. Read it before writing or rewriting user-facing text.
 - Labels: name what the person controls, positive phrasing, two to four words,
   outcome rather than mechanism (`Autoplay`, not `Enable autoplay`). A label that
   needs a sentence is the wrong label.
+- The visual interface follows the same rules: a cue informs, it does not nag. No pulsing or looping animation to state something already visible.
 - No superfluous files, links or downloads.
 - Explain jargon the first time: `gallery.json` is *the list that says which
   photographs appear, in what order, with what captions*.
