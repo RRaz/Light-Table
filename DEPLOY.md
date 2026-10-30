@@ -49,6 +49,25 @@ Drop the image folder of the copy you keep elsewhere, for example
 A container itself is **not** an input. Drop one and the batch stops and names the
 image folder to use instead.
 
+## Why the outside gallery.json matters
+
+The `gallery.json` written back beside the source images is the place to curate a
+gallery: add entries, set titles, put the photographs in the order you want, all
+without a container to run.
+
+The next build reads that file and carries the titles and order into the
+container, so the sequence can be spread over days:
+
+1. drop the image folder once — a working container appears, and `gallery.json`
+   comes back beside your images;
+2. edit titles and order in that `gallery.json` at your leisure;
+3. drop the folder again when you are ready — the container takes on the order and
+   titles you set;
+4. copy the container out only when you actually need a runnable copy.
+
+Edits flow one way: outside to inside. Changing `gallery.json` in the container
+does not write back out, so keep curating in the copy beside your images.
+
 
 
 ## A workflow that uses both places
