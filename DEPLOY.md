@@ -5,25 +5,39 @@ For whoever maintains the galleries. Recipients do not need this file; they get
 
 ## Start here
 
-A **container** is one gallery folder — `light-table\`, the image folder and
-`gallery.json` — and it is the thing you upload. **It does not have to sit inside
-`containers\`.**
+Each gallery is wrapped into a **container** with the same name as the gallery.
+The container is one folder holding everything the site needs for that gallery:
 
-- A gallery you are building normally lives in `containers\<name>\`, the shelf in
-  this project.
-- A gallery downloaded from the server, or a copy kept for reference, can live
-  anywhere: `D:\from-server\shanghai\`, the Desktop, another drive.
+```
+<name>\
+  light-table\        the page: index.html and assets\
+  <name>\             the photographs and gallery.json
+  viewer\             optional: the forward for the old /viewer/ address
+```
 
-Where the folder lives decides what happens:
+The container for a new gallery is created in the containers folder:
 
-| The folder you point at | What happens |
+```
+C:\Users\photo\projects\light-table\containers\
+```
+
+Its name comes from the folder you build from: a folder called `colours` produces
+`containers\colours\`, holding `light-table\`, `colours\` and, if you supplied one,
+`viewer\`.
+
+A later rebuild regenerates the container, and **where the updated container lands
+depends on how the batch was run**:
+
+| How you run it | Where the updated container is |
 |---|---|
-| A plain image folder, anywhere | A **new** container is built at `containers\<name>\`; the source folder is only read |
-| A container, anywhere | It is **updated in place**, wherever it is |
-| A container outside `containers\` | It is separate from `containers\<name>\`; working on one does not change the other |
+| On a plain image folder, anywhere | `containers\<name>\` — a new container, replacing any container of that name |
+| On a container folder, anywhere | That same folder, updated in place |
 
-Everything below expands those three lines: what each folder is called, how to
-build one, how to update one, and what to do when a gallery is already live.
+So the location follows the input, not a fixed rule: a container does not have to
+live inside `containers\`, and one that lives elsewhere stays where it is.
+
+Everything below expands those lines: what each folder is called, how to build
+one, how to update one, and what to do when a gallery is already live.
 
 ## The words used here
 
