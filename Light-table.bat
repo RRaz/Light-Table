@@ -52,7 +52,7 @@ set "PAGE="
 if exist "%TARGET%\light-table\index.html" set "PAGE=1"
 set "MATCH="
 if exist "%TARGET%\%TNAME%\" set "MATCH=1"
-if defined PAGE if defined MATCH set "ACTION=refresh"
+if defined PAGE if defined MATCH goto :containerdec
 if /I "%ACTION%"=="refresh" goto :guard
 
 rem Loose images at the top level make it a plain image folder, even with a
@@ -67,8 +67,8 @@ if /I "%ACTION%"=="refresh" goto :guard
 
 rem A legacy container keeps its images in a subfolder, so a viewer marker only
 rem counts when nothing is loose and the image folder carries the container name.
-if not defined HASIMAGES if defined MATCH if exist "%TARGET%\viewer\viewer.html" set "ACTION=refresh"
-if not defined HASIMAGES if defined MATCH if exist "%TARGET%\viewer.html" set "ACTION=refresh"
+if not defined HASIMAGES if defined MATCH if exist "%TARGET%\viewer\viewer.html" goto :containerdec
+if not defined HASIMAGES if defined MATCH if exist "%TARGET%\viewer.html" goto :containerdec
 if /I "%ACTION%"=="refresh" goto :guard
 
 rem One subfolder that holds images: either the container shape (same name) or a
@@ -120,7 +120,11 @@ if "%NAME%"=="" (
 )
 goto :buildend
 :buildcarry
-call npm run container -- --images "%TARGET%" --name "%NAME%" --carry-viewer "%CARRY%"
+if defined REFRESH_SRC (
+  call npm run container -- --images "%TARGET%" --name "%NAME%" --carry-viewer "%CARRY%" --refresh-source "%REFRESH_SRC%"
+) else (
+  call npm run container -- --images "%TARGET%" --name "%NAME%" --carry-viewer "%CARRY%"
+)
 :buildend
 if errorlevel 1 goto :end
 goto :end
@@ -145,6 +149,23 @@ goto :eof
 
 rem Counts a subfolder only when it holds images and is not the page or the
 rem forward folder.
+rem ---- a container: refresh in place when it lives on the shelf, otherwise
+rem ---- rebuild it in containers\ and copy the rebuilt image folder back.
+:containerdec
+set "CONTAINERSROOT=%CD%\containers"
+set "INSIDE="
+set "CHECKPATH=%TARGET%"
+call set "CHECKPATH=%%CHECKPATH:%CONTAINERSROOT%\=%%"
+if /I not "%CHECKPATH%"=="%TARGET%" set "INSIDE=1"
+if defined INSIDE set "ACTION=refresh"
+if /I "%ACTION%"=="refresh" goto :guard
+set "CARRY=%TARGET%"
+set "REFRESH_SRC=%TARGET%\%TNAME%"
+set "TARGET=%TARGET%\%TNAME%"
+set "NAME=%TNAME%"
+echo.
+echo Rebuilding "%TNAME%" in containers\%TNAME%\, then updating its image folder.
+goto :guard
 :maybesub
 for %%I in ("%~1") do set "SNAME=%%~nxI"
 if /I "%SNAME%"=="light-table" goto :eof

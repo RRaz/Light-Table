@@ -32,10 +32,18 @@ depends on how the batch was run**:
 | How you run it | Where the updated container is |
 |---|---|
 | On a plain image folder, anywhere | `containers\<name>\` — a new container, replacing any container of that name |
-| On a container folder — anywhere, including `containers\<name>\` itself | That same folder, updated in place |
+| On a container **inside** `containers\` | That container, refreshed in place |
+| On a container **outside** `containers\` | Rebuilt as `containers\<name>\`, then its image folder is copied back over the source |
+
+**What a rebuild does to what is already there.** Building recreates the container
+folder: the images, `gallery.json` and the `viewer\` forward (carried from the
+source) are written, and anything else that was in that container folder is gone.
+A refresh in place, by contrast, only rewrites `light-table\` and `gallery.json`,
+so other folders there are left alone.
 
 So the location follows the input, not a fixed rule: a container does not have to
-live inside `containers\`, and one that lives elsewhere stays where it is.
+live inside `containers\`, and one that lives elsewhere stays where it is. Its
+image folder comes back updated; its other folders are untouched.
 
 Everything below expands those lines: what each folder is called, how to build
 one, how to update one, and what to do when a gallery is already live.

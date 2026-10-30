@@ -23,6 +23,19 @@ the container's name. The batch therefore builds the gallery under the name of i
 image folder — `slide shows\kodachrome\` produces `containers\kodachrome\`, not
 `containers\slide shows\` — and copies any `viewer\` forward from the working folder.
 
+## Containers, wherever they are
+
+Cases 4–6 are containers. What happens to one depends on where it sits:
+
+- **Inside `containers\`** — refreshed in place.
+- **Outside `containers\`** — rebuilt as `containers\<name>\`, and then its image
+  folder is copied back over the source, so the copy you pointed at has the new
+  images and `gallery.json`. Its other folders, such as `viewer\`, are left alone.
+
+A rebuild recreates the container folder: only the images, `gallery.json` and the
+carried `viewer\` survive. A refresh in place rewrites `light-table\` and
+`gallery.json` and leaves other folders untouched.
+
 ## Reading the table
 
 - **Cases 1–3 copy.** The folder you point at is only read; the container is built

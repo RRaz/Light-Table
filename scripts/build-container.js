@@ -36,7 +36,7 @@ function fail(message) {
 }
 
 function parseArgs(argv) {
-  const args = { images: '', gallery: '', name: '', out: '', carry: '' };
+  const args = { images: '', gallery: '', name: '', out: '', carry: '', refreshSource: '' };
   for (let i = 0; i < argv.length; i += 1) {
     const arg = argv[i];
     if (arg === '--images') args.images = argv[++i] || '';
@@ -48,6 +48,7 @@ function parseArgs(argv) {
     else if (arg === '--out') args.out = argv[++i] || '';
     else if (arg.startsWith('--out=')) args.out = arg.slice('--out='.length);
     else if (arg === '--carry-viewer') args.carry = argv[++i] || '';
+    else if (arg === '--refresh-source') args.refreshSource = argv[++i] || '';
     else if (arg.startsWith('--carry-viewer=')) args.carry = arg.slice('--carry-viewer='.length);
   }
   return args;
@@ -143,6 +144,15 @@ if (fs.existsSync(carriedViewer) && fs.statSync(carriedViewer).isDirectory()) {
 const bytes = fs.readdirSync(galleryDir, { withFileTypes: true })
   .filter((entry) => entry.isFile())
   .reduce((total, entry) => total + fs.statSync(path.join(galleryDir, entry.name)).size, 0);
+
+if (args.refreshSource) {
+  const sourceGallery = path.resolve(args.refreshSource);
+  if (sourceGallery !== galleryDir) {
+    fs.rmSync(sourceGallery, { recursive: true, force: true });
+    copyDirectory(galleryDir, sourceGallery);
+    console.log(`  source image folder updated: ${sourceGallery}`);
+  }
+}
 
 console.log(`Container folder: ${containerDir}`);
 console.log(`  images taken from: ${sourceDir}`);
