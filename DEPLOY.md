@@ -137,8 +137,13 @@ Once a gallery is deployed, the same method carries on: curate outside, rebuild 
 |---|---|
 | Titles or order | `gallery.json` only |
 | A photograph added or removed | `gallery.json`, plus that file in the image folder; the other images are untouched |
+| A photograph replaced, same file name | that image file only; `gallery.json` and the page stay as they are |
 | Page or wording change | `light-table\` — the same folder in every container |
 
+A replaced photograph needs no rebuild at all: upload the new file over the old one.
+The browser may keep showing the previous version because the address has not
+changed — a hard refresh usually settles it, and renaming the file settles it for
+good at the cost of a new `gallery.json` entry.
 Images are copied byte for byte and never rewritten, so re-uploading a whole
 container is safe; uploading just `light-table\` and `gallery.json` is quicker when
 nothing else moved.
