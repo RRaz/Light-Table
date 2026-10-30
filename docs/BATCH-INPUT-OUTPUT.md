@@ -16,6 +16,12 @@ it; "Destination" is where the result appears.
 | 6 | a container, `…\<name>\` | as 5, plus a `viewer\` forward | refresh | **the same folder** | as 5, `viewer\` left exactly as it was |
 | 7 | `…\<name>\` with one image subfolder, no page | `<name>\` images only | refresh, create page | **the same folder** | `light-table\` created beside the images; nothing moved |
 | 8 | the image subfolder of a container, `…\<name>\<name>\` | images | refresh (parent) | **`…\<name>\`**, the parent | the container is updated as in 5 or 6 |
+| 9 | a working folder, `…\workspace\` | one image subfolder under a different name, plus `light-table\` and/or `viewer\` | build under the gallery's own name | **new** `containers\<image folder name>\` | a proper container (as 3), built from that subfolder |
+
+A folder like case 9 is not a container, because a container's image folder carries
+the container's name. The batch therefore builds the gallery under the name of its
+image folder — `slide shows\kodachrome\` produces `containers\kodachrome\`, not
+`containers\slide shows\` — and copies any `viewer\` forward from the working folder.
 
 ## Reading the table
 

@@ -136,6 +136,7 @@ particular site:
 | A container-shaped folder with no `light-table\` | Adds the light table and `gallery.json` in place, in the folder you gave it |
 | An existing container, with `light-table\index.html` | Updates the light table and reindexes `gallery.json`; image order and existing titles are kept |
 | The image subfolder of a container | The parent container is updated instead |
+| A working folder holding one gallery under another name, with a page or forward beside it | That gallery is built under its **own** name in `containers\`, and the forward is carried across |
 | Anything inside `dist\` | Refused — `npm run build` empties `dist\` |
 
 Every shape of folder, with its destination, is listed in

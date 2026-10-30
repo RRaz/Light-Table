@@ -38,36 +38,53 @@ if exist "%INPUT%\" (
 )
 
 set "ACTION=build"
-if exist "%TARGET%\light-table\index.html" set "ACTION=refresh"
-if /I "%ACTION%"=="refresh" goto :guard
 
 rem Dropping the image subfolder of a container updates that container.
 for %%I in ("%TARGET%\..") do set "PARENT=%%~fI"
 if exist "%PARENT%\light-table\index.html" set "TARGET=%PARENT%"
 if exist "%PARENT%\viewer\viewer.html" set "TARGET=%PARENT%"
-if exist "%TARGET%\light-table\index.html" set "ACTION=refresh"
+
+rem A page alone does not make a container: its image folder must carry the same
+rem name. A working folder holding a page beside a differently named gallery is
+rem not a container, and is handled further down.
+for %%I in ("%TARGET%") do set "TNAME=%%~nxI"
+set "PAGE="
+if exist "%TARGET%\light-table\index.html" set "PAGE=1"
+set "MATCH="
+if exist "%TARGET%\%TNAME%\" set "MATCH=1"
+if defined PAGE if defined MATCH set "ACTION=refresh"
 if /I "%ACTION%"=="refresh" goto :guard
 
-rem Does the folder hold images at its top level? If so it is a plain image
-rem folder, even when a viewer\ folder was dropped in beside them: that viewer is
-rem carried into the container that gets built.
+rem Loose images at the top level make it a plain image folder, even with a
+rem viewer\ folder dropped in: that viewer is carried into the new container.
 set "HASIMAGES="
 for %%E in (jpg jpeg png gif webp avif bmp svg) do if exist "%TARGET%\*.%%E" set "HASIMAGES=1"
 
-rem A legacy container keeps its images in a subfolder, so the marker only counts
-rem when there is nothing loose at the top level.
-if not defined HASIMAGES (
-  if exist "%TARGET%\viewer\viewer.html" set "ACTION=refresh"
-  if exist "%TARGET%\viewer.html" set "ACTION=refresh"
-)
+rem A legacy container keeps its images in a subfolder, so a viewer marker only
+rem counts when nothing is loose and the image folder carries the container name.
+if not defined HASIMAGES if defined MATCH if exist "%TARGET%\viewer\viewer.html" set "ACTION=refresh"
+if not defined HASIMAGES if defined MATCH if exist "%TARGET%\viewer.html" set "ACTION=refresh"
 if /I "%ACTION%"=="refresh" goto :guard
 
-rem A folder that already has the container shape - one subfolder holding the
-rem images - but no page yet, is completed in place. Without this it is treated
-rem as a plain image folder, finds nothing at the top level, and fails.
+rem One subfolder that holds images: either the container shape (same name) or a
+rem working folder holding a gallery under another name. The page and forward
+rem folders are ignored when counting.
 set "SUBCOUNT=0"
-for /d %%D in ("%TARGET%\*") do set /a SUBCOUNT+=1
-if not defined HASIMAGES if "%SUBCOUNT%"=="1" set "ACTION=refresh"
+set "SUBFIRST="
+for /d %%D in ("%TARGET%\*") do call :maybesub "%%~fD"
+if not "%SUBCOUNT%"=="1" goto :guard
+if not defined SUBFIRST goto :guard
+for %%I in ("%SUBFIRST%") do set "SNAME=%%~nxI"
+if /I "%TNAME%"=="%SNAME%" set "ACTION=refresh"
+if /I "%ACTION%"=="refresh" goto :guard
+if defined HASIMAGES goto :guard
+
+rem Different names: build that gallery under its own name, carrying the forward.
+set "CARRY=%TARGET%"
+set "TARGET=%SUBFIRST%"
+set "NAME=%SNAME%"
+echo.
+echo "%TNAME%" holds the gallery "%SNAME%": building containers\%SNAME%\.
 
 :guard
 rem npm run build empties dist\; never run on anything inside it.
@@ -90,11 +107,16 @@ if errorlevel 1 goto :end
 
 echo.
 echo Building a new container from "%TARGET%"...
+if defined CARRY goto :buildcarry
 if "%NAME%"=="" (
   call npm run container -- --images "%TARGET%"
 ) else (
   call npm run container -- --images "%TARGET%" --name "%NAME%"
 )
+goto :buildend
+:buildcarry
+call npm run container -- --images "%TARGET%" --name "%NAME%" --carry-viewer "%CARRY%"
+:buildend
 if errorlevel 1 goto :end
 goto :end
 
@@ -114,3 +136,17 @@ popd
 echo.
 if /I not "%NO_PAUSE%"=="1" pause
 endlocal
+goto :eof
+
+rem Counts a subfolder only when it holds images and is not the page or the
+rem forward folder.
+:maybesub
+for %%I in ("%~1") do set "SNAME=%%~nxI"
+if /I "%SNAME%"=="light-table" goto :eof
+if /I "%SNAME%"=="viewer" goto :eof
+set "SUBHAS="
+for %%E in (jpg jpeg png gif webp avif bmp svg) do if exist "%~1\*.%%E" set "SUBHAS=1"
+if not defined SUBHAS goto :eof
+set /a SUBCOUNT+=1
+set "SUBFIRST=%~1"
+goto :eof

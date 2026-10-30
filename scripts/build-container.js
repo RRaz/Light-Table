@@ -36,7 +36,7 @@ function fail(message) {
 }
 
 function parseArgs(argv) {
-  const args = { images: '', gallery: '', name: '', out: '' };
+  const args = { images: '', gallery: '', name: '', out: '', carry: '' };
   for (let i = 0; i < argv.length; i += 1) {
     const arg = argv[i];
     if (arg === '--images') args.images = argv[++i] || '';
@@ -47,6 +47,8 @@ function parseArgs(argv) {
     else if (arg.startsWith('--name=')) args.name = arg.slice('--name='.length);
     else if (arg === '--out') args.out = argv[++i] || '';
     else if (arg.startsWith('--out=')) args.out = arg.slice('--out='.length);
+    else if (arg === '--carry-viewer') args.carry = argv[++i] || '';
+    else if (arg.startsWith('--carry-viewer=')) args.carry = arg.slice('--carry-viewer='.length);
   }
   return args;
 }
@@ -112,8 +114,9 @@ const { entries } = writeManifest(galleryDir, orderedImages, titles);
 // If the folder you built from carries a viewer/ folder — the forward that keeps
 // the old /viewer/viewer.html address alive — bring it along, so it does not have
 // to be added afterwards.
-const carriedViewer = path.join(sourceDir, 'viewer');
-const carriedRootViewer = path.join(sourceDir, 'viewer.html');
+const carryRoot = args.carry ? path.resolve(args.carry) : sourceDir;
+const carriedViewer = path.join(carryRoot, 'viewer');
+const carriedRootViewer = path.join(carryRoot, 'viewer.html');
 let carried = '';
 if (fs.existsSync(carriedViewer) && fs.statSync(carriedViewer).isDirectory()) {
   copyDirectory(carriedViewer, path.join(containerDir, 'viewer'));
