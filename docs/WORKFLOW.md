@@ -63,6 +63,18 @@ step into the light table. It costs nothing, it is the same folder you already k
 and it survives every rebuild because it lives in the repository rather than in
 `containers\<name>`.
 
+Where each extra goes, and the address it gets on the site:
+
+| Extra | Put it in | Visitors reach it at |
+|---|---|---|
+| Story page | the repository container, as `index.html` | `/<name>/` |
+| Old-address forward | `viewer\` in the repository container | `/<name>/viewer/viewer.html` |
+| Notes or other files | any folder you like in the repository container | the same path under `/<name>/` |
+| Gallery itself | the image folder and the light table | `/<name>/light-table/` |
+
+All of it lives in the repository container, and it reaches the site only when you
+upload that folder. Nothing in `containers\<name>` carries any of it.
+
 ## Adding a photograph
 
 Two ways, and both are legitimate.
