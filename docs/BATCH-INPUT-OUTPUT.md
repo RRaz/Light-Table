@@ -26,8 +26,8 @@ it; "Destination" is where the result appears.
   that folder first, so anything not in the source is lost.
 - **A copy outside `containers\` is a separate gallery.** Refreshing it updates only that
   copy; nothing appears in `containers\`, and nothing is kept in step automatically.
-- **The container is named after the input folder.** A folder called `kodachrome`
-  produces `containers\kodachrome`, replacing any container already there.
+- **The container is named after the input folder.** A folder called `colours`
+  produces `containers\colours`, replacing any container already there.
 - **Images are never altered.** They are copied byte for byte; the only file
   written beside them is `gallery.json`.
 - **`dist\` is refused.** `npm run build` empties it, so the batch stops if the

@@ -11,18 +11,18 @@ container you upload.
 | Term | Path | What it is |
 |---|---|---|
 | **`containers\`** (plural) | `light-table\containers\` | The project folder that holds **every** gallery, one subfolder each. Nothing is uploaded from here; it is the shelf, not a gallery. |
-| **A container** (singular) | `light-table\containers\kodachrome\` | **One gallery, ready to upload.** This is the folder you zip and put on the site. |
-| **Image folder** | `…\kodachrome\kodachrome\` | The photographs and `gallery.json`, inside the container. |
-| **Page folder** | `…\kodachrome\light-table\` | `index.html` and `assets\` — the app that reads the gallery. |
+| **A container** (singular) | `light-table\containers\colours\` | **One gallery, ready to upload.** This is the folder you zip and put on the site. |
+| **Image folder** | `…\colours\colours\` | The photographs and `gallery.json`, inside the container. |
+| **Page folder** | `…\colours\light-table\` | `index.html` and `assets\` — the app that reads the gallery. |
 
 ```
-light-table\                     project
-  containers\                    holds every gallery - the shelf
-    kodachrome\                  <- a container: this is what you upload
-      light-table\               page folder
-      kodachrome\                image folder
-      viewer\                    old-address forward
-    shanghai\                    another container, on the same shelf
+light-table\                 project
+  containers\                holds every gallery - the shelf
+    colours\                 <- a container: this is what you upload
+      light-table\           page folder
+      colours\               image folder
+      viewer\                old-address forward
+    portraits\               another container, on the same shelf
 ```
 
 So "a container" is one gallery; "`containers\`" is where all of them live. A
@@ -145,7 +145,7 @@ structure.
 1. Drag the folder onto `Light-table.bat`, or run it with the path:
 
    ```bat
-   Light-table.bat "D:\from-server\kodachrome"
+   Light-table.bat "D:\from-server\colours"
    ```
 
    The result is `containers\<name>\` containing `light-table\`, `<name>\` with the
@@ -159,7 +159,7 @@ structure.
    If you forget, add it afterwards with:
 
    ```bat
-   npm run forward -- --container "containers\kodachrome"
+   npm run forward -- --container "containers\colours"
    ```
 
 3. Done. The container is the folder to keep and upload.
@@ -170,7 +170,7 @@ for both before the new one is written.
 Two things to know:
 
 - The container is named after the folder you drag in. A flat folder called
-  `kodachrome` therefore replaces `containers\kodachrome` — which is what you want
+  `colours` therefore replaces `containers\colours` — which is what you want
   when converting that gallery, but check the name before dropping it on the batch.
 - Only image files, `gallery.json` and a `viewer\` folder are taken from the
   source. A stray `light-table\` folder in the download is ignored and rebuilt.
