@@ -55,12 +55,10 @@ image folder to use instead.
 
 1. **First build.** Start with an image folder, anywhere. Drop it on
    `Light-table.bat`. The result is `containers\<name>\`, and that first build is
-   the one to keep. If the image folder sits in a folder named after the gallery —
-   `alpha\alpha` — the build adds the page there too, so that copy already runs.
-   If the folder's parent has a different name, the build says where a runnable
-   copy would go: it must be a folder named `<name>`. If the gallery was published
-   at the old `/viewer/` address, add the forward once with
-   `npm run forward -- --container "<outside container>"`.
+   the one to keep. If there is no container outside yet, the build says so and
+   names the folder to copy: it writes only `gallery.json` out there, never a
+   page. If the gallery was published at the old `/viewer/` address, add the
+   forward once with `npm run forward -- --container "<outside container>"`.
 2. **Copy it to your repository.** Move or copy `containers\<name>` to wherever you
    keep the master copy — your repository. That copy can hold extras such as the
    `viewer\` forward or a notes file, which never belong in the build.

@@ -187,17 +187,10 @@ if (args.updateContainer) {
       copyDirectory(viewerDir, path.join(outside, 'light-table'));
       if (hasForward) writeLegacyForward(outside);
       console.log(`  outside container updated: ${outside}`);
-    } else if (path.basename(outside).toLowerCase() === name.toLowerCase()) {
-      // Nothing outside yet, and the folder is already named after the gallery:
-      // add the page there so the copy can run, without touching its images.
-      fs.rmSync(path.join(outside, 'light-table'), { recursive: true, force: true });
-      copyDirectory(viewerDir, path.join(outside, 'light-table'));
-      console.log(`  outside copy created: ${outside}`);
-      console.log('  old /viewer/ links need the forward: npm run forward -- --container');
     } else {
-      const suggestion = path.join(path.dirname(outside), name);
-      console.log('  no outside container yet.');
-      console.log(`  To keep a runnable copy outside, it must be a folder named "${name}": ${suggestion}`);
+      console.log('  no outside container found: only gallery.json was written there.');
+      console.log(`  For a runnable copy outside, copy ${containerDir}`);
+      console.log(`  to a folder named "${name}".`);
     }
   }
 }
