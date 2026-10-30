@@ -101,25 +101,30 @@ Never edit the copy that is on the site as the only change: your repository and
 `containers\` would then disagree with it, and the next rebuild would restore the
 older list.
 
-## Versions and backups
+## Versions
 
-A zip is a **backup**, not part of publishing. It records a state that worked, so
-you can get back to it.
+A zip is a complete copy of a container at a point you chose. It does two jobs, and
+they are not in conflict:
 
-There are three states, and they are not in step by themselves:
+- **a backup** — the state you return to if a change goes wrong;
+- **a working version** — a whole container you can keep working from, hand to
+  someone else, or upload as it stands.
+
+There are three states, and they do not move together:
 
 | State | Where it lives | When it changes |
 |---|---|---|
 | What you are working on | the active repository, the image folder on your desktop | whenever you edit |
 | What the website shows | the server | only when you upload |
-| A backup | the zip you chose to keep | only when you make one |
+| A version | the zip you chose to keep | only when you make one |
 
-The working copy is always ahead: your latest titles and photographs are in the
-repository. The website only changes when you upload the changed files, or a whole
-container. A zip changes only when you decide a version is worth keeping.
+The working copy is always ahead of the other two: your latest titles and
+photographs are in the repository. The website changes only when you upload the
+changed files or a whole container, and a zip changes only when you decide a
+version is worth keeping.
 
 **When to make one:** before a significant change, or when a gallery is in a state
-you would want back. That is a judgement call, not a schedule.
+you would want back or want to work from. That is a judgement call, not a schedule.
 
 **What to keep:** a dated or numbered name, e.g. `light-table-kodachrome-v3.zip`,
 one or two back is usually enough, and keep them off the public web root.
@@ -127,7 +132,6 @@ one or two back is usually enough, and keep them off the public web root.
 **To roll back:** upload the chosen zip, extract it over the live folder, and
 hard-refresh. The repository working copy is unaffected — roll the desktop copy back
 the same way if you want the two to agree again.
-
 ## Hooks still to write
 
 - **The old address** (`/viewer/`): which galleries need the forward and when it
