@@ -26,6 +26,9 @@ README-level documents. Read it before writing or rewriting user-facing text.
 - No confusing or double negatives, and no yes/no where a named choice is clearer:
   **[Save this file]** / **[Delete this file]**, not "Do you want to delete this?
   Yes / No".
+- Labels: name what the person controls, positive phrasing, two to four words,
+  outcome rather than mechanism (`Autoplay`, not `Enable autoplay`). A label that
+  needs a sentence is the wrong label.
 - No superfluous files, links or downloads.
 - Explain jargon the first time: `gallery.json` is *the list that says which
   photographs appear, in what order, with what captions*.
