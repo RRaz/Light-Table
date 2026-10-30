@@ -3,6 +3,32 @@
 For whoever maintains the galleries. Recipients do not need this file; they get
 [docs/USER-GUIDE.md](USER-GUIDE.md) with the package.
 
+## The words used here
+
+Four folders get called a "container" in conversation. Only one of them is the
+container you upload.
+
+| Term | Path | What it is |
+|---|---|---|
+| **`containers\`** (plural) | `light-table\containers\` | The project folder that holds **every** gallery, one subfolder each. Nothing is uploaded from here; it is the shelf, not a gallery. |
+| **A container** (singular) | `light-table\containers\kodachrome\` | **One gallery, ready to upload.** This is the folder you zip and put on the site. |
+| **Image folder** | `…\kodachrome\kodachrome\` | The photographs and `gallery.json`, inside the container. |
+| **Page folder** | `…\kodachrome\light-table\` | `index.html` and `assets\` — the app that reads the gallery. |
+
+```
+light-table\                     project
+  containers\                    holds every gallery - the shelf
+    kodachrome\                  <- a container: this is what you upload
+      light-table\               page folder
+      kodachrome\                image folder
+      viewer\                    old-address forward
+    shanghai\                    another container, on the same shelf
+```
+
+So "a container" is one gallery; "`containers\`" is where all of them live. A
+sentence like *"delete the containers folder"* would remove every gallery, while
+*"delete the container"* removes one.
+
 ## Preferred: put the images in the container folder first, then run
 
 This is the way to work, because everything happens in the folder you are already

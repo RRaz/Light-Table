@@ -1,6 +1,9 @@
 # Batch input and output
 
-What `Light-table.bat` does with each shape of folder. "Origin" is what you give
+What `Light-table.bat` does with each shape of folder.
+
+Terms: **a container** is one gallery folder — the thing you upload; **`containers\`**
+is the project folder that holds all of them. See [DEPLOY.md](../DEPLOY.md#the-words-used-here). "Origin" is what you give
 it; "Destination" is where the result appears.
 
 | # | Input (origin) | Contains | What the batch decides | Destination | What you end up with |
