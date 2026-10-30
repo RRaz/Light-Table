@@ -188,9 +188,15 @@ if (args.updateContainer) {
       if (hasForward) writeLegacyForward(outside);
       console.log(`  outside container updated: ${outside}`);
     } else {
+      const destination =
+        path.basename(outside).toLowerCase() === name.toLowerCase()
+          ? outside
+          : path.join(path.dirname(outside), name);
       console.log('  no outside container found: only gallery.json was written there.');
-      console.log(`  For a runnable copy outside, copy ${containerDir}`);
-      console.log(`  to a folder named "${name}".`);
+      console.log('  For a runnable copy outside, copy the container');
+      console.log(`    ${containerDir}`);
+      console.log('  to');
+      console.log(`    ${destination}`);
     }
   }
 }
