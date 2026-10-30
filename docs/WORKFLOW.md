@@ -50,6 +50,12 @@ anything extra** you have added to the repository copy.
 So the extras live in one place only: the repository. If you add a redirect folder
 or a notes file, add it there, and upload the repository copy when you need it live.
 
+Extras are not limited to the redirect. A helper page is a good example: an HTML
+file that opens in the browser and edits the gallery list for you — adding an entry,
+changing a title — could sit in the repository container beside the gallery and be
+opened by its own link. It never travels into `containers\<name>`, so a rebuild
+cannot break it, and the gallery you upload stays clean.
+
 ## Adding a photograph
 
 Two ways, and both are legitimate.
