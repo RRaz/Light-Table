@@ -35,6 +35,18 @@ looking at — there is no second copy to go and find.
 Nothing is moved to another location, and the printed `Container folder:` line is
 the folder to upload.
 
+## Where to work
+
+Work in `containers\<name>\`. Two behaviours make that the safe habit:
+
+- **Building from a plain image folder replaces `containers\<name>` entirely.** Whatever
+  was in the container before — page, images, extra files — is gone once it is rebuilt.
+- **Refreshing a copy somewhere else updates only that copy.** `containers\<name>` is not
+  touched, and no container is created to match it.
+
+So a folder outside `containers\` and the container of the same name are two separate
+galleries. Editing one does not change the other.
+
 ## What the batch decides, by what you give it
 
 | You give it | What happens |

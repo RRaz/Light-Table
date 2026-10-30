@@ -19,6 +19,10 @@ it; "Destination" is where the result appears.
 - **Cases 1–3 copy.** The folder you point at is only read; the container is built
   under `containers\`. Your originals stay where they are.
 - **Cases 4–8 update in place.** The folder you point at *is* the destination.
+- **Cases 1–3 replace an existing container.** Building into `containers\<name>` clears
+  that folder first, so anything not in the source is lost.
+- **A copy outside `containers\` is a separate gallery.** Refreshing it updates only that
+  copy; nothing appears in `containers\`, and nothing is kept in step automatically.
 - **The container is named after the input folder.** A folder called `kodachrome`
   produces `containers\kodachrome`, replacing any container already there.
 - **Images are never altered.** They are copied byte for byte; the only file
