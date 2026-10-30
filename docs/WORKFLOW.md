@@ -63,6 +63,8 @@ step into the light table. It costs nothing, it is the same folder you already k
 and it survives every rebuild because it lives in the repository rather than in
 `containers\<name>`.
 
+A ready-made one is in the project at `examples/story-page.html`: copy it into the gallery folder as `index.html` and change the words.
+
 Where each extra goes, and the address it gets on the site:
 
 | Extra | Put it in | Visitors reach it at |

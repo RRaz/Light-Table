@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Colours — Image Light Table</title>
+<style>
+  :root { --bg:#121318; --panel:#1b1d24; --ink:#f2f0ec; --muted:#a9a7a2; --accent:#3a86ff; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.6;
+  }
+  main { max-width: 760px; margin: 0 auto; padding: 48px 22px 64px; }
+  h1 {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(2rem, 5vw, 3rem); font-weight: 400;
+    margin: 0 0 6px; letter-spacing: .01em;
+  }
+  .sub { color: var(--muted); font-size: .95rem; letter-spacing: .18em; text-transform: uppercase; margin-bottom: 28px; }
+  p { margin: 0 0 18px; font-size: 1.06rem; }
+  .swatches { display: flex; gap: 6px; margin: 26px 0 30px; }
+  .swatches img { width: 100%; height: 54px; object-fit: cover; border-radius: 3px; display: block; }
+  a.open {
+    display: inline-block; text-decoration: none; font-weight: 600;
+    background: var(--accent); color: #fff; padding: 13px 22px; border-radius: 6px;
+  }
+  a.open:hover { background: #2f6fd8; }
+  .note { margin-top: 34px; padding-top: 16px; border-top: 1px solid #2a2d36; color: var(--muted); font-size: .9rem; }
+  a { color: #8fbaff; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Colours</h1>
+  <div class="sub">Eight slides · a test gallery</div>
+
+  <p>These eight colour slides are not photographs. They are the test gallery that
+  ships with the light table, and they exist for one reason: to make it obvious when
+  something works and when it does not. A colour that is wrong is easier to spot than
+  a photograph that is merely a little soft.</p>
+
+  <p>Use them to check a new installation before your own work goes in — the dial, the
+  thumbnail strip, the magnifier and the slide show all behave the same as they will
+  with real photographs.</p>
+
+  <div class="swatches">
+    <img src="colours/01-red.png" alt="Red">
+    <img src="colours/02-orange.png" alt="Orange">
+    <img src="colours/03-yellow.png" alt="Yellow">
+    <img src="colours/04-green.png" alt="Green">
+    <img src="colours/05-teal.png" alt="Teal">
+    <img src="colours/06-blue.png" alt="Blue">
+    <img src="colours/07-indigo.png" alt="Indigo">
+    <img src="colours/08-violet.png" alt="Violet">
+  </div>
+
+  <a class="open" href="light-table/">Open the light table</a>
+
+  <div class="note">
+    This page is an example of an extra: it lives in the gallery folder, beside the
+    light table, and a rebuild leaves it alone. Replace the words and the images with
+    your own story when you build a real gallery.
+  </div>
+</main>
+</body>
+</html>
