@@ -128,6 +128,25 @@ of the container, so it survives a rebuild elsewhere. When you upload, include i
 
 New galleries need no forward: nothing was ever published at the old address.
 
+## After it is live
+
+Once a gallery is deployed, the same method carries on: curate outside, rebuild in
+`containers\`, deploy from there. What an update actually touches:
+
+| Change | What changes in the container |
+|---|---|
+| Titles or order | `gallery.json` only |
+| A photograph added or removed | `gallery.json`, plus that file in the image folder; the other images are untouched |
+| Page or wording change | `light-table\` — the same folder in every container |
+
+Images are copied byte for byte and never rewritten, so re-uploading a whole
+container is safe; uploading just `light-table\` and `gallery.json` is quicker when
+nothing else moved.
+
+Backups work the same way throughout: keep a dated zip of the deployed container
+(see **Versions**), one step back is usually enough, and rolling back means
+replacing the live folder with the previous zip.
+
 ## Space
 
 `containers\<name>` holds the result of the most recent build and nothing older.
