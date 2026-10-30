@@ -133,6 +133,7 @@ The last row is the odd one: it is a change to the project's code, not to a gall
 inside it, from the help panel to the header. Each container carries its own copy,
 so a wording change is applied by rebuilding each gallery and uploading its
 `light-table\`.
+
 Then hard-refresh the page. Editing the live `gallery.json` alone is the one route
 to avoid: the server then holds a list that neither `containers\` nor your
 repository knows about, and the next rebuild silently restores the older one.
