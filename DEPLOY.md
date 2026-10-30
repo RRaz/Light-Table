@@ -126,8 +126,13 @@ images does not need sending again.
 | Title, order, or an entry removed | `gallery.json` |
 | One photograph added | that image, and `gallery.json` |
 | One photograph replaced | that image only |
-| Page or wording change | `light-table\` |
+| Change to the viewer itself — layout, styles, labels, help text, branding | `light-table\`, in every container |
 
+The last row is the odd one: it is a change to the project's code, not to a gallery.
+`light-table\` holds the page — its markup, styles and script, and every word shown
+inside it, from the help panel to the header. Each container carries its own copy,
+so a wording change is applied by rebuilding each gallery and uploading its
+`light-table\`.
 Then hard-refresh the page. Editing the live `gallery.json` alone is the one route
 to avoid: the server then holds a list that neither `containers\` nor your
 repository knows about, and the next rebuild silently restores the older one.
