@@ -113,6 +113,9 @@ particular site:
 - **The container is the working copy.** `containers\<name>\` holds the result of
   the most recent run — page, images and `gallery.json` together. Each run replaces
   it; builds do not accumulate.
+- **An image folder always builds to `containers\<name>`**, wherever it sits. The
+  exception is a folder that *is* `containers\<name>`: it is completed in place,
+  because a build would delete it before copying.
 - **Building from a plain image folder replaces `containers\<name>` entirely.**
   Anything in the container that is not in the folder you build from is gone
   afterwards.

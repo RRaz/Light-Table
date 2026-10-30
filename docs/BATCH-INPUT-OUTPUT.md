@@ -28,6 +28,10 @@ image folder — `slide shows\kodachrome\` produces `containers\kodachrome\`, no
 - **Cases 1–3 copy.** The folder you point at is only read; the container is built
   under `containers\`. Your originals stay where they are.
 - **Cases 4–8 update in place.** The folder you point at *is* the destination.
+- **An image folder always builds to `containers\<name>`**, wherever it sits — including
+  when it sits inside `containers\`. The one exception is a folder that *is*
+  `containers\<name>`: it is completed in place, because building would delete it
+  first. Building directly into the folder you gave is refused with that message.
 - **Cases 1–3 replace an existing container.** Building into `containers\<name>` clears
   that folder first, so anything not in the source is lost.
 - **A copy outside `containers\` is a separate gallery.** Refreshing it updates only that

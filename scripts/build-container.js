@@ -93,6 +93,20 @@ const containerDir = path.join(outRoot, name);
 const galleryDir = path.join(containerDir, name);
 const viewerDir = path.join(containerDir, 'light-table');
 
+// Building replaces the container folder. If the folder we were given is that
+// container, or lives inside it, the images would be deleted before they are
+// copied. Refuse rather than destroy them.
+const relative = path.relative(containerDir, path.resolve(sourceDir));
+const sourceInsideContainer = relative === '' || (!relative.startsWith('..') && !path.isAbsolute(relative));
+if (sourceInsideContainer) {
+  fail(
+    `The images are inside the folder that would be rebuilt:\n  ${containerDir}\n\n` +
+      'Building would delete them before copying. Either:\n' +
+      `  - put the images in ${path.join(containerDir, name)} and run the batch on ${containerDir}, or\n` +
+      '  - build from a copy outside containers\\.'
+  );
+}
+
 fs.rmSync(containerDir, { recursive: true, force: true });
 fs.mkdirSync(viewerDir, { recursive: true });
 fs.mkdirSync(galleryDir, { recursive: true });

@@ -60,6 +60,11 @@ rem viewer\ folder dropped in: that viewer is carried into the new container.
 set "HASIMAGES="
 for %%E in (jpg jpeg png gif webp avif bmp svg) do if exist "%TARGET%\*.%%E" set "HASIMAGES=1"
 
+rem If those images are already in containers\<name>, building would replace that
+rem very folder. Complete it in place instead.
+if defined HASIMAGES if /I "%TARGET%"=="%CD%\containers\%TNAME%" set "ACTION=refresh"
+if /I "%ACTION%"=="refresh" goto :guard
+
 rem A legacy container keeps its images in a subfolder, so a viewer marker only
 rem counts when nothing is loose and the image folder carries the container name.
 if not defined HASIMAGES if defined MATCH if exist "%TARGET%\viewer\viewer.html" set "ACTION=refresh"
