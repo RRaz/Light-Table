@@ -3,6 +3,28 @@
 For whoever maintains the galleries. Recipients do not need this file; they get
 [docs/USER-GUIDE.md](USER-GUIDE.md) with the package.
 
+## Start here
+
+A **container** is one gallery folder — `light-table\`, the image folder and
+`gallery.json` — and it is the thing you upload. **It does not have to sit inside
+`containers\`.**
+
+- A gallery you are building normally lives in `containers\<name>\`, the shelf in
+  this project.
+- A gallery downloaded from the server, or a copy kept for reference, can live
+  anywhere: `D:\from-server\shanghai\`, the Desktop, another drive.
+
+Where the folder lives decides what happens:
+
+| The folder you point at | What happens |
+|---|---|
+| A plain image folder, anywhere | A **new** container is built at `containers\<name>\`; the source folder is only read |
+| A container, anywhere | It is **updated in place**, wherever it is |
+| A container outside `containers\` | It is separate from `containers\<name>\`; working on one does not change the other |
+
+Everything below expands those three lines: what each folder is called, how to
+build one, how to update one, and what to do when a gallery is already live.
+
 ## The words used here
 
 Four folders get called a "container" in conversation. Only one of them is the
@@ -12,6 +34,7 @@ container you upload.
 |---|---|---|
 | **`containers\`** (plural) | `light-table\containers\` | The project folder that holds **every** gallery, one subfolder each. Nothing is uploaded from here; it is the shelf, not a gallery. |
 | **A container** (singular) | `light-table\containers\colours\` | **One gallery, ready to upload.** This is the folder you zip and put on the site. |
+| **A container elsewhere** | `D:\from-server\shanghai\` | The same thing outside the shelf: a download, or a copy kept for reference. Refreshing updates it where it stands; nothing is copied into `containers\`. |
 | **Image folder** | `…\colours\colours\` | The photographs and `gallery.json`, inside the container. |
 | **Page folder** | `…\colours\light-table\` | `index.html` and `assets\` — the app that reads the gallery. |
 
@@ -23,7 +46,13 @@ light-table\                 project
       colours\               image folder
       viewer\                old-address forward
     portraits\               another container, on the same shelf
+
+D:\from-server\shanghai\     also a container, just not on the shelf
+  light-table\  shanghai\  viewer\
 ```
+
+A container is defined by what is inside it, not by where it is. The shelf is
+convenient, not compulsory.
 
 So "a container" is one gallery; "`containers\`" is where all of them live. A
 sentence like *"delete the containers folder"* would remove every gallery, while
