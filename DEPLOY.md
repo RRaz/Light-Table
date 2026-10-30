@@ -131,6 +131,7 @@ images does not need sending again.
 Then hard-refresh the page. Editing the live `gallery.json` alone is the one route
 to avoid: the server then holds a list that neither `containers\` nor your
 repository knows about, and the next rebuild silently restores the older one.
+
 ## Building several galleries
 
 Drop each image folder in turn. Each becomes `containers\<name>`; names must
