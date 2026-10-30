@@ -103,12 +103,15 @@ older list.
 
 ## Versions
 
-A zip is a complete copy of a container at a point you chose. It does two jobs, and
-they are not in conflict:
+A zip is a **frozen state of the working version** — a snapshot, the same way you
+save a document while you are still writing it. The working copy carries on
+changing; the saved copy does not.
 
-- **a backup** — the state you return to if a change goes wrong;
-- **a working version** — a whole container you can keep working from, hand to
-  someone else, or upload as it stands.
+That frozen copy can be used three ways, and they do not conflict:
+
+- go back to it if a change goes wrong;
+- keep working from it, or hand it to someone else;
+- upload it as it stands.
 
 There are three states, and they do not move together:
 
