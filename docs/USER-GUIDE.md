@@ -50,7 +50,7 @@ colours/
 ```
 
 - `light-table/` is the app. It is the same in every gallery and is not edited.
-- the inner folder, with the same name, holds the images and `gallery.json`.
+- the inner folder, with the same name, holds the images and `gallery.json` — the list that says which photographs appear, in what order, with what captions.
   The sample colour slides are replaced by your photographs.
 - nothing else is required: no database, no server code, no installer.
 
@@ -88,8 +88,9 @@ A page builder usually will not let you upload `index.html` and `assets/`, so
 the folder cannot live there. The gallery still works, in two steps:
 
 1. Put the folder somewhere that serves files. A spare folder on your hosting, a
-   subdomain, or any static hosting will do. It does not need a database, PHP,
-   Node or a build step, and it does not need developer tools or accounts.
+   subdomain, or any host that only has to serve files will do. It does not need a
+   database, PHP, Node or a build step, and it does not need developer tools or
+   accounts.
 2. On the page, add the light table address with the builder's **Embed** or **HTML**
    block. The light table then opens inside your page.
 
