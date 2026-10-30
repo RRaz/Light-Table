@@ -187,6 +187,9 @@ if (args.updateContainer) {
       copyDirectory(viewerDir, path.join(outside, 'light-table'));
       if (hasForward) writeLegacyForward(outside);
       console.log(`  outside container updated: ${outside}`);
+    } else {
+      console.log('  no page or viewer outside yet.');
+      console.log(`  copy ${containerDir} there when you want that copy to run.`);
     }
   }
 }
