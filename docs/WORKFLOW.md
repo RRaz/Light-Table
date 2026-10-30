@@ -47,6 +47,11 @@ anything extra** you have added to the repository copy.
 | Extras (the `viewer\` forward, notes, anything else) | no - removed on every rebuild | yes, kept |
 | Role | the clean gallery | the copy you work from, and upload when extras must go live |
 
+One more thing about the folder around the images: it only counts as a container if
+it carries the gallery's name. A folder called `slide shows` holding
+`slide shows\kodachrome\` is not one — its light table would look for a gallery that
+is not there. In that case the build writes only `gallery.json` and says so, and
+leaves whatever else is in that folder alone.
 So the extras live in one place only: the repository. If you add a redirect folder
 or a notes file, add it there, and upload the repository copy when you need it live.
 
