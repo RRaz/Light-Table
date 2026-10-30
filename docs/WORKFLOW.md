@@ -34,6 +34,22 @@ repository copy becomes the version you keep working from.
 13. **Any change uses the active repository version of the image folder** — never
     the original download, never the copy in `containers\`.
 
+## The two copies
+
+The container in `containers\<name>` tracks the working copy — the same
+photographs, the same list, the same light table — but it is **stripped of
+anything extra** you have added to the repository copy.
+
+| | `containers\<name>` | The repository copy |
+|---|---|---|
+| Photographs and list | yes, current | yes, current |
+| The light table | yes | yes |
+| Extras (the `viewer\` forward, notes, anything else) | no — removed on every rebuild | yes, kept |
+| Role | the copy you upload | the copy you work from |
+
+So the extras live in one place only: the repository. If you add a redirect folder
+or a notes file, add it there, and upload the repository copy when you need it live.
+
 ## Adding a photograph
 
 Two ways, and both are legitimate.
