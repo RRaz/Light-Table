@@ -23,6 +23,9 @@ README-level documents. Read it before writing or rewriting user-facing text.
   table looks or what it says", not "edit the page".
 - Requirements before steps; consequences next to the rule they affect.
 - No "simply", "just", "obviously".
+- No confusing or double negatives, and no yes/no where a named choice is clearer:
+  **[Save this file]** / **[Delete this file]**, not "Do you want to delete this?
+  Yes / No".
 - No superfluous files, links or downloads.
 - Explain jargon the first time: `gallery.json` is *the list that says which
   photographs appear, in what order, with what captions*.
