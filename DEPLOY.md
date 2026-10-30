@@ -15,10 +15,11 @@ The container is one folder holding everything the site needs for that gallery:
   viewer\             optional: the forward for the old /viewer/ address
 ```
 
-The container for a new gallery is created in the containers folder:
+The container for a new gallery is created in the containers folder of the
+project — `containers\`, wherever you keep the project on your machine:
 
 ```
-C:\Users\photo\projects\light-table\containers\
+<project>\containers\
 ```
 
 Its name comes from the folder you build from: a folder called `colours` produces
@@ -31,7 +32,7 @@ depends on how the batch was run**:
 | How you run it | Where the updated container is |
 |---|---|
 | On a plain image folder, anywhere | `containers\<name>\` — a new container, replacing any container of that name |
-| On a container folder, anywhere | That same folder, updated in place |
+| On a container folder — anywhere, including `containers\<name>\` itself | That same folder, updated in place |
 
 So the location follows the input, not a fixed rule: a container does not have to
 live inside `containers\`, and one that lives elsewhere stays where it is.

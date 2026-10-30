@@ -1,8 +1,8 @@
 Serve a container locally to check it before uploading.
 
-1) In a shell, go to the containers folder of the project:
+1) In a shell, go to the containers folder of the project (use your own project path):
 
-    cd "C:\Users\photo\projects\light-table\containers"
+    cd "<project>\containers"
 
 2) Start a simple static server:
 
