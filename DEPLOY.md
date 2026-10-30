@@ -100,6 +100,21 @@ A build recreates the container folder. Only these are written:
 is the delivery copy, stripped of extras. Keep the `viewer\` forward, notes and
 anything else in your repository copy, not in the build.
 
+## Editing the manifest by hand
+
+A rebuild is not the only way. The page reads `gallery.json`, so adding or removing
+an entry is enough:
+
+- **Add:** copy the last block, change `id`, `url` and `title` to the new file, and
+  upload the image.
+- **Remove:** delete the block. The image file can stay; nothing references it.
+- **Retitle or reorder:** edit `title`, or move blocks.
+
+Use a rebuild when the files themselves change — many additions, or renames — because
+it derives the entries from what is on disk. Hand-editing is quicker for one or two
+changes, with two traps: `url` must match the file name exactly, including case on
+Linux hosts, and `id` must be unique. A wrong `url` shows a broken image rather than
+an error.
 ## Building several galleries
 
 Drop each image folder in turn. Each becomes `containers\<name>`; names must
