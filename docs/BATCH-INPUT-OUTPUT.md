@@ -10,6 +10,14 @@ One rule: **drop an image folder, it is built into `containers\<name>`.**
 | A container (`light-table\`, `viewer\` or `<name>\`) | stops and names the image folder to drop instead | nothing is written |
 | Anything inside `dist\` | refuses, because `npm run build` empties it | nothing is written |
 
+The table is the same rule seen twice:
+
+1. **Inside `containers\`** — the container is rebuilt; extras in it are deleted;
+   nothing outside changes.
+2. **Outside `containers\`** — the slideshow is built in `containers\<name>`, the
+   outside copy keeps its viewer and extra folders, and only `gallery.json` is
+   written back to the image folder you dropped.
+
 **Names.** The container takes its name from the image folder. A folder called
 `colours` produces `containers\colours`, replacing any container of that name.
 

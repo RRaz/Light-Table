@@ -22,15 +22,33 @@ Inside a container:
 
 A container is defined by what is inside it, not by where it is.
 
-## One rule
+## Two ways to rebuild
 
-**Drop an image folder; it is built into `containers\<name>`, always.**
+Both build the slideshow in `containers\<name>`. They differ in what is touched.
 
-- The image folder can be anywhere: in the project, on another drive, on the
-  Desktop.
-- An existing `containers\<name>` is replaced by the new build.
-- A container is **not** an input. Drop a container and the batch stops and tells
-  you which image folder to use instead.
+**1. From inside `containers\` — the slideshow only**
+
+Drop the image folder of a container, for example
+`containers\kodachrome\kodachrome`.
+
+- `containers\kodachrome\` is rebuilt: `light-table\` and `kodachrome\`.
+- Anything else in it — the `viewer\` forward, a notes file — is deleted.
+- Nothing outside `containers\` changes.
+
+**2. From an image folder outside `containers\` — an outside container you keep**
+
+Drop the image folder of the copy you keep elsewhere, for example
+`D:\repository\kodachrome\kodachrome`.
+
+- The slideshow is built in `containers\kodachrome\`.
+- The outside copy stays yours to modify: its `viewer\`, its other folders, and
+  its gallery remain as they are. The only file written back is `gallery.json`, in
+  the image folder you dropped.
+- So the outside container can carry your viewer and any extras, while the new
+  slideshow exists only in `containers\`.
+
+A container itself is **not** an input. Drop one and the batch stops and names the
+image folder to use instead.
 
 When the image folder is **outside** `containers\`, the new `gallery.json` is
 copied back into it. That is the only thing outside `containers\` that changes:
