@@ -296,6 +296,17 @@ photograph in the gallery at once.
 A zip on the server is a restore point, not a copy of the site. Upload a single
 file to the live gallery afterwards and the site is newer than the zip — still a
 good restore point, no longer the same thing.
+## To decide after testing
+
+**Step 3 may be simpler than it is written now.** Proposed wording, to be settled once
+the site test is done:
+
+> Make the changes in the repository copy: delete the unused images, add the new ones,
+> rebuild the gallery. Edit the gallery and rebuild again if the order or the titles
+> change. Upload the new images to the server, then upload `gallery.json` so that it
+> replaces the one there. Delete the unused images on the server — this step can be
+> skipped.
+
 ## Hooks still to write
 
 - **The old address** (`/viewer/`): which galleries need the forward and when it
