@@ -216,9 +216,7 @@ delete the old copy on the site. Both copies are live until you do.
    carries the version.
 3. **Delete the gallery folder** on the server.
 4. **Extract the new zip**, then hard-refresh.
-5. **Optional — delete the zip, or move it to a location the site does not
-   publish.** A zip in a published folder can be downloaded by anyone who knows its
-   name, which hands over every photograph at once.
+5. **Optional — store or remove the zip according to your own security protocol.**
 
 Upload the zip outside the gallery folder: a zip inside it is deleted along with it in
 step 3. Extracting over a folder only merges, so deleting first is what leaves the
@@ -303,9 +301,9 @@ The zip holds one folder, named after the gallery. Extract it at the level **abo
 that folder: the result must be `/<name>/light-table/`, not
 `/<name>/<name>/light-table/`.
 
-Then delete the zip from the site, or keep it where the host does not publish
-files. Anyone who knows its name can download every photograph in the gallery
-from it.
+Then deal with the zip as your own security protocol requires. A zip in a published
+folder can be downloaded by anyone who knows its name, which hands over every
+photograph in the gallery at once.
 
 A zip on the server is a restore point, not a copy of the site. Upload a single
 file to the live gallery afterwards and the site is newer than the zip — still a
