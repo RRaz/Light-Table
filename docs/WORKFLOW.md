@@ -3,6 +3,9 @@
 **Status: working draft.** Steps marked **[[ to write ]]** are still to be filled in;
 the list at the end collects what is missing.
 
+This is one method, written for this system. Other people will arrange it
+differently, and nothing here depends on their doing it this way.
+
 The idea behind it: one image folder goes in, one container comes out, and the
 repository copy becomes the version you keep working from.
 
@@ -76,7 +79,7 @@ changing a title - could sit in the repository container beside the gallery and 
 opened by its own link. It never travels into `containers\<name>`, so a rebuild
 cannot break it, and the gallery you upload stays clean.
 
-The simplest extra is a **story page**: a small `index.html` in the repository
+An example extra is a **story page**: a small `index.html` in the repository
 container that describes the photographs and links to the gallery at
 `/<name>/light-table/`. Visitors arriving at `/<name>/` read the story first, then
 step into the light table. It costs nothing, it is the same folder you already keep,
@@ -114,8 +117,7 @@ The new photograph is added at the end of the order; edit `gallery.json` to move
 `id`, `url` and `title` to match the new file, and save. Upload the photograph and
 `gallery.json`. Nothing else changes.
 
-Rebuilding is the safer choice when you are adding several at once, or when the
-file names changed as well.
+A rebuild also suits several files at once, and files that were renamed.
 
 ## Removing a photograph
 
@@ -191,9 +193,8 @@ delete the old copy on the site. Both copies are live until you do.
    `/<name>/viewer/viewer.html`. Both must work before anything changes; a change
    made on top of a broken site tells you nothing.
 2. **Make the change in the repository copy**, in `Repo\<name>\<name>\`.
-3. **Send what changed, and remove what is gone.** Uploading the whole container is
-   the simpler route and the default; single files are for a small change. The order
-   matters when a photograph leaves:
+3. **Send what changed, and remove what is gone.** Either send the whole container, or
+   send only what changed. The order matters when a photograph leaves:
    - added: upload the photograph, then `gallery.json`
    - removed: remove its entry and upload `gallery.json` **first**, then delete the
      photograph from the site
@@ -243,9 +244,8 @@ The routine for a gallery that is already live:
 6. Hard-refresh the live page (**Ctrl+F5**). A cached list or picture is the usual
    reason a change "did not appear".
 
-Never edit the copy that is on the site as the only change: your repository and
-`containers\` would then disagree with it, and the next rebuild would restore the
-older list.
+Editing the copy on the site leaves the repository copy behind, and the next rebuild
+restores the older list.
 
 ## Versions
 

@@ -184,7 +184,7 @@ check: a missing or doubled comma is almost always the cause.
 
 ### 7.1 Titles come from the file name
 
-The simplest way to change a caption is to rename the file. `01-dawn.jpg` becomes
+One way to change a caption is to rename the file. `01-dawn.jpg` becomes
 **01 dawn**; rename it to `Dawn over the lake.jpg` and the caption becomes
 **Dawn over the lake**. Spaces, capitals and punctuation in the file name are
 kept as typed.
@@ -274,6 +274,6 @@ light-table-colours-v2026-10-28.zip
 - **Decide who rebuilds after new photos.** If the person who built the gallery
   does it, sections 7.2 to 7.4 shrink to "send the folder back", and the
   recipient never edits `gallery.json`.
-- **Prefer one folder per gallery.** It is simpler for the recipient and lets one
-  gallery be replaced without touching the others; the cost is that a light table fix
-  is uploaded once per gallery.
+- **One folder per gallery.** It keeps them apart, so one can be replaced without
+  touching the others; the cost is that a light table fix is uploaded once per
+  gallery.
