@@ -268,6 +268,10 @@ one or two back is usually enough, and keep them off the public web root.
 hard-refresh. The repository working copy is unaffected — roll the desktop copy back
 the same way if you want the two to agree again.
 
+Extracting merges into what is there, it does not replace it. A file added after the
+zip was made stays on the site, and anything the zip holds is written over. To make
+the site match the zip exactly, delete the gallery folder first, then extract.
+
 ### Uploading a version zip
 
 The zip holds one folder, named after the gallery. Extract it at the level **above**
