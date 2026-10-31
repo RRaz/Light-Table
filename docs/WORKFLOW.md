@@ -127,8 +127,37 @@ the block names a file that is not there.
 
 **Moving an entry:** take the whole block, from its `{` to its `},`. Every block
 except the last ends with a comma; the last has none. A block moved without its
-comma — or with one too many — makes the list unreadable, and the light table then
+comma - or with one too many - makes the list unreadable, and the light table then
 says *Unable to load gallery*.
+
+## The list's shape
+
+The file is one object holding the time it was written and the photographs:
+
+```json
+{
+  "updated": "2026-10-29T23:12:05.766Z",
+  "photos": [ { "id": "01-red", "url": "./01-red.png", "title": "Red" } ]
+}
+```
+
+Keep the outer braces, the `"photos":` name and the square brackets. Between the
+brackets go the photograph blocks, each of which can be changed as follows:
+
+| Part | What it does |
+|---|---|
+| `title` | the caption under the photograph |
+| `url` | which file the entry shows; the file name with `./` in front |
+| `id` | the entry's own name; no two entries share one |
+| block order | the order the photographs appear in |
+| adding or removing a block | adding or removing a photograph |
+
+`updated` is written by the build on every run. Nothing reads it, so leave it as
+it is.
+
+The look of the light table is not in this file. It is in `light-table\` and is
+replaced, not edited.
+
 ## Updating only the gallery list
 
 Renaming, reordering or retitling is a list change: edit `gallery.json`, upload

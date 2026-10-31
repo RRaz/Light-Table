@@ -127,37 +127,55 @@ server without any tools. Both touch the same two things:
 - the images, in the inner folder — `colours/colours/` in the sample
 - the list, `gallery.json`, beside them
 
-The list is written as entries between square brackets. Here are two of them:
+The whole file looks like this, with two photos in it:
 
 ```json
-[
-  {
-    "id": "01-first-photo",
-    "url": "./01-first-photo.jpg",
-    "title": "First photo"
-  },
-  {
-    "id": "02-second-photo",
-    "url": "./02-second-photo.jpg",
-    "title": "Second photo"
-  }
-]
+{
+  "updated": "2026-10-29T23:12:05.766Z",
+  "photos": [
+    {
+      "id": "01-first-photo",
+      "url": "./01-first-photo.jpg",
+      "title": "First photo"
+    },
+    {
+      "id": "02-second-photo",
+      "url": "./02-second-photo.jpg",
+      "title": "Second photo"
+    }
+  ]
+}
 ```
 
-- `url` is the file name with `./` in front.
-- `title` is what appears under the photo.
-- `id` is a name for the entry; it must differ from every other `id`.
+Leave the outer braces, the `"photos":` line and the two square brackets in place.
+The photo blocks go between the square brackets.
 
 **The comma rule.** Braces hold one photo. A comma separates it from the next one,
 and the **last** photo has no comma after it. That is the single thing that breaks a
 list.
 
-When you move a photo to a different place, take the whole block — from its `{` to
-its `},` — not a line at a time. After moving:
+When you move a photo to a different place, take the whole block - from its `{` to
+its `},` - not a line at a time. After moving:
 
 - every block except the last ends with `},`
 - the last block ends with `}`
 - no block ends with two commas, and none is missing one
+
+What you can change in the list:
+
+| Part | What it does |
+|---|---|
+| `title` | the caption under the photo |
+| `url` | which image file the entry shows: the file name with `./` in front |
+| `id` | the entry's own name; no two entries may share one |
+| the order of the blocks | the order the photos appear in |
+| adding or removing a block | adding or removing a photo from the gallery |
+
+`updated` records when the list was last written. The build sets it on every
+rebuild, and the light table does not read it, so it can be left alone.
+
+The look of the light table - colours, sizes, buttons - is not in this file. It
+lives in the `light-table/` folder and is not edited by hand.
 
 If the page then says *Unable to load gallery*, the list is the first thing to
 check: a missing or doubled comma is almost always the cause.
@@ -238,6 +256,7 @@ light-table-colours-v2026-10-28.zip
 | What you see | What it usually means |
 |---|---|
 | "Unable to load gallery" | `gallery.json` is not where the light table expects it; check the two folder names |
+| "Unable to load gallery" after editing the list | a comma is missing, doubled, or left after the last block |
 | A blank frame | `assets/` was not uploaded beside `index.html` |
 | Some photos missing | They are not listed in `gallery.json`, or the file name case differs from the entry |
 | An old photo, or an old title | Browser cache — hard-refresh, or rename the file |
