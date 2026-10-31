@@ -3,7 +3,7 @@
 **Status: working draft.** Steps marked **[[ to write ]]** are still to be filled in;
 the list at the end collects what is missing.
 
-This is one method, written for the light table.
+This is one method, written for Light Table.
 
 The idea behind it: one image folder goes in, one container comes out, and the
 repository copy becomes the version you keep working from.
