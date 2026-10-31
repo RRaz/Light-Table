@@ -29,7 +29,8 @@ Drop an **image folder** — a folder with photographs in it — on
 - It always builds the gallery in `containers\<name>`, replacing whatever was there.
 - If the image folder is outside `containers\`, `gallery.json` is copied back into
   it, so the list stays with your photographs.
-- Drop a container by mistake and it stops, telling you which image folder to use.
+- Drop a container by mistake and it builds nothing: that folder has no photographs
+  at its top level, and the batch says so.
 
 ## Two ways to rebuild
 

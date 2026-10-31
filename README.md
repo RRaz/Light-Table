@@ -10,8 +10,9 @@ changing photos and titles, updating a live gallery.
 ## What it is
 
 A static photo light table with no server side: HTML, CSS and JavaScript, plus a
-`gallery.json` listing the photographs. Each gallery is a self-contained folder,
-so one gallery can be replaced without touching another.
+`gallery.json` listing the photographs. Each gallery is one folder holding the
+page, its files and its photographs, so one gallery can be replaced without
+touching another.
 
 ```
 <name>/

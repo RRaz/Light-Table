@@ -1,4 +1,5 @@
-// Build one self-contained gallery container for a static host.
+// Build one gallery container for a static host: the page, its files and the
+// photographs, in one folder named after the gallery.
 //
 //   npm run container -- --gallery galleries/people
 //   npm run container -- --images "D:\galleries\people" --name people

@@ -15,10 +15,12 @@ example of the light table; it is not part of the package.
 - Fully featured, including a magnifying loupe and the thumbnail strip.
 - In slide show mode the image expands to take up the whole screen, apart from the
   controls.
-- Self-contained, so installation is not restricted by the host. There is no
-  database, no PHP, Node or Python on the server, no setup program and no build
-  step: any web server that can serve files will run it, and the folder you upload
-  is the whole application. It runs in any current browser.
+- Files only, so the host needs nothing installed: no database, no PHP, Node or
+  Python on the server, and no setup program. Any web server that can serve files
+  will run it, and the folder you upload holds the page, its files and the
+  photographs. It runs in any current browser.
+- The page loads its styling and its icon set from the web, so a visitor needs a
+  working internet connection.
 
 ## 3. The light table in use
 
@@ -221,7 +223,7 @@ appears.
 
 ### 7.5 More than one gallery
 
-Each gallery is a self-contained folder with its own `light-table/`. They are updated
+Each gallery is one folder with its own `light-table/`. They are updated
 independently, and one gallery can be replaced without touching another.
 
 ## 8. Updating a live gallery
@@ -259,6 +261,7 @@ light-table-colours-v2026-10-28.zip
 | "Unable to load gallery" | `gallery.json` is not where the light table expects it; check the two folder names |
 | "Unable to load gallery" after editing the list | a comma is missing, doubled, or left after the last block |
 | A blank frame | `assets/` was not uploaded beside `index.html` |
+| Plain text, no layout | the network blocks the styling and icon files the page loads from the web |
 | Some photos missing | They are not listed in `gallery.json`, or the file name case differs from the entry |
 | An old photo, or an old title | Browser cache — hard-refresh, or rename the file |
 | Works on your computer, not online | Paths are relative; check that the inner folder was uploaded too |
