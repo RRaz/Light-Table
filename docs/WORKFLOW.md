@@ -209,8 +209,9 @@ delete the old copy on the site. Both copies are live until you do.
    it from the repository copy.
 
 **A new version arrives the same way.** A version zip is a complete package, like the
-repository copy. Delete the gallery folder on the server, upload the zip, extract it
-at the level above, then hard-refresh. It is the same move, and rare — see Versions.
+repository copy. Upload the zip above the gallery folder, delete that folder on the
+server, extract the zip, then hard-refresh. It is the same move, and rare — see
+Versions.
 
 A change that does not appear is usually the browser cache, not the upload.
 
@@ -288,12 +289,14 @@ you want the two to agree again.
 ### Uploading a version zip
 
 The zip is a complete package, the same thing as the repository copy: the page, the
-photographs and the list. Delete the gallery folder on the server, upload the zip,
-and extract it at the level **above** that folder, so the result is
-`/<name>/light-table/` and not `/<name>/<name>/light-table/`.
+photographs and the list. Upload it to the level above the gallery folder, delete that
+folder on the server, then extract the zip there. The result is `/<name>/light-table/`,
+not `/<name>/<name>/light-table/`.
 
-Deleting first is what makes the site match the zip. Extracting over a folder only
-merges, so a photograph removed since the zip was made would stay on the site.
+Deleting the folder after the upload is the step that makes the site match the zip.
+Extracting over a folder only merges, so a photograph removed since the zip was made
+would stay on the site. The zip sits beside the folder, not in it, so deleting the
+folder does not take the zip with it.
 
 Then deal with the zip as your own security protocol requires. A zip in a published
 folder can be downloaded by anyone who knows its name, which hands over every
