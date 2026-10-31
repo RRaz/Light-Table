@@ -19,8 +19,6 @@ example of the light table; it is not part of the package.
   Python on the server, and no setup program. Any web server that can serve files
   will run it, and the folder you upload holds the page, its files and the
   photographs. It runs in any current browser.
-- The page loads its styling and its icon set from the web, so a visitor needs a
-  working internet connection.
 
 ## 3. The light table in use
 
@@ -261,7 +259,6 @@ light-table-colours-v2026-10-28.zip
 | "Unable to load gallery" | `gallery.json` is not where the light table expects it; check the two folder names |
 | "Unable to load gallery" after editing the list | a comma is missing, doubled, or left after the last block |
 | A blank frame | `assets/` was not uploaded beside `index.html` |
-| Plain text, no layout | the network blocks the styling and icon files the page loads from the web |
 | Some photos missing | They are not listed in `gallery.json`, or the file name case differs from the entry |
 | An old photo, or an old title | Browser cache — hard-refresh, or rename the file |
 | Works on your computer, not online | Paths are relative; check that the inner folder was uploaded too |

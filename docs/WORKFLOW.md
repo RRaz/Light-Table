@@ -1,8 +1,5 @@
 # Workflow
 
-**Status: working draft.** Steps marked **[[ to write ]]** are still to be filled in;
-the list at the end collects what is missing.
-
 This is one method, written for Light Table.
 
 The idea behind it: one image folder goes in, one container comes out, and the
@@ -299,12 +296,6 @@ photograph in the gallery at once.
 A zip on the server is a restore point, not a copy of the site. Upload a single
 file to the live gallery afterwards and the site is newer than the zip — still a
 good restore point, no longer the same thing.
-## Hooks still to write
-
-- **The old address** (`/viewer/`): which galleries need the forward and when it
-  can be dropped.
-- **What to check before uploading**: the local preview, and the two addresses.
-- **What goes wrong**, in one table.
 
 ## Notes to self
 
