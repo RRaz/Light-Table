@@ -160,15 +160,30 @@ replaced, not edited.
 
 ## Updating only the gallery list
 
-Renaming, reordering or retitling is a list change: edit `gallery.json`, upload
-that one file, and hard-refresh the page. The photographs and the light table are
-untouched.
+Retitling, reordering or removing an entry is a list change: edit `gallery.json`,
+upload that one file, and hard-refresh the page. The photographs and the light
+table are untouched.
 
 This is the only upload needed for:
 
 - a title change
 - a different order
 - an entry removed
+
+Renaming the photograph itself is not a list change. The entry names a file, so a
+renamed file is a file the list does not name: the next rebuild drops the old entry
+and adds a new one, captioned with the new file name. Do it in the image folder and
+rebuild, or change `url` by hand as well.
+
+## Renaming a gallery
+
+Renaming the image folder inside the container starts a new gallery. The build
+makes `containers\<new name>` and leaves `containers\<old name>` as it was. The old
+page still looks for the old name, and the folder around it no longer matches, so
+the build says *no outside container found* and writes only the list.
+
+To rename one properly: rename the folder, rebuild, delete the old container, and
+delete the old copy on the site. Both copies are live until you do.
 
 ## Updating an active gallery
 

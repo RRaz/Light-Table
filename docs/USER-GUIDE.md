@@ -187,9 +187,10 @@ The simplest way to change a caption is to rename the file. `01-dawn.jpg` become
 **Dawn over the lake**. Spaces, capitals and punctuation in the file name are
 kept as typed.
 
-If the title was set by hand in `gallery.json`, the file name must still match
-`url`. Renaming the file breaks that link, and the entry is dropped on the next
-rebuild.
+If a title was set by hand in `gallery.json`, the file name must still match `url`.
+Renaming the file breaks that link: the next rebuild drops the entry, adds a new one
+for the new name, and captions it with that name. A title set by hand does not
+survive a rename.
 
 ### 7.2 Order
 
