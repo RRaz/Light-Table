@@ -298,6 +298,10 @@ Extracting over a folder only merges, so a photograph removed since the zip was 
 would stay on the site. The zip sits beside the folder, not in it, so deleting the
 folder does not take the zip with it.
 
+Uploading first is also the safe order: if the upload fails or stops part way, the
+working site is still there. Deleting first would leave nothing until the upload
+finished.
+
 Then deal with the zip as your own security protocol requires. A zip in a published
 folder can be downloaded by anyone who knows its name, which hands over every
 photograph in the gallery at once.
