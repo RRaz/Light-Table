@@ -29,9 +29,13 @@ The light table sits in `light-table/` and loads the gallery beside it. Open
 
 ## Day to day
 
-1. Put the photographs in `containers\<name>\<name>\`.
-2. Run `Light-table.bat` on `containers\<name>`, or drag the folder onto it.
+1. Put the photographs in an image folder, `containers\<name>\<name>\`.
+2. Drop that **image folder** on `Light-table.bat`. The gallery is built in
+   `containers\<name>`.
 3. Upload `containers\<name>` to the site as `/<name>/`.
+
+A container is not an input: drop it and the batch finds no photographs at its top
+level, so nothing is built.
 
 Full instructions, including what the batch does in each situation, are in
 [DEPLOY.md](DEPLOY.md).
