@@ -288,19 +288,10 @@ you want the two to agree again.
 
 ### Uploading a version zip
 
-The zip is a complete package, the same thing as the repository copy: the page, the
-photographs and the list. Upload it to the level above the gallery folder, delete that
-folder on the server, then extract the zip there. The result is `/<name>/light-table/`,
-not `/<name>/<name>/light-table/`.
-
-Deleting the folder after the upload is the step that makes the site match the zip.
-Extracting over a folder only merges, so a photograph removed since the zip was made
-would stay on the site. The zip sits beside the folder, not in it, so deleting the
-folder does not take the zip with it.
-
-Uploading first is also the safe order: if the upload fails or stops part way, the
-working site is still there. Deleting first would leave nothing until the upload
-finished.
+The zip is a complete package, like the repository copy: the page, the photographs and
+the list. Upload it to the level above the gallery folder, delete that folder, then
+extract the zip. The result is `/<name>/light-table/`, not
+`/<name>/<name>/light-table/`.
 
 Then deal with the zip as your own security protocol requires. A zip in a published
 folder can be downloaded by anyone who knows its name, which hands over every
