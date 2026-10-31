@@ -186,32 +186,28 @@ if (args.updateContainer) {
   const isProperContainer = sourceName === outsideName;
 
   if (outside !== path.resolve(containerDir)) {
-    if (!isProperContainer) {
+    const hasPage = fs.existsSync(path.join(outside, 'light-table', 'index.html'));
+    const hasForward = fs.existsSync(path.join(outside, 'viewer', 'viewer.html'));
+
+    if (!isProperContainer && (hasPage || hasForward)) {
       console.log('  the folder around it is not a container for this gallery.');
       console.log(`  its name is "${outsideName}"; the gallery is "${name}".`);
       console.log('  Only gallery.json was written there.');
       console.log(`  For a runnable copy outside, copy ${containerDir}`);
       console.log(`  to a folder named "${name}".`);
+    } else if (isProperContainer && (hasPage || hasForward)) {
+      fs.rmSync(path.join(outside, 'light-table'), { recursive: true, force: true });
+      copyDirectory(viewerDir, path.join(outside, 'light-table'));
+      if (hasForward) writeLegacyForward(outside);
+      console.log(`  outside container updated: ${outside}`);
     } else {
-      const hasPage = fs.existsSync(path.join(outside, 'light-table', 'index.html'));
-      const hasForward = fs.existsSync(path.join(outside, 'viewer', 'viewer.html'));
-
-      if (hasPage || hasForward) {
-        fs.rmSync(path.join(outside, 'light-table'), { recursive: true, force: true });
-        copyDirectory(viewerDir, path.join(outside, 'light-table'));
-        if (hasForward) writeLegacyForward(outside);
-        console.log(`  outside container updated: ${outside}`);
-      } else {
-        const destination =
-          path.basename(outside).toLowerCase() === name.toLowerCase()
-            ? outside
-            : path.join(path.dirname(outside), name);
-        console.log('  no outside container found: only gallery.json was written there.');
-        console.log('  For a runnable copy outside, copy the container');
-        console.log(`    ${containerDir}`);
-        console.log('  to');
-        console.log(`    ${destination}`);
-      }
+      const destination =
+        outsideName === name.toLowerCase() ? outside : path.join(path.dirname(outside), name);
+      console.log('  no outside container found: only gallery.json was written there.');
+      console.log('  For a runnable copy outside, copy the container');
+      console.log(`    ${containerDir}`);
+      console.log('  to');
+      console.log(`    ${destination}`);
     }
   }
 }

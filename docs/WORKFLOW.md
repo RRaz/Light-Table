@@ -34,6 +34,21 @@ repository copy becomes the version you keep working from.
 13. **Any change uses the active repository version of the image folder** — never
     the original download, never the copy in `containers\`.
 
+## Where the image folder can live
+
+Anywhere. On the desktop, on another drive, inside the project, or inside a
+repository container. The batch looks at what is in the folder, not where it is.
+
+The only distinction that matters is what you drop:
+
+| You drop | What happens |
+|---|---|
+| a folder with images at its top level | it is built into `containers\<name>` |
+| a folder whose images are one level down | it is a container: the batch stops and names the image folder to drop instead |
+
+There is no special folder and no special place. The `viewer\` folder is not a
+marker of any kind: it is just a folder holding one redirect file, added at the
+repository stage when an old web address has to keep working.
 ## The two copies
 
 The container in `containers\<name>` tracks the working copy — the same

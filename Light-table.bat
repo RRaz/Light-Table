@@ -5,9 +5,7 @@ pushd "%~dp0"
 rem One entry point: an image folder - images at its top level, optionally with a
 rem gallery.json. It is always built as a container in containers\<name>.
 rem
-rem A container is never an input: drop the image folder inside it instead.
-rem When the image folder is outside containers\, the new gallery.json is copied
-rem back to it, so the source keeps the titles and order.
+rem A container is not an input: drop the image folder inside it instead.
 rem
 rem   Light-table.bat "D:\photos\kodachrome"
 rem   Light-table.bat "D:\photos\kodachrome" myname
@@ -39,20 +37,30 @@ for %%E in (jpg jpeg png gif webp avif bmp svg) do if exist "%TARGET%\*.%%E" set
 if defined HASIMAGES goto :haveimages
 
 for %%I in ("%TARGET%") do set "TNAME=%%~nxI"
+
+rem Find the one subfolder that holds images, to name it in the message.
+set "SUBFIRST="
+set "SUBCOUNT=0"
+for /d %%D in ("%TARGET%\*") do call :maybesub "%%~fD"
+
 echo.
 echo Not an image folder: there are no images at the top level of
 echo   %TARGET%
 echo.
-if exist "%TARGET%\light-table\index.html" goto :iscontainer
-if exist "%TARGET%\viewer\viewer.html" goto :iscontainer
-if exist "%TARGET%\%TNAME%\" goto :iscontainer
+if not "%SUBCOUNT%"=="1" goto :plain
+echo That is a container. Drop the image folder inside it instead:
+echo   %SUBFIRST%
+goto :end
+
+:plain
+if exist "%TARGET%\light-table\index.html" goto :containeronly
+if exist "%TARGET%\viewer\viewer.html" goto :containeronly
 echo Put the image files directly in that folder. Supported types:
 echo   jpg jpeg png gif webp avif bmp svg
 goto :end
 
-:iscontainer
-echo That is a container. Drop the image folder inside it instead:
-echo   %TARGET%\%TNAME%
+:containeronly
+echo That is a container. Drop the image folder inside it instead.
 goto :end
 
 :haveimages
@@ -67,6 +75,7 @@ if /I not "%CHECK%"=="%TARGET%" (
 )
 
 for %%I in ("%TARGET%\..") do set "PARENTOF=%%~fI"
+
 rem --- build -----------------------------------------------------------------------
 echo.
 echo Building the light table...
@@ -87,3 +96,17 @@ popd
 echo.
 if /I not "%NO_PAUSE%"=="1" pause
 endlocal
+goto :eof
+
+rem Counts a subfolder only when it holds images and is not the page or the
+rem forward folder.
+:maybesub
+for %%I in ("%~1") do set "SNAME=%%~nxI"
+if /I "%SNAME%"=="light-table" goto :eof
+if /I "%SNAME%"=="viewer" goto :eof
+set "SUBHAS="
+for %%E in (jpg jpeg png gif webp avif bmp svg) do if exist "%~1\*.%%E" set "SUBHAS=1"
+if not defined SUBHAS goto :eof
+set /a SUBCOUNT+=1
+set "SUBFIRST=%~1"
+goto :eof
