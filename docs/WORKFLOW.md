@@ -191,12 +191,16 @@ delete the old copy on the site. Both copies are live until you do.
    `/<name>/viewer/viewer.html`. Both must work before anything changes; a change
    made on top of a broken site tells you nothing.
 2. **Make the change in the repository copy**, in `Repo\<name>\<name>\`.
-3. **Send what changed, and remove what is gone.** The order matters when a
-   photograph leaves:
+3. **Send what changed, and remove what is gone.** Uploading the whole container is
+   the simpler route and the default; single files are for a small change. The order
+   matters when a photograph leaves:
    - added: upload the photograph, then `gallery.json`
    - removed: remove its entry and upload `gallery.json` **first**, then delete the
      photograph from the site
    - retitled or reordered: `gallery.json` only
+
+   Uploading files never removes anything: a photograph deleted from the repository
+   is still on the site until you delete it there.
 
    The list goes first so that no visitor is shown a frame whose file has already
    gone.
