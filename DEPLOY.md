@@ -19,7 +19,7 @@ For the whole routine start to finish, including the steps that come after a gal
   light-table\      what visitors see: the light table itself
   <name>\           the photographs and gallery.json
   index.html        optional: a landing page at /<name>/
-  viewer\           optional, and rarely needed: keeps an old web address working
+  viewer\           optional: keeps an old web address working
 ```
 
 ## Building a gallery
@@ -113,11 +113,14 @@ python -m http.server 8000
 Open `http://localhost:8000/<name>/light-table/`. What you see here is what the site
 will show.
 
+Then open `http://localhost:8000/<name>/viewer/viewer.html`, if that gallery has the
+`viewer\` folder. It must arrive at the light table.
+
 ## If something is wrong
 
 | What you see | What it usually means |
 |---|---|
-| "Not an image folder" | you dropped a container; drop the image folder inside it |
+| "No images at the top level" | you dropped a container; drop the image folder inside it |
 | "Unable to load gallery" | `gallery.json` is missing or has a typo in it |
 | A broken picture | the list names a file that is not there, or the name differs in capital letters |
 | An old picture or caption | the browser is showing a cached copy; hard-refresh |
