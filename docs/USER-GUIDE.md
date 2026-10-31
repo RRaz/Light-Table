@@ -15,10 +15,13 @@ example of the light table; it is not part of the package.
 - Fully featured, including a magnifying loupe and the thumbnail strip.
 - In slide show mode the image expands to take up the whole screen, apart from the
   controls.
-- Files only, so the host needs nothing installed: no database, no PHP, Node or
-  Python on the server, and no setup program. Any web server that can serve files
-  will run it, and the folder you upload holds the page, its files and the
-  photographs. It runs in any current browser.
+- Self-contained, so installation is not restricted by the host: any web server that
+  can serve files will run it, and the folder you upload holds the page, its files and
+  the photographs. There is no database, no PHP, Node or Python on the server, and no
+  setup program.
+- **Your photographs stay yours.** Building a gallery and viewing it send no
+  photograph to any cloud service. Everything happens on your own host, under your
+  own account.
 
 ## 3. The light table in use
 
@@ -221,7 +224,7 @@ appears.
 
 ### 7.5 More than one gallery
 
-Each gallery is one folder with its own `light-table/`. They are updated
+Each gallery is a self-contained folder with its own `light-table/`. They are updated
 independently, and one gallery can be replaced without touching another.
 
 ## 8. Updating a live gallery
