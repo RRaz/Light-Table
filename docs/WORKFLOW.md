@@ -23,10 +23,12 @@ repository copy becomes the version you keep working from.
    copies the list back out, so your edits are what the next build reads.
 7. **Copy the container folder from `containers\` into a repository / library.**
    That copy is the one you keep, and it is the one you will work from later.
-8. **Experts only — add extra folders inside the container** if your workflow needs
-   them. (I add a redirect folder.)
-   Note: the redirect is the `viewer\` forward. It belongs in the **repository**
-   copy, because a rebuild strips extras from `containers\<name>`.
+8. **Add the extras the gallery needs.** They belong in the **repository** copy,
+   because a rebuild strips extras from `containers\<name>`:
+   - a **landing page** at `/<name>/` — an `index.html` beside `light-table\`, the
+     usual extra, and the address a visitor is most likely to arrive at;
+   - the **old-address forward** in `viewer\` — only when links to the previous
+     address have to keep working.
 9. **Zip the container and rename the zip with a version number.**
 10. **Upload it to your website.**
 11. **Unzipping on the server creates the web page.**

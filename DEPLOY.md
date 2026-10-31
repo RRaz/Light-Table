@@ -18,7 +18,8 @@ For the whole routine start to finish, including the steps that come after a gal
 <name>\
   light-table\      what visitors see: the light table itself
   <name>\           the photographs and gallery.json
-  viewer\           optional: keeps an old web address working
+  index.html        optional: a landing page at /<name>/
+  viewer\           optional, and rarely needed: keeps an old web address working
 ```
 
 ## Building a gallery
