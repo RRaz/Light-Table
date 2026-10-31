@@ -206,6 +206,11 @@ delete the old copy on the site. Both copies are live until you do.
 
 A change that does not appear is usually the browser cache, not the upload.
 
+After the first build the page stays the same. `light-table\` does not change between
+versions, so what a later version holds differently is the image folder — the
+photographs and `gallery.json`. A rebuild is only needed when you want the list
+regenerated from the files.
+
 ## Updating an active gallery
 
 The routine for a gallery that is already live:
