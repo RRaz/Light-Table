@@ -211,6 +211,7 @@ delete the old copy on the site. Both copies are live until you do.
 **Updating from a zip instead:** delete the gallery folder on the server first, then
 upload the zip, extract it at the level above the gallery folder, and hard-refresh.
 Extracting over a folder only merges, so it leaves removed photographs behind.
+
 A change that does not appear is usually the browser cache, not the upload.
 
 After the first build the page stays the same. `light-table\` does not change between
