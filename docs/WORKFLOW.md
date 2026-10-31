@@ -185,6 +185,27 @@ the build says *no outside container found* and writes only the list.
 To rename one properly: rename the folder, rebuild, delete the old container, and
 delete the old copy on the site. Both copies are live until you do.
 
+## The loop, once the gallery is live
+
+1. **Check the site first.** Open `/<name>/light-table/` and
+   `/<name>/viewer/viewer.html`. Both must work before anything changes; a change
+   made on top of a broken site tells you nothing.
+2. **Make the change in the repository copy**, in `Repo\<name>\<name>\`.
+3. **Send what changed, and remove what is gone.** The order matters when a
+   photograph leaves:
+   - added: upload the photograph, then `gallery.json`
+   - removed: remove its entry and upload `gallery.json` **first**, then delete the
+     photograph from the site
+   - retitled or reordered: `gallery.json` only
+
+   The list goes first so that no visitor is shown a frame whose file has already
+   gone.
+4. **Hard-refresh (Ctrl+F5)** and watch the slide show. If the change appears, the
+   site and the repository copy agree, and that state is worth a version zip. Make
+   it from the repository copy.
+
+A change that does not appear is usually the browser cache, not the upload.
+
 ## Updating an active gallery
 
 The routine for a gallery that is already live:
