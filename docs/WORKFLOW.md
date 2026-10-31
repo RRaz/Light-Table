@@ -191,17 +191,12 @@ delete the old copy on the site. Both copies are live until you do.
 1. **Check the site first.** Open `/<name>/light-table/` and
    `/<name>/viewer/viewer.html`. Both must work before anything changes; a change
    made on top of a broken site tells you nothing.
-2. **Make the change in the repository copy**, in `Repo\<name>\<name>\`.
-3. **Send what changed, and remove what is gone.** Send the changed photograph and
-   `gallery.json`. Upload the whole container when the change touches many files.
-   - added: upload the photograph, then `gallery.json`
-   - removed: remove its entry and upload `gallery.json` **first**, then delete the
-     photograph on the site
-   - retitled or reordered: `gallery.json` only
-
-   Uploading files never removes anything: a photograph deleted from the repository
-   is still on the site until you delete it there.
-4. **Hard-refresh (Ctrl+F5)** and watch the slide show. If the change appears, the
+2. **Make the changes in the repository copy**, `Repo\<name>\<name>\`: delete the
+   unused images, add the new ones, rebuild the gallery. Edit the gallery and rebuild
+   again if the order or the titles change. Upload the new images to the server, then
+   upload `gallery.json` so that it replaces the one there. Delete the unused images
+   on the server — this step can be skipped.
+3. **Hard-refresh (Ctrl+F5)** and watch the slide show. If the change appears, the
    site and the repository copy agree, and that state is worth a version zip. Make
    it from the repository copy.
 
@@ -296,17 +291,6 @@ photograph in the gallery at once.
 A zip on the server is a restore point, not a copy of the site. Upload a single
 file to the live gallery afterwards and the site is newer than the zip — still a
 good restore point, no longer the same thing.
-## To decide after testing
-
-**Step 3 may be simpler than it is written now.** Proposed wording, to be settled once
-the site test is done:
-
-> Make the changes in the repository copy: delete the unused images, add the new ones,
-> rebuild the gallery. Edit the gallery and rebuild again if the order or the titles
-> change. Upload the new images to the server, then upload `gallery.json` so that it
-> replaces the one there. Delete the unused images on the server — this step can be
-> skipped.
-
 ## Hooks still to write
 
 - **The old address** (`/viewer/`): which galleries need the forward and when it
