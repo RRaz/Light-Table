@@ -192,18 +192,15 @@ delete the old copy on the site. Both copies are live until you do.
    `/<name>/viewer/viewer.html`. Both must work before anything changes; a change
    made on top of a broken site tells you nothing.
 2. **Make the change in the repository copy**, in `Repo\<name>\<name>\`.
-3. **Send what changed, and remove what is gone.** Either send the whole container, or
-   send only what changed. The order matters when a photograph leaves:
+3. **Send what changed, and remove what is gone.** Send the changed photograph and
+   `gallery.json`. Upload the whole container when the change touches many files.
    - added: upload the photograph, then `gallery.json`
    - removed: remove its entry and upload `gallery.json` **first**, then delete the
-     photograph from the site
+     photograph on the site
    - retitled or reordered: `gallery.json` only
 
    Uploading files never removes anything: a photograph deleted from the repository
    is still on the site until you delete it there.
-
-   The list goes first so that no visitor is shown a frame whose file has already
-   gone.
 4. **Hard-refresh (Ctrl+F5)** and watch the slide show. If the change appears, the
    site and the repository copy agree, and that state is worth a version zip. Make
    it from the repository copy.
