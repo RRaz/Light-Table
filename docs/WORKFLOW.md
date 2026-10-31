@@ -216,6 +216,9 @@ delete the old copy on the site. Both copies are live until you do.
    carries the version.
 3. **Delete the gallery folder** on the server.
 4. **Extract the new zip**, then hard-refresh.
+5. **Optional — delete the zip, or move it to a location the site does not
+   publish.** A zip in a published folder can be downloaded by anyone who knows its
+   name, which hands over every photograph at once.
 
 Upload the zip outside the gallery folder: a zip inside it is deleted along with it in
 step 3. Extracting over a folder only merges, so deleting first is what leaves the
