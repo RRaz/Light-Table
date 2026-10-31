@@ -264,13 +264,13 @@ you would want back or want to work from. That is a judgement call, not a schedu
 **What to keep:** a dated or numbered name, e.g. `light-table-kodachrome-v3.zip`,
 one or two back is usually enough, and keep them off the public web root.
 
-**To roll back:** upload the chosen zip, extract it over the live folder, and
-hard-refresh. The repository working copy is unaffected — roll the desktop copy back
-the same way if you want the two to agree again.
+**To update from a zip, or roll back:** delete the gallery folder on the server,
+upload the zip, extract it at the level above the gallery folder, and hard-refresh.
 
-Extracting merges into what is there, it does not replace it. A file added after the
-zip was made stays on the site, and anything the zip holds is written over. To make
-the site match the zip exactly, delete the gallery folder first, then extract.
+Deleting first is what makes the site match the zip. Extracting over a folder only
+merges: a photograph added after the zip was made would stay on the site. The
+repository working copy is unaffected — roll the desktop copy back the same way if
+you want the two to agree again.
 
 ### Uploading a version zip
 
