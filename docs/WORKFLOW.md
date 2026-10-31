@@ -246,6 +246,20 @@ one or two back is usually enough, and keep them off the public web root.
 **To roll back:** upload the chosen zip, extract it over the live folder, and
 hard-refresh. The repository working copy is unaffected — roll the desktop copy back
 the same way if you want the two to agree again.
+
+### Uploading a version zip
+
+The zip holds one folder, named after the gallery. Extract it at the level **above**
+that folder: the result must be `/<name>/light-table/`, not
+`/<name>/<name>/light-table/`.
+
+Then delete the zip from the site, or keep it where the host does not publish
+files. Anyone who knows its name can download every photograph in the gallery
+from it.
+
+A zip on the server is a restore point, not a copy of the site. Upload a single
+file to the live gallery afterwards and the site is newer than the zip — still a
+good restore point, no longer the same thing.
 ## Hooks still to write
 
 - **The old address** (`/viewer/`): which galleries need the forward and when it
