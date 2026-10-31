@@ -194,9 +194,9 @@ delete the old copy on the site. Both copies are live until you do.
 2. **Make the changes in the repository copy**, `Repo\<name>\<name>\`: delete the
    unused images, add the new ones, rebuild the gallery. Edit the gallery and rebuild
    again if the order or the titles change. Upload the new images to the server, then
-   upload `gallery.json` so that it replaces the one there. Some hosts ask whether to
-   replace or skip an existing file — choose replace. Delete the unused images on the
-   server — this step can be skipped.
+   upload `gallery.json` so that it replaces the one there. Double-check that the
+   gallery has been replaced. Delete the unused images on the server — this step can
+   be skipped.
 3. **Hard-refresh (Ctrl+F5)** and watch the slide show. If the change appears, the
    site and the repository copy agree, and that state is worth a version zip. Make
    it from the repository copy.
