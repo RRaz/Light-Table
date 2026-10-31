@@ -7,7 +7,7 @@ One rule: **drop an image folder, it is built into `containers\<name>`.**
 | An image folder, anywhere outside `containers\` | builds a container, copies the new `gallery.json` back into the folder you dropped, and refreshes the outside container's page and forward if there is one around it | `containers\<name>\` |
 | An image folder inside `containers\` — e.g. `containers\<name>\<name>\` | rebuilds that container | the same `containers\<name>\` |
 | A folder with no images at the top level | stops and explains what is missing | nothing is written |
-| A container (`light-table\`, `viewer\` or `<name>\`) | stops and names the image folder to drop instead | nothing is written |
+| A container (`light-table\`, `viewer\` or `<name>\`) | has no images at the top level, so it stops | nothing is written |
 | Anything inside `dist\` | refuses, because `npm run build` empties it | nothing is written |
 
 The table is the same rule seen twice:
