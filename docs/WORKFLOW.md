@@ -208,19 +208,9 @@ delete the old copy on the site. Both copies are live until you do.
    site and the repository copy agree, and that state is worth a version zip. Make
    it from the repository copy.
 
-**Updating from a zip instead:**
-
-1. **Keep or drop the zip already on the server.** To keep it, rename it, so the new
-   one is not confused with it.
-2. **Upload the new zip** to the level **above** the gallery folder. Its name already
-   carries the version.
-3. **Delete the gallery folder** on the server.
-4. **Extract the new zip**, then hard-refresh.
-5. **Optional — store or remove the zip according to your own security protocol.**
-
-Upload the zip outside the gallery folder: a zip inside it is deleted along with it in
-step 3. Extracting over a folder only merges, so deleting first is what leaves the
-site matching the zip.
+**A new version arrives the same way.** A version zip is a complete package, like the
+repository copy. Delete the gallery folder on the server, upload the zip, extract it
+at the level above, then hard-refresh. It is the same move, and rare — see Versions.
 
 A change that does not appear is usually the browser cache, not the upload.
 
@@ -297,9 +287,13 @@ you want the two to agree again.
 
 ### Uploading a version zip
 
-The zip holds one folder, named after the gallery. Extract it at the level **above**
-that folder: the result must be `/<name>/light-table/`, not
-`/<name>/<name>/light-table/`.
+The zip is a complete package, the same thing as the repository copy: the page, the
+photographs and the list. Delete the gallery folder on the server, upload the zip,
+and extract it at the level **above** that folder, so the result is
+`/<name>/light-table/` and not `/<name>/<name>/light-table/`.
+
+Deleting first is what makes the site match the zip. Extracting over a folder only
+merges, so a photograph removed since the zip was made would stay on the site.
 
 Then deal with the zip as your own security protocol requires. A zip in a published
 folder can be downloaded by anyone who knows its name, which hands over every
