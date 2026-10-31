@@ -208,9 +208,18 @@ delete the old copy on the site. Both copies are live until you do.
    site and the repository copy agree, and that state is worth a version zip. Make
    it from the repository copy.
 
-**Updating from a zip instead:** delete the gallery folder on the server first, then
-upload the zip, extract it at the level above the gallery folder, and hard-refresh.
-Extracting over a folder only merges, so it leaves removed photographs behind.
+**Updating from a zip instead:**
+
+1. **Keep or drop the zip already on the server.** To keep it, rename it, so the new
+   one is not confused with it.
+2. **Upload the new zip** to the level **above** the gallery folder. Its name already
+   carries the version.
+3. **Delete the gallery folder** on the server.
+4. **Extract the new zip**, then hard-refresh.
+
+Upload the zip outside the gallery folder: a zip inside it is deleted along with it in
+step 3. Extracting over a folder only merges, so deleting first is what leaves the
+site matching the zip.
 
 A change that does not appear is usually the browser cache, not the upload.
 
