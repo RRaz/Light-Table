@@ -270,6 +270,13 @@ you would want back or want to work from. That is a judgement call, not a schedu
 **What to keep:** a dated or numbered name, e.g. `light-table-kodachrome-v3.zip`,
 one or two back is usually enough, and keep them off the public web root.
 
+**Kodachrome so far:**
+
+| Version | Holds |
+|---|---|
+| `kodachrome001.zip` | 16 photographs, including `Iran-4`, plus the `viewer\` forward |
+| `kodachrome002.zip` | the same photographs with `Iran-4` replaced by `Iran Bell 212` |
+
 **To update from a zip, or roll back:** delete the gallery folder on the server,
 upload the zip, extract it at the level above the gallery folder, and hard-refresh.
 
