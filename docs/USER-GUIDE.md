@@ -127,18 +127,40 @@ server without any tools. Both touch the same two things:
 - the images, in the inner folder — `colours/colours/` in the sample
 - the list, `gallery.json`, beside them
 
-A `gallery.json` entry looks like this:
+The list is written as entries between square brackets. Here are two of them:
 
 ```json
-{
-  "id": "01-first-photo",
-  "url": "./01-first-photo.jpg",
-  "title": "First photo"
-}
+[
+  {
+    "id": "01-first-photo",
+    "url": "./01-first-photo.jpg",
+    "title": "First photo"
+  },
+  {
+    "id": "02-second-photo",
+    "url": "./02-second-photo.jpg",
+    "title": "Second photo"
+  }
+]
 ```
 
-`url` is the file name with `./` in front. `title` is what appears under the
-photo.
+- `url` is the file name with `./` in front.
+- `title` is what appears under the photo.
+- `id` is a name for the entry; it must differ from every other `id`.
+
+**The comma rule.** Braces hold one photo. A comma separates it from the next one,
+and the **last** photo has no comma after it. That is the single thing that breaks a
+list.
+
+When you move a photo to a different place, take the whole block — from its `{` to
+its `},` — not a line at a time. After moving:
+
+- every block except the last ends with `},`
+- the last block ends with `}`
+- no block ends with two commas, and none is missing one
+
+If the page then says *Unable to load gallery*, the list is the first thing to
+check: a missing or doubled comma is almost always the cause.
 
 ### 7.1 Titles come from the file name
 

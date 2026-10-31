@@ -125,6 +125,10 @@ on the server — nothing points at it — or be deleted for tidiness.
 If you remove the file but leave its block, the gallery shows a broken picture:
 the block names a file that is not there.
 
+**Moving an entry:** take the whole block, from its `{` to its `},`. Every block
+except the last ends with a comma; the last has none. A block moved without its
+comma — or with one too many — makes the list unreadable, and the light table then
+says *Unable to load gallery*.
 ## Updating only the gallery list
 
 Renaming, reordering or retitling is a list change: edit `gallery.json`, upload
